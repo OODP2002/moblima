@@ -3,22 +3,23 @@ import java.util.ArrayList;
 public class Cineplex{
     private String name;
     private int id;
-    private ArrayList<Cinema> Cinema;
+    private ArrayList<Cinema> cinema;
     private int numCinema;
 
-    public Cineplex(String name, int id, ArrayList<Cinema> Cinema){
+    public Cineplex(String name, int id, ArrayList<Cinema> cinema){
         this.name = name;
         this.id = id;
-        this.Cinema=Cinema;
-        this.numCinema=Cinema.size();
+        this.cinema=cinema;
+        this.numCinema=cinema.size();
     }
 
-    public Cinema getCinema(int i){
-        return Cinema.get(i);
+    
+    public ArrayList<Cinema> getCinema(){
+        return cinema;
     }
 
-    public void setCinema(int i, Cinema Cinema){
-        return Cinema.set(i, Cinema);
+    public void setCinema(int i, Cinema cinema){
+        return cinema.set(i, cinema);
     }
 
     public int getNumCinema(){
