@@ -1,0 +1,1 @@
+cineplex|cinema|seatCount|row|column
