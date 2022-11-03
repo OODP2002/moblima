@@ -1,7 +1,7 @@
 // Done by Mingyang
 import java.util.ArrayList;
 
-public class Cinema{
+public class Cinema {
     private int cinemaID;
 
     // Default cinema constructor: should never be used
