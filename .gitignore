@@ -2,3 +2,5 @@
 /.idea/
 /out/
 /Classes/myPlayground.java
+*.xml
+*.iml
