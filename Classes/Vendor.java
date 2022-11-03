@@ -10,6 +10,10 @@ public class Vendor {
         this.vendorName = "Cathay Cineplexes";
     }
 
+    public Vendor(String vendorName) {
+        this.vendorName = vendorName;
+    }
+
     public String getVendorName() {
         return vendorName;
     }
