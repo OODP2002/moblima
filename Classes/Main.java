@@ -12,7 +12,10 @@ public class Main {
         vendor.addCineplex("Jurong point");
 
         for (Cineplex cineplex: vendor.cineplexes) {
-            System.out.println(cineplex.getCineplexName());
+            System.out.println("Cinema: " + cineplex.getCineplexName());
+            for (Cinema cinema: cineplex.cinemas) {
+                System.out.println("cinema num: " + cinema.getCinemaID());
+            }
         }
     }
 }
