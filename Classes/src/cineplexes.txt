@@ -1,0 +1,10 @@
+cineplex|cinema|row|column
+CCK|1|
+CCK|2|
+CCK|3|
+Jem|1|
+Jem|3|
+Jem|3|
+Jurong Point|1|
+Jurong Point|2|
+Jurong Point|3|
