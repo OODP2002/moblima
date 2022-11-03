@@ -15,6 +15,7 @@ public class Main {
             System.out.println("Cinema: " + cineplex.getCineplexName());
             for (Cinema cinema: cineplex.cinemas) {
                 System.out.println("cinema num: " + cinema.getCinemaID());
+                System.out.println("cinema class: " + cinema.getCinemaClass());
             }
         }
     }
