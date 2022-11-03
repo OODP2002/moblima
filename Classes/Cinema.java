@@ -1,13 +1,8 @@
 // Done by Mingyang
-import java.util.ArrayList;
 
 public class Cinema {
     private int cinemaID;
-
-    // Default cinema constructor: should never be used
-    public Cinema() {
-        this.cinemaID = -1;
-    }
+    private CinemaClass cinemaClass = new CinemaClass();
 
     public Cinema(int cinemaID) {
         this.cinemaID = cinemaID;
@@ -15,5 +10,9 @@ public class Cinema {
 
     public int getCinemaID() {
         return cinemaID;
+    }
+
+    public CinemaClassLevels getCinemaClass() {
+        return cinemaClass.getCinemaClass();
     }
 }
