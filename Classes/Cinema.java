@@ -2,10 +2,11 @@
 
 public class Cinema {
     private int cinemaID;
-    private CinemaClass cinemaClass = new CinemaClass();
+    private CinemaClass cinemaClass;
 
-    public Cinema(int cinemaID) {
+    public Cinema(int cinemaID, CinemaClass cinemaClass) {
         this.cinemaID = cinemaID;
+        this.cinemaClass = cinemaClass;
     }
 
     public int getCinemaID() {
