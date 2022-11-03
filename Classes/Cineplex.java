@@ -4,5 +4,4 @@ public class Cineplex{
     private String name;
     private int cineplexID;
 
-    public
 }

@@ -4,15 +4,15 @@ import java.util.ArrayList;
 public class Vendor {
     private String vendorName;
 
+    // Default vendor name: Cathay
     public Vendor() {
-        ArrayList<Cineplex> cineplexes = new ArrayList<Cineplex>;
+        this.vendorName = "Cathay Cineplexes";
+        ArrayList<Cineplex> cineplexes = new ArrayList<Cineplex>();
     }
 
-    public void getVendorName() {
+    public String getVendorName() {
         return vendorName;
     }
-
-    public String setVendorName(String vendorName) {
-        this.vendorName = vendorName;
-    }
 }
+
+// Notes: add changeVendorName() method in the future when there is times
