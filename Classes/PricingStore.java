@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.time.LocalTime;
-
-
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 
 
 public class PricingStore {
@@ -20,29 +20,29 @@ public class PricingStore {
         try{
 
             BufferedReader reader = new BufferedReader(new FileReader(path));
-            String header = reader.readLine();
+            String header = reader.readLine(); //Header row
             String line = reader.readLine();
             while (line != null){
-                System.out.println(line);
-                line = reader.readLine();
+                pricings.add(createPricingObj(line)); //Add pricing object to pricings array list
+                line = reader.readLine(); // Reading next line in txt file
             }
             reader.close();
         } catch (IOException err){
-            //System.out.println(err.getMessage());
+            //System.out.println(err.getStackTrace());
             System.out.println("Error: Pricing list not found");
         }
     }
 
-    private void createPricingObj(String info){
-        String[] infoArr = info.split("|");
+    private Pricing createPricingObj(String info){
+        String[] infoArr = info.split("\\|");
         CinemaClassLevels cinemaLevel; 
         View view; 
         AgeGroup ageGroup;
-        LocalTime startTime;
-        LocalTime endTime;
-        int dayOfWeek; 
+        LocalTime startTime = LocalTime.of(0,0);
+        LocalTime endTime = LocalTime.of(23,59);
+        int dayOfWeek = 0; 
         boolean isPreferred;
-        int price;
+        float price = 0;
 
         //Cinema Class 
         switch(infoArr[0]){
@@ -54,6 +54,9 @@ public class PricingStore {
                 break;
             case "PLATINUM":
                 cinemaLevel = CinemaClassLevels.PLATINUM;
+                break;
+            default:
+                cinemaLevel = CinemaClassLevels.STANDARD;
         }
 
         //View Class
@@ -64,6 +67,8 @@ public class PricingStore {
             case "_3D":
                 view = View._3D;
                 break;
+            default:
+                view = View._2D;
         }
 
         // Age Group
@@ -77,11 +82,80 @@ public class PricingStore {
             case "SENIOR":
                 ageGroup = AgeGroup.SENIOR;
                 break;
+            default:
+                ageGroup = AgeGroup.ADULT;
+        }
+        
+        //Time 
+        String[] startTimeArr = infoArr[3].split(":");
+        try{
+            startTime = LocalTime.of(Integer.parseInt(startTimeArr[0]), Integer.parseInt(startTimeArr[1]));
+        } catch (NumberFormatException err){
+           err.printStackTrace();
         }
 
-        
+        String[] endTimeArr = infoArr[4].split(":");
+        try{
+            endTime = LocalTime.of(Integer.parseInt(endTimeArr[0]), Integer.parseInt(endTimeArr[1]));
+        } catch (NumberFormatException err){
+           err.printStackTrace();
+        }
+
+        //Day of Week
+        try{  
+            dayOfWeek = Integer.parseInt(infoArr[5]);
+        } catch(NumberFormatException err) {
+           err.printStackTrace();
+        }
+
+        // Is Preferred 
+        switch(infoArr[6]){
+            case "true":
+                isPreferred = true;
+                break;
+            case "false":
+                isPreferred = false;
+                break;
+            default:
+                isPreferred = false;
+        }
+
+        //price 
+        try{
+            price = Float.parseFloat(infoArr[7]);
+        } catch(NumberFormatException err) {
+           err.printStackTrace();
+        }
 
         //Create and return Price Object 
-        Pricing obj = new Pricing(cinemaLevel, view, ageGroup, startTime, endTime, dayOfWeek, isPreferred, price);
+        return new Pricing(cinemaLevel, view, ageGroup, startTime, endTime, dayOfWeek, isPreferred, price);
     }
+
+    //Edit pricing 
+    public void editPricing(Pricing newPricing){
+        for (int i = 0; i < this.pricings.size(); i++){
+            if (pricings.get(i).comparePricing(newPricing)) {
+                pricings.get(i).toString();
+
+                pricings.get(i).setPrice(newPricing.getPrice());
+            }
+        } 
+    }
+
+    //Writing new pricing 
+    private void writeNewPricing(Pricing newPricing){
+        String cwd = System.getProperty("user.dir");
+        String path = cwd + ("/src/pricingList.txt");
+
+        try{
+            FileWriter writer = new FileWriter(path, true);
+            writer.write("\n" + newPricing.toString());
+            writer.close();
+        } catch (IOException err){
+            err.printStackTrace();
+        }
+    }
+
+   
+   
 }   
