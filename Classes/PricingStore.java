@@ -4,12 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
+
 
 
 public class PricingStore {
     private ArrayList<Pricing> pricings = new ArrayList<Pricing>();
-
 
     public void readPricings(){
         //get pricing list file path
@@ -135,27 +134,28 @@ public class PricingStore {
     public void editPricing(Pricing newPricing){
         for (int i = 0; i < this.pricings.size(); i++){
             if (pricings.get(i).comparePricing(newPricing)) {
-                pricings.get(i).toString();
-
                 pricings.get(i).setPrice(newPricing.getPrice());
+            } else {
+                pricings.add(newPricing);
             }
         } 
     }
 
-    //Writing new pricing 
-    private void writeNewPricing(Pricing newPricing){
+    //Overwrite the old priceList with a new set of Pricings
+    //To do: function should only be trigger
+    //To do: edit file to only change the affected line as the edit is being made (helps to prevent information loss if app crashes before this function is called.)
+    public void writeAllPricings(){
         String cwd = System.getProperty("user.dir");
         String path = cwd + ("/src/pricingList.txt");
 
         try{
             FileWriter writer = new FileWriter(path, true);
-            writer.write("\n" + newPricing.toString());
+            for (int i = 0; i < this.pricings.size(); i++){
+                writer.write("\n" + this.pricings.get(i).toString());
+            }
             writer.close();
         } catch (IOException err){
             err.printStackTrace();
         }
     }
-
-   
-   
 }   
