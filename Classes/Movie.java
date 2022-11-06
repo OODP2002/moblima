@@ -1,3 +1,4 @@
+import java.nio.channels.OverlappingFileLockException;
 import java.util.ArrayList;
 
 public class Movie{
@@ -7,29 +8,35 @@ public class Movie{
     private ShowingStatus showingStatus;
     private Synopsis synopsis;
     private ViewingMode viewingMode;
-    private MoviePopularity moviePopularity;
+    private MovieHype movieHype;
     private MovieSales movieSales;
+    private OverallReviews overallReviews;
+    private ArrayList<MoviePersonnel> moviePersonnelList = new ArrayList<>();
 
     public Movie(){
-        this.movieName = 'Rush Hour';
+        this.movieName = "Rush Hour";
         this.movieID = -1;
         this.movieDuration = new MovieDuration();
         this.showingStatus = new ShowingStatus();
         this.synopsis = new Synopsis();
         this.viewingMode = new ViewingMode();
-        this.moviePopularity = new MoviePopularity();
+        this.movieHype = new MovieHype();
         this.movieSales = new MovieSales();
+        this.overallReviews = new OverallReviews();
+        this.moviePersonnelList = new ArrayList<>();
     }
 
-    public Movie(String movieName, int movieID, MovieDuration movieDuration, ShowingStatus showingStatus, Synopsis synopsis, ViewingMode viewingMode, MoviePopularity moviePopularity, MovieSales movieSales){
+    public Movie(String movieName, int movieID, MovieDuration movieDuration, ShowingStatus showingStatus, Synopsis synopsis, ViewingMode viewingMode, MovieHype movieHype, MovieSales movieSales){
         this.movieName = movieName;
         this.movieID = movieID;
         this.movieDuration = movieDuration;
         this.showingStatus = showingStatus;
         this.synopsis = synopsis;
         this.viewingMode = viewingMode;
-        this.moviePopularity = moviePopularity;
+        this.movieHype = movieHype;
         this.movieSales = movieSales;
+        this.overallReviews = new OverallReviews(); // Can be changed to be instantiated with the parameters
+        this.moviePersonnelList = new ArrayList<>();
     }
 
     
@@ -81,12 +88,12 @@ public class Movie{
         this.viewingMode = viewingMode;
     }
 
-    public MoviePopularity getMoviePopularity(){
-        return this.moviePopularity;
+    public MovieHype getMovieHype(){
+        return this.movieHype;
     }
 
-    public void setMoviePopularity(MoviePopularity moviePopularity){
-        this.moviePopularity = moviePopularity;
+    public void setMovieHype(MovieHype movieHype){
+        this.movieHype = movieHype;
     }
 
     public MovieSales getMovieSales(){
@@ -95,5 +102,23 @@ public class Movie{
 
     public void setMovieSales(MovieSales movieSales){
         this.movieSales = movieSales;
+    }
+
+    public OverallReviews getOverallReviews() {
+        return this.overallReviews;
+    }
+
+    public void setOverallReviews(OverallReviews overallReviews) {
+        this.overallReviews = overallReviews;
+    }
+
+    public void printMoviePersonnel() {
+        for (int i=0; i<this.moviePersonnelList.size(); i++) {
+            System.out.println("Name: "+ moviePersonnelList.get(i).getName() + " \n");
+        }
+    }
+
+    public void addMoviePersonnel(String name, Role role) {
+        moviePersonnelList.add(new MoviePersonnel(name, role));
     }
 }

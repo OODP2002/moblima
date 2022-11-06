@@ -17,7 +17,7 @@ public class Cineplex{
         this.cineplexID = cineplexID;
         this.name = name;
         for (int i = 0; i < 3; i++) {
-            addCinema(cinemas.size() + 1);
+            addCinema(cinemas.size() + 1, new CinemaClass(CinemaClassLevels.STANDARD));
         }
     }
 
@@ -29,7 +29,7 @@ public class Cineplex{
         return name;
     }
 
-    public void addCinema(int cinemaID) {
-        cinemas.add(new Cinema(cinemaID, STANDARD));
+    public void addCinema(int cinemaID, CinemaClass cinemaClass) {
+        cinemas.add(new Cinema(cinemaID, cinemaClass)); //Does this work?
     }
 }

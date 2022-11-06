@@ -1,4 +1,4 @@
-public class ShowingStatus extends MovieInformation<Status>{
+public class ShowingStatus implements MovieInformation<Status>{
 
     private Status showingStatus;
 

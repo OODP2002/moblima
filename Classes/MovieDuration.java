@@ -1,5 +1,5 @@
-public class MovieDuration implements MovieInformation<int>{
-    private int movieDuration;
+public class MovieDuration implements MovieInformation<Integer>{
+    private Integer movieDuration;
 
     public MovieDuration(){
         this.movieDuration = 0;
@@ -9,11 +9,11 @@ public class MovieDuration implements MovieInformation<int>{
         this.movieDuration = movieDuration;
     }
 
-    public int getDetail(){
+    public Integer getDetail(){
         return this.movieDuration;
     }
 
-    public void setDetail(int movieDuration){
+    public void setDetail(Integer movieDuration){
         this.movieDuration = movieDuration;
     }
 }

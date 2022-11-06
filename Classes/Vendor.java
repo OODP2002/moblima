@@ -23,4 +23,4 @@ public class Vendor {
     }
 }
 
-// Notes: add changeVendorName() method in the future when there is times
+// Notes: add changeVendorName() method in the future when there is time

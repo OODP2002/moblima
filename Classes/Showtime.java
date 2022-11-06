@@ -8,18 +8,18 @@ public class Showtime {
     private String movieName;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private VisualType visualType; 
+    private View view; 
     private boolean isBlockbuster; 
     private int numEmptySeats;
     private ArrayList<Seat> seats; 
 
-    public Showtime(String showtimeID, String movieID, String movieName, LocalDateTime startTime, LocalDateTime endTime,  VisualType visualType, boolean isBlockbuster, int numEmptySeats){
+    public Showtime(String showtimeID, String movieID, String movieName, LocalDateTime startTime, LocalDateTime endTime,  View view, boolean isBlockbuster, int numEmptySeats){
         this.showtimeID = showtimeID; 
         this.movieID = movieID;
         this.movieName = movieName;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.visualType = visualType; 
+        this.view = view; 
         this.isBlockbuster = isBlockbuster; 
         this.numEmptySeats = numEmptySeats;
     }
@@ -54,11 +54,11 @@ public class Showtime {
         String formatStartTime = this.startTime.format(format);  
         String formatEndTime = this.endTime.format(format);  
         String vType=""; 
-        switch(this.visualType){
-            case TWOD: 
+        switch(this.view){
+            case _2D: 
                 vType = "2D";
                 break;
-            case THREED:
+            case _3D:
                 vType = "3D";
                 break;
         }
