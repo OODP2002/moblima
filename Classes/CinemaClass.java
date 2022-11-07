@@ -1,5 +1,7 @@
+import java.io.Serializable;
+
 // Done by Mingyang
-public class CinemaClass {
+public class CinemaClass implements Serializable {
     private CinemaClassLevels cinemaClass;
 
     public CinemaClass() {

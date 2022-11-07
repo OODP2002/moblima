@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.Arrays;
 
 // Done by Mingyang
-public class Layout {
+public class Layout implements Serializable {
     private int rows;
     private int columns;
     private int aisle;

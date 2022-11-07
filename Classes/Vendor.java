@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Vendor {
     private String vendorName;
-    public ArrayList<Cineplex> cineplexes = new ArrayList<Cineplex>();
+    public ArrayList<Cineplex> cineplexes = new ArrayList<>();
 
     // Default vendor name: Cathay
     public Vendor() {

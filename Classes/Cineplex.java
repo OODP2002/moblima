@@ -1,7 +1,8 @@
 // Done by Mingyang
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cineplex{
+public class Cineplex implements Serializable {
     private String name;
     private int cineplexID;
     public ArrayList<Cinema> cinemas = new ArrayList<>();
@@ -30,6 +31,6 @@ public class Cineplex{
     }
 
     public void addCinema(int cinemaID) {
-        cinemas.add(new Cinema(cinemaID));
+        cinemas.add(new Cinema(cinemaID, new CinemaClass()));
     }
 }

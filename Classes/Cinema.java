@@ -1,12 +1,15 @@
 // Done by Mingyang
 
-public class Cinema {
+import java.io.Serializable;
+
+public class Cinema implements Serializable {
     private int cinemaID;
-    private CinemaClass cinemaClass = new CinemaClass();
+    private CinemaClass cinemaClass;
     private Layout layout = new Layout(10,10,2);
 
-    public Cinema(int cinemaID) {
+    public Cinema(int cinemaID, CinemaClass cinemaClass) {
         this.cinemaID = cinemaID;
+        this.cinemaClass = cinemaClass;
     }
 
     public int getCinemaID() {
