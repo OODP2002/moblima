@@ -31,6 +31,6 @@ public class Cineplex implements Serializable {
     }
 
     public void addCinema(int cinemaID) {
-        cinemas.add(new Cinema(cinemaID, new CinemaClass()));
+        cinemas.add(new Cinema(cinemaID, new CinemaClass(), new Layout(10, 10, 1)));
     }
 }
