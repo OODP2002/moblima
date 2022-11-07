@@ -6,7 +6,7 @@ public class ShowTime {
     private String showtimeID;
     private LocalDateTime startTime;
 //    private Movie movie;
-//    private ShowDate showDate;
+    private ShowDate showDate;
 //    private ArrayList<Seat> seats;
 
     public ShowTime(String showtimeID) {
@@ -27,5 +27,12 @@ public class ShowTime {
 
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
+    }
+
+    public void printShowTime() {
+        String cinemaID = showtimeID.substring(0,1);
+//        System.out.println("Movie showing is: " + movie.getMovieName());
+        System.out.println("Date of showing: " + startTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        System.out.println("Movie starts at " + startTime.format(DateTimeFormatter.ofPattern("hh:mm a")) + " at Cinema " + cinemaID);
     }
 }

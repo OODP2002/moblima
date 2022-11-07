@@ -15,8 +15,9 @@ public class ShowTimeDemo {
 
         // Add new showtime: Get showtimeID first
         System.out.println("Enter showtimeID: ");
-        String showTimeID = sc.nextLine();
+        String showTimeID = cinema.getCinemaID() + sc.nextLine();
         showTimes.add(new ShowTime(showTimeID));
+        System.out.println(showTimes.get(0).getShowtimeID());
 
         // Add new showtime: set startTime
         ShowTime myShowTime = showTimes.get(0);
@@ -34,5 +35,8 @@ public class ShowTimeDemo {
 
         // Get startTime
         System.out.println(myShowTime.getStartTime().format(formatter));
+
+        // Print showtime
+        myShowTime.printShowTime();
     }
 }
