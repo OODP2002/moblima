@@ -30,6 +30,6 @@ public class Cineplex{
     }
 
     public void addCinema(int cinemaID) {
-        cinemas.add(new Cinema(cinemaID, STANDARD));
+        cinemas.add(new Cinema(cinemaID, new CinemaClass(CinemaClassLevels.STANDARD)));
     }
 }
