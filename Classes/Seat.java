@@ -1,7 +1,12 @@
 public class Seat {
     private String seatID;
     private boolean isAvail;
-    private String cinemaCode; 
+    private String cinemaCode;
+
+    public Seat(String seatID) {
+        this.seatID = seatID;
+        this.isAvail = true;
+    }
 
     public void setAvail(boolean avail){
         this.isAvail = avail; 
