@@ -8,7 +8,7 @@ public class IndividualReview {
     public double getReviewRating() {
         return this.reviewRating;
     }
-    public void setReviewRating(int reviewRating) {
+    public void setReviewRating(double reviewRating) {
         this.reviewRating = reviewRating;
     }
     public String getReviewDescription() {
