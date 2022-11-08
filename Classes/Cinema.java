@@ -11,6 +11,8 @@ public class Cinema {
     public Cinema(String cinemaID, CinemaClass cinemaClass) {
         this.cinemaID = cinemaID;
         this.cinemaClass = cinemaClass;
+        LayoutStore layoutStore = LayoutStore.getInstance();
+        this.layout= layoutStore.getLayout(cinemaID);
     }
 
     public String getCinemaID() {

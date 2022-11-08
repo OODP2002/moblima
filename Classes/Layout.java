@@ -5,12 +5,14 @@ public class Layout {
     private int rows;
     private int columns;
     private int aisle;
+    private int mainStairway;
     private int[][] layout;
 
-    public Layout(int rows, int columns, int aisle) {
+    public Layout(int rows, int columns, int aisle, int mainStairway) {
         this.aisle = aisle;
         this.columns = columns;
         this.rows = rows;
+        this.mainStairway = mainStairway;
 
         layout = new int[rows][columns];
         // Fill array with 0s

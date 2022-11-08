@@ -10,6 +10,11 @@ public class CineplexStore extends CineplexesReaderWriter{
 
     private CineplexStore() {
         this.cineplexHashMap = new HashMap<String, Cineplex>();
+        try {
+            readFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static CineplexStore getInstance() {
@@ -19,7 +24,7 @@ public class CineplexStore extends CineplexesReaderWriter{
         return single_instance;
     }
 
-    public void readFile() throws IOException {
+    private void readFile() throws IOException {
         BufferedReader reader = getReader();
         reader.readLine();  // Header row
 
@@ -32,7 +37,13 @@ public class CineplexStore extends CineplexesReaderWriter{
         }
     }
 
+    // This function is for Vendor class to get a Hashmap of cineplexes
     public HashMap<String, Cineplex> getCineplexHashMap() {
         return cineplexHashMap;
+    }
+
+    // For query of Cineplex by cineplexID
+    public Cineplex getCineplex(String cineplexID) {
+        return cineplexHashMap.get(cineplexID);
     }
 }

@@ -13,7 +13,5 @@ public class CinemaStoreDemo {
         Vendor vendor = new Vendor();
         vendor.addCineplex();
 
-        Cinema cinema = vendor.getCineplexHashMap().get("00").getCinemaHashMap().get("0001");
-        System.out.println(cinema.getCinemaID());
     }
 }
