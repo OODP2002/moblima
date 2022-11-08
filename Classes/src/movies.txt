@@ -1,1 +1,3 @@
-title|sypnosis|rating|status|reviews|score|duration
+movieName|movieID|movieDuration|showingStatus|synopsis|viewingMode|movieHype|movieSales|overallReviews|moviePersonnelList
+Black Panther|69|420|NOWSHOWING|shitshow|_2D|BLOCKBUSTER|5|3bad show@4Interesting watch|Marcus@Zhe Kai
+banana|67|99|ENDOFSHOWING|this is a banana|_3D|REGULAR|10|5chicken@4OOP can suck my dick|cow@dog

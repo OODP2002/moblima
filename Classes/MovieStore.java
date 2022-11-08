@@ -9,7 +9,7 @@ public class MovieStore {
     
     // Attributes
     private ArrayList<Movie> movies = new ArrayList<Movie>();
-    private String path = System.getProperty("user.dir") + ("src/movies.txt");
+    private String path = System.getProperty("user.dir") + ("/Classes/src/movies.txt");
     private static MovieStore instance = new MovieStore();
 
 
@@ -20,7 +20,7 @@ public class MovieStore {
             String header = reader.readLine();
             String line = reader.readLine();
             while (line != null) {
-                movies.add(createMovieObj(line));
+                this.movies.add(createMovieObj(line));
                 line = reader.readLine();
             }
             reader.close();
@@ -98,7 +98,7 @@ public class MovieStore {
         char tempChar;
         int tempInt;
         String tempString;
-        String[] reviewArr = infoArr[8].split("~");
+        String[] reviewArr = infoArr[8].split("@");
         for (int i=0; i<reviewArr.length; i++) {
             tempChar = reviewArr[i].charAt(0);
             tempInt = tempChar - '0';
@@ -107,7 +107,7 @@ public class MovieStore {
         }
 
         // Movie Personnel List
-        String[] personnelArr = infoArr[9].split("~");
+        String[] personnelArr = infoArr[9].split("@");
         for (int i=0; i<reviewArr.length; i++) {
             if (i==0) {
                 movie.addMoviePersonnel(personnelArr[i], Role.DIRECTOR);
@@ -125,16 +125,19 @@ public class MovieStore {
         return;
     }
 
-    public void writeToMoviesFile() {
-        try {
-            FileWriter writer = new FileWriter(path);
-            writer.write("movieName | movieID | movieDuration | showingStatus | synopsis | viewingMode | movieHype | movieSales | overallReviews | moviePersonnelList");
-            for (int i = 0; i < this.movies.size(); i++) {
-
-            }
-        } catch (IOException err) {
-            err.printStackTrace();
-        }
+    public ArrayList<Movie> getMovies() {
+        return this.movies;
     }
 
+    // public void writeToMoviesFile() {
+    //     try {
+    //         FileWriter writer = new FileWriter(path);
+    //         writer.write("movieName | movieID | movieDuration | showingStatus | synopsis | viewingMode | movieHype | movieSales | overallReviews | moviePersonnelList");
+    //         for (int i = 0; i < this.movies.size(); i++) {
+
+    //         }
+    //     } catch (IOException err) {
+    //         err.printStackTrace();
+    //     }
+    // }
 }
