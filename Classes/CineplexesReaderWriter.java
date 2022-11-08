@@ -34,12 +34,14 @@ public class CineplexesReaderWriter {
 
         System.out.println("Enter Cineplex ID: ");
         out.add(sc.next("[0-9][0-9]"));
+        sc.nextLine();
 
         System.out.println("Enter Cineplex name: ");
         out.add(sc.nextLine().trim().replace('|', ' '));
 
         System.out.println("Enter Cinema no.: ");
         out.add(sc.next("[0-9][0-9]"));
+        sc.nextLine();
 
         System.out.println("Enter cinema class (STANDARD/ GOLD/ PLATINUM: " );
         String cinemaClass = sc.next().toUpperCase();
@@ -49,18 +51,23 @@ public class CineplexesReaderWriter {
             cinemaClass = "STANDARD";
         }
         out.add(cinemaClass);
+        sc.nextLine();
 
         System.out.println("Enter number of rows: ");
         out.add(String.valueOf(sc.nextInt()));
+        sc.nextLine();
 
         System.out.println("Enter number of columns: ");
         out.add(String.valueOf(sc.nextInt()));
+        sc.nextLine();
 
         System.out.println("Enter aisle number: ");
         out.add(String.valueOf(sc.nextInt()));
+        sc.nextLine();
 
         System.out.println("Enter main stairway number: ");
         out.add(String.valueOf(sc.nextInt()));
+        sc.nextLine();
 
         System.out.println(out);        // for debugging, remove
         writer.write(String.join("|", out));
