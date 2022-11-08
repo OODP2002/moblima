@@ -30,9 +30,11 @@ public class ShowTime {
     }
 
     public void printShowTime() {
-        String cinemaID = showtimeID.substring(0,1);
+        String cineplexID = showtimeID.substring(0,2);
+        String cinemaID = showtimeID.substring(2,4);
 //        System.out.println("Movie showing is: " + movie.getMovieName());
         System.out.println("Date of showing: " + startTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         System.out.println("Movie starts at " + startTime.format(DateTimeFormatter.ofPattern("hh:mm a")) + " at Cinema " + cinemaID);
+        System.out.println("Location: " + cinemaID);
     }
 }
