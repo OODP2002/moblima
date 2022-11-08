@@ -16,7 +16,8 @@ public class ShowDate {
             case SATURDAY:
             case SUNDAY:
                 return true;
-            return false;
+            default:
+                return false;
         }
     }
 
