@@ -45,7 +45,8 @@ public class Credential {
 
     //Check if correct password
     public boolean check(String password){
-        return this.password == password;
+        
+        return this.password.equals(password);
     }
 
     //Converts Credential instance to a string 

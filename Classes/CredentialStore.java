@@ -76,7 +76,6 @@ public class CredentialStore {
                     admObj = new CinemaStaff(username);
                     break;
             }
-            System.out.println("Successful");
             return admObj;
         } else {
             return null; //User does not exist 

@@ -43,7 +43,6 @@ public class SpecialOccasionStore {
         String[] dateArr = infoArr[1].split("-");
         int year = LocalDate.now().getYear();
         LocalDate date = LocalDate.of(year, Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[0])); 
-        System.out.println(info);
         return new SpecialOccasion(date, name);
     }
 
