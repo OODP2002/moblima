@@ -1,18 +1,18 @@
 // Done by Mingyang
-import java.util.ArrayList;
+import java.io.IOException;
+import java.lang.invoke.DelegatingMethodHandle$Holder;
+import java.util.HashMap;
 
 public class Cineplex{
     private String name;
     private String cineplexID;
-    public ArrayList<Cinema> cinemas = new ArrayList<>();
+    private HashMap<String, Cinema> cinemaHashMap;
 
     // Constructor: 3 cinemas are added by default
     public Cineplex(String name, String cineplexID) {
         this.cineplexID = cineplexID;
         this.name = name;
-        for (int i = 0; i < 3; i++) {
-            addCinema(cinemas.size() + 1);
-        }
+        addCinema();
     }
 
     public String getCineplexID() {
@@ -23,7 +23,17 @@ public class Cineplex{
         return name;
     }
 
-    public void addCinema(int cinemaID) {
-        cinemas.add(new Cinema(cinemaID, new CinemaClass(CinemaClassLevels.STANDARD)));
+    public void addCinema() {
+        CinemaStore cinemaStore = CinemaStore.getInstance();
+        try {
+            cinemaStore.readFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        this.cinemaHashMap = cinemaStore.getCinemaHashMap();
+    }
+
+    public HashMap<String, Cinema> getCinemaHashMap() {
+        return cinemaHashMap;
     }
 }

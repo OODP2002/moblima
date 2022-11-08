@@ -1,13 +1,15 @@
+// Done by Mingyang
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
 
 public class CineplexStore extends CineplexesReaderWriter{
-    private HashMap<String, Cineplex> cineplexMap;
+    private HashMap<String, Cineplex> cineplexHashMap;
     private static CineplexStore single_instance = null;
 
     private CineplexStore() {
-        this.cineplexMap = new HashMap<String, Cineplex>();
+        this.cineplexHashMap = new HashMap<String, Cineplex>();
     }
 
     public static CineplexStore getInstance() {
@@ -25,12 +27,12 @@ public class CineplexStore extends CineplexesReaderWriter{
         while (line != null) {
             String[] details = line.split("\\|");
             Cineplex cineplex = new Cineplex(details[1], details[0]);
-            cineplexMap.put(details[0], cineplex);
+            cineplexHashMap.put(details[0], cineplex);
             line = reader.readLine();
         }
     }
 
-    public HashMap<String, Cineplex> getCineplexMap() {
-        return cineplexMap;
+    public HashMap<String, Cineplex> getCineplexHashMap() {
+        return cineplexHashMap;
     }
 }

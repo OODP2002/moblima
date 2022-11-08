@@ -6,11 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class CineplexesReaderWriter {
-    private final String FILESOURCE = "Classes/src/cineplexes.txt";
     private BufferedReader reader;
 
     public CineplexesReaderWriter() {
         try {
+            String FILESOURCE = "Classes/src/cineplexes.txt";
             this.reader = new BufferedReader(new FileReader(FILESOURCE));
         } catch (IOException e) {
             System.out.println(e.getMessage());
