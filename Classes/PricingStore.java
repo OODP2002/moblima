@@ -38,7 +38,7 @@ public class PricingStore {
     
     private Pricing createPricingObj(String info){
         String[] infoArr = info.split("\\|");
-        CinemaClassLevels cinemaLevel; 
+        CinemaClass cinemaLevel; 
         View view; 
         AgeGroup ageGroup;
         LocalTime startTime = LocalTime.of(0,0);
@@ -50,16 +50,16 @@ public class PricingStore {
         //Cinema Class 
         switch(infoArr[0]){
             case "STANDARD":
-                cinemaLevel = CinemaClassLevels.STANDARD;
+                cinemaLevel = CinemaClass.STANDARD;
                 break;
             case "GOLD":
-                cinemaLevel = CinemaClassLevels.GOLD;
+                cinemaLevel = CinemaClass.GOLD;
                 break;
             case "PLATINUM":
-                cinemaLevel = CinemaClassLevels.PLATINUM;
+                cinemaLevel = CinemaClass.PLATINUM;
                 break;
             default:
-                cinemaLevel = CinemaClassLevels.STANDARD;
+                cinemaLevel = CinemaClass.STANDARD;
         }
 
         //View Class

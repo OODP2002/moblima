@@ -1,7 +1,7 @@
 import java.time.LocalTime;
 
 public class Pricing {
-    private CinemaClassLevels cinemaLevel; //add CinemaClass constructor 
+    private CinemaClass cinemaLevel; //add CinemaClass constructor 
     private View view; //add View Constructor
     private AgeGroup ageGroup;
     private LocalTime startTime;
@@ -10,7 +10,7 @@ public class Pricing {
     private boolean isPreferred;
     private float price;
 
-    public Pricing(CinemaClassLevels cCinemaLevel, View cView, AgeGroup cAgeGroup, LocalTime cStartTime, LocalTime cEndTime, int cDayofWeek, boolean cIsPreferred, float cPrice){
+    public Pricing(CinemaClass cCinemaLevel, View cView, AgeGroup cAgeGroup, LocalTime cStartTime, LocalTime cEndTime, int cDayofWeek, boolean cIsPreferred, float cPrice){
         this.cinemaLevel = cCinemaLevel;
         this.view = cView; //add View Constructor
         this.ageGroup = cAgeGroup;
@@ -33,7 +33,7 @@ public class Pricing {
 
 
     //query for pricing when buying ticket 
-    public boolean isPricing(CinemaClassLevels testCinemaLevel, View testView, AgeGroup testAgeGroup, LocalTime testTime, int testDayOfWeek, boolean testIsPreferred){
+    public boolean isPricing(CinemaClass testCinemaLevel, View testView, AgeGroup testAgeGroup, LocalTime testTime, int testDayOfWeek, boolean testIsPreferred){
         return (
             testCinemaLevel == this.cinemaLevel 
             && testView == this.view 
