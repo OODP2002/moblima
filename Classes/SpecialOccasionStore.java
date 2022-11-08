@@ -6,16 +6,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class SpecialOccasionStore {
+    //Attributes
     private ArrayList<SpecialOccasion> specialOccasions = new ArrayList<SpecialOccasion>(); 
+    private String path = System.getProperty("user.dir") + ("/src/specialOccasion.txt");
+    private static SpecialOccasionStore instance = new SpecialOccasionStore();
 
-    public void readSpecialOccasionFile(){
-        //get special occasion list file path
-        String cwd = System.getProperty("user.dir");
-        String path = cwd + ("/src/specialOccasion.txt");
-
+    //Contstuctor
+    private SpecialOccasionStore(){
+        //reading special occasion list file path
         try{
-
-            BufferedReader reader = new BufferedReader(new FileReader(path));
+            BufferedReader reader = new BufferedReader(new FileReader(this.path));
             String header = reader.readLine(); //Header row
             String line = reader.readLine();
             while (line != null){
@@ -27,8 +27,15 @@ public class SpecialOccasionStore {
             //System.out.println(err.getStackTrace());
             System.out.println("Error: Special Occasion list not found");
         }
+
     }
 
+    //Operations
+    public static SpecialOccasionStore getInstance(){
+        return instance;
+    }
+
+    //Creates a new special occasion object based on information retreived from one line of the txt file
     private SpecialOccasion createSpecialOccasionObj(String info){
         String[] infoArr =  info.split("\\|");
         String name = infoArr[0];
@@ -38,5 +45,29 @@ public class SpecialOccasionStore {
         LocalDate date = LocalDate.of(year, Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[0])); 
         System.out.println(info);
         return new SpecialOccasion(date, name);
+    }
+
+    // Add new special occasion
+    public void addSpecialOccasion(SpecialOccasion newSpecialOccasion){
+        this.specialOccasions.add(newSpecialOccasion);
+        return;
+    }
+
+    // Remove a special occasion 
+    public void removeSpecialOccasion(SpecialOccasion targetSpecialOccasion){
+        this.specialOccasions.remove(targetSpecialOccasion);
+    }
+
+    // Overwrite old specialOccasionsList with a new set of Special Occasions
+    public void writeToSpecialOccasionFile(){
+        try{
+            FileWriter writer = new FileWriter(this.path);
+            for (int i = 0; i < this.specialOccasions.size(); i++){
+                writer.write("\n" + this.specialOccasions.get(i).toString());
+            }
+            writer.close();
+        } catch (IOException err){
+            err.printStackTrace();
+        }
     }
 }

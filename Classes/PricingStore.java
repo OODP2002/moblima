@@ -8,17 +8,16 @@ import java.io.IOException;
 
 
 public class PricingStore {
+    //Attributes
     private ArrayList<Pricing> pricings = new ArrayList<Pricing>();
+    private String path = System.getProperty("user.dir") + ("/src/pricingList.txt");
+    private static PricingStore instance = new PricingStore();
 
-    public void readPricings(){
-        //get pricing list file path
-        String cwd = System.getProperty("user.dir");
-        String path = cwd + ("/src/pricingList.txt");
-        
+    //Constructor
+    private PricingStore(){
         // Reads a file line by line
         try{
-
-            BufferedReader reader = new BufferedReader(new FileReader(path));
+            BufferedReader reader = new BufferedReader(new FileReader(this.path));
             String header = reader.readLine(); //Header row
             String line = reader.readLine();
             while (line != null){
@@ -32,6 +31,11 @@ public class PricingStore {
         }
     }
 
+    //Operations
+    public static PricingStore getInstance(){
+        return instance;
+    }
+    
     private Pricing createPricingObj(String info){
         String[] infoArr = info.split("\\|");
         CinemaClassLevels cinemaLevel; 
@@ -130,8 +134,9 @@ public class PricingStore {
         return new Pricing(cinemaLevel, view, ageGroup, startTime, endTime, dayOfWeek, isPreferred, price);
     }
 
-    //Edit pricing 
-    public void editPricing(Pricing newPricing){
+    //New pricing 
+    public void addPricing(Pricing newPricing){
+        //Edit existing pricing object or add new pricing object into the array list
         for (int i = 0; i < this.pricings.size(); i++){
             if (pricings.get(i).comparePricing(newPricing)) {
                 pricings.get(i).setPrice(newPricing.getPrice());
@@ -144,12 +149,9 @@ public class PricingStore {
     //Overwrite the old priceList with a new set of Pricings
     //To do: function should only be trigger
     //To do: edit file to only change the affected line as the edit is being made (helps to prevent information loss if app crashes before this function is called.)
-    public void writeAllPricings(){
-        String cwd = System.getProperty("user.dir");
-        String path = cwd + ("/src/pricingList.txt");
-
+    public void writeToPricingsFile(){
         try{
-            FileWriter writer = new FileWriter(path, true);
+            FileWriter writer = new FileWriter(path);
             for (int i = 0; i < this.pricings.size(); i++){
                 writer.write("\n" + this.pricings.get(i).toString());
             }

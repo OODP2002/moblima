@@ -44,6 +44,7 @@ public class Pricing {
         );
     }
 
+    //check if this pricing object has the same conditions as another pricing object
     public boolean comparePricing(Pricing otherPricing){
        return (
             this.cinemaLevel == otherPricing.cinemaLevel 
@@ -61,7 +62,7 @@ public class Pricing {
         String temp = "";
 
         //Cinema Level 
-        switch(cinemaLevel){
+        switch(this.cinemaLevel){
             case STANDARD:
                 temp = "STANDARD";
                 break;
@@ -75,7 +76,7 @@ public class Pricing {
         info += temp + "|";
 
         //View 
-        switch(view){
+        switch(this.view){
             case _2D:
                 temp = "_2D";
                 break;
@@ -86,7 +87,7 @@ public class Pricing {
         info += temp + "|"; 
 
         //Age group 
-        switch(ageGroup){
+        switch(this.ageGroup){
             case CHILD:
                 temp = "CHILD";
                 break;
@@ -100,23 +101,23 @@ public class Pricing {
         info += temp + "|"; 
 
         //Start Time
-        temp = String.valueOf(startTime.getHour()) + ":" + String.valueOf(startTime.getMinute());
+        temp = String.valueOf(this.startTime.getHour()) + ":" + String.valueOf(this.startTime.getMinute());
         info += temp + "|";
         
         //End Time
-        temp = String.valueOf(endTime.getHour()) + ":" + String.valueOf(endTime.getMinute());
+        temp = String.valueOf(this.endTime.getHour()) + ":" + String.valueOf(this.endTime.getMinute());
         info += temp + "|";
 
         //Day of Week
-        temp = String.valueOf(dayOfWeek);
+        temp = String.valueOf(this.dayOfWeek);
         info += temp + "|";
 
         //Is Preferred 
-        temp = isPreferred ? "true" : "false";
+        temp = this.isPreferred ? "true" : "false";
         info += temp + "|";
 
         //Price
-        temp = String.valueOf(price);
+        temp = String.valueOf(this.price);
         info += temp + "|";
 
         return info;
