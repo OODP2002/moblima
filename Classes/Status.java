@@ -7,12 +7,12 @@ public enum Status {
 
 // MARCUS' VERSION
 // public enum Status {
-//     [Display(Name="Coming Soon")]
+//     Display(Name="Coming Soon"),
 //     COMINGSOON,
-//     [Display(Name="Preview")]
+//     Display(Name="Preview"),
 //     PREVIEW,
-//     [Display(Name="Now Showing")]
+//     Display(Name="Now Showing"),
 //     NOWSHOWING,
-//     [Display(Name="End of Showing")]
+//     Display(Name="End of Showing"),
 //     ENDOFSHOWING;
 // }

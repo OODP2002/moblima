@@ -1,3 +1,4 @@
+import java.nio.channels.OverlappingFileLockException;
 import java.util.ArrayList;
 
 public class Movie{
@@ -7,9 +8,9 @@ public class Movie{
     private ShowingStatus showingStatus;
     private Synopsis synopsis;
     private ViewingMode viewingMode;
-    private MovieHype movieHype; // Blockbuster
+    private MovieHype movieHype;
     private MovieSales movieSales;
-    private OverallReviews overallReviews;
+    private OverallReviews  overallReviews;
     private ArrayList<MoviePersonnel> moviePersonnelList = new ArrayList<>();
 
     public Movie(){
@@ -113,7 +114,7 @@ public class Movie{
 
     public void printMoviePersonnel() {
         for (int i=0; i<this.moviePersonnelList.size(); i++) {
-            System.out.println("Name: "+ moviePersonnelList.get(i).getName() + " \n");
+            System.out.println("Name: "+ moviePersonnelList.get(i).getName() + "\t Role: " + moviePersonnelList.get(i).getRole());
         }
     }
 
