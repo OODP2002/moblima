@@ -3,17 +3,11 @@ import java.util.ArrayList;
 
 public class Cineplex{
     private String name;
-    private int cineplexID;
+    private String cineplexID;
     public ArrayList<Cinema> cinemas = new ArrayList<>();
 
-    // Default cineplex constructor: should never be called
-    public Cineplex() {
-        this.cineplexID = -1;
-        this.name = "Cinema";
-    }
-
     // Constructor: 3 cinemas are added by default
-    public Cineplex(String name, int cineplexID) {
+    public Cineplex(String name, String cineplexID) {
         this.cineplexID = cineplexID;
         this.name = name;
         for (int i = 0; i < 3; i++) {
@@ -21,7 +15,7 @@ public class Cineplex{
         }
     }
 
-    public int getCineplexID() {
+    public String getCineplexID() {
         return cineplexID;
     }
 

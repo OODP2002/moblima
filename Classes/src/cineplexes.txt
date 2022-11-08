@@ -1,1 +1,2 @@
-cineplex|cinema|seatCount|row|column
+cineplexID|cineplex|cinema|cinemaClass|seatCount|row|column
+00|CCK|01|STANDARD|
