@@ -169,6 +169,9 @@ public class Main {
                 case 9:
                     // Show all movies, including those which are end of showing
                     break;
+                case 0:
+                    // Quit
+                    break;
                 default:
                     System.out.println("Invalid choice.");
             }

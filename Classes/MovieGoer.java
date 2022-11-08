@@ -23,6 +23,8 @@ public class MovieGoer implements PersonInterface{
         // Think we should relook the UML and have a user class, which handles the purchasing, then these movieGoers are like ticket objects
         
         // Getting review information
+        MovieStore movStore = MovieStore.getInstance();
+
         Scanner sc = new Scanner(System.in);
         // Review Rating
         System.out.println("Enter Movie Rating (1 - 5 Stars): ");
@@ -56,10 +58,11 @@ public class MovieGoer implements PersonInterface{
 
     }
 
-    public void listMovies() {
+    public void listBy() {
         // Should call from listmovie interface
         // Cannot remember if it is the movies that are watched by the moviegoer or it is all the movies, but iirc it is all movies
         // CORRECTION: IT IS LIST ALL MOVIES SO THEY KNOW WHAT EXISTS
+        MovieStore movStore = MovieStore.getInstance();
         Scanner sc = new Scanner(System.in);
 
         System.out.println("List movies by: \n");
@@ -83,6 +86,12 @@ public class MovieGoer implements PersonInterface{
             default:
                 System.out.println("Invalid Choice");
         }
+    }
+
+    public void listAllMovies() {
+        // Use moviestore to read all the movie objects
+        MovieStore movStore = MovieStore.getInstance();
+
 
     }
 
@@ -91,6 +100,8 @@ public class MovieGoer implements PersonInterface{
 
         // Input: movieName string
         // Output: Cineplexes, showtimes, cinemas etc. 
+        MovieStore movStore = MovieStore.getInstance();
+
         for (int i=0;i<movieList.size();i++){
             if (movieList.get(i).getMovieID() == movieID){
                 return movieList.get(i).getMovieID;
@@ -98,5 +109,16 @@ public class MovieGoer implements PersonInterface{
         }
         System.out.println("No such movie found. \n");
         return -1;
+    }
+
+    public void showHistory(){
+        // Use name attribute to match with ticketStore
+        TicketStore tixStore = TicketStore.getInstance();
+        
+
+    }
+
+    public void buyTicket(int showTimeID) {
+        // Need to know what is showTimeID within showtimeStore and what exactly does price handler do  
     }
 }
