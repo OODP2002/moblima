@@ -10,6 +10,25 @@ public class ShowingStatus implements MovieInformation<Status>{
         this.showingStatus = showingStatus;
     }
 
+    public String getDetailString(){
+        String result = "";
+        switch (this.showingStatus){
+            case COMINGSOON:
+                result = "Coming Soon";
+                break;
+            case PREVIEW:  
+                result = "Preview";
+                break;
+            case NOWSHOWING:
+                result = "Now Showing";
+                break;
+            case ENDOFSHOWING:
+                result = "End Of Showing";
+                break;
+        }
+        return result;
+    }
+
     public Status getDetail(){
         return this.showingStatus;
     }
