@@ -7,8 +7,8 @@ import java.io.IOException;
 public class CredentialStore {
     //Attributes 
     private ArrayList<Credential> credentials = new ArrayList<Credential>();
-    private static CredentialStore instance = new CredentialStore();
     private String path = System.getProperty("user.dir") + ("/src/credentials.txt");
+    private static CredentialStore instance = new CredentialStore();
     
     //Constructor 
     private CredentialStore(){
@@ -34,7 +34,7 @@ public class CredentialStore {
         return instance;
     }
 
-    //Creates a new credential object based on 
+    //Creates a new credential object based on a line in the credentials txt file
     private Credential createCredentialObj(String info){
         String[] infoArr =  info.split("\\|");
 
@@ -106,7 +106,7 @@ public class CredentialStore {
     public void writeToCredentialsFile(){
         try{
             FileWriter writer = new FileWriter(path);
-            for (int i = -1; i < this.credentials.size(); i++){
+            for (int i = 0; i < this.credentials.size(); i++){
                 writer.write("\n" + this.credentials.get(i).toString());
             }
             writer.close();
