@@ -1,6 +1,5 @@
 // Done by Mingyang
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Vendor {
@@ -21,7 +20,7 @@ public class Vendor {
     }
 
     public void addCineplex() {
-        CineplexStore cineplexStore = new CineplexStore();
+        CineplexStore cineplexStore = CineplexStore.getInstance();
         try {
             cineplexStore.readFile();
         } catch (IOException e) {

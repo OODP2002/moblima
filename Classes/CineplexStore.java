@@ -4,10 +4,19 @@ import java.util.HashMap;
 
 public class CineplexStore extends CineplexesReaderWriter{
     private HashMap<String, Cineplex> cineplexMap;
+    private static CineplexStore single_instance = null;
 
-    public CineplexStore() {
+    private CineplexStore() {
         this.cineplexMap = new HashMap<String, Cineplex>();
     }
+
+    public static CineplexStore getInstance() {
+        if (single_instance == null)
+            single_instance = new CineplexStore();
+
+        return single_instance;
+    }
+
     public void readFile() throws IOException {
         BufferedReader reader = getReader();
         reader.readLine();  // Header row
