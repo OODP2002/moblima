@@ -42,6 +42,7 @@ public class CinemaStore extends CineplexesReaderWriter{
             cinemaHashMap.put(cinemaID, cinema);
             line = reader.readLine();
         }
+        reader.close();
     }
 
     public HashMap<String, Cinema> getCinemaHashMap() {

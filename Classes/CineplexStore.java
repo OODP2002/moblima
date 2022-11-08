@@ -35,6 +35,7 @@ public class CineplexStore extends CineplexesReaderWriter{
             cineplexHashMap.put(details[0], cineplex);
             line = reader.readLine();
         }
+        reader.close();
     }
 
     // This function is for Vendor class to get a Hashmap of cineplexes
