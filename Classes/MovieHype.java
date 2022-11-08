@@ -13,7 +13,20 @@ public class MovieHype implements MovieInformation<Hype>{
         return this.movieHype;
     }
 
+    public String getDetailString(){
+        String result = "";
+        switch (this.movieHype){
+            case REGULAR:
+                result = "Regular";
+                break;
+            case BLOCKBUSTER:  
+                result = "Blockbuster";
+                break;
+        }
+        return result;
+    }
     public void setDetail(Hype hype) {
         this.movieHype = hype;
     }
 }
+    
