@@ -24,8 +24,17 @@ public class CinemaStore extends CineplexesReaderWriter{
         String line = reader.readLine();
         while (line != null) {
             String[] details = line.split("\\|");
-            Cinema cinema = new Cinema(details[0], new CinemaClass(CinemaClassLevels.GOLD));
-            cinemaHashMap.put(details[0], cinema);
+            String cinemaID = details[0].concat(details[2]);
+            CinemaClass cinemaClass;
+            try {
+                cinemaClass = CinemaClass.valueOf(details[3]);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Default class of STANDARD is used");
+                cinemaClass = CinemaClass.STANDARD;
+            }
+            Cinema cinema = new Cinema(cinemaID, cinemaClass);
+            cinemaHashMap.put(cinemaID, cinema);
             line = reader.readLine();
         }
     }

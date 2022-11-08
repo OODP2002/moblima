@@ -10,8 +10,8 @@ public class CineplexesReaderWriter {
 
     public CineplexesReaderWriter() {
         try {
-            String FILESOURCE = "Classes/src/cineplexes.txt";
-            this.reader = new BufferedReader(new FileReader(FILESOURCE));
+            String FILE_SOURCE = "Classes/src/cineplexes.txt";
+            this.reader = new BufferedReader(new FileReader(FILE_SOURCE));
         } catch (IOException e) {
             System.out.println(e.getMessage());
             System.out.println("Error: cineplexes.txt not found");

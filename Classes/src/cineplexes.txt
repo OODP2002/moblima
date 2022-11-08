@@ -1,2 +1,2 @@
-cineplexID|cineplex|cinema|cinemaClass|seatCount|row|column
+cineplexID|cineplex|cinema|CinemaClass|row|column|aisle|mainStairway
 00|CCK|01|STANDARD|
