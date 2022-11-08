@@ -43,6 +43,7 @@ public class LayoutStore extends CineplexesReaderWriter{
 
             layoutHashMap.put(cinemaID, new Layout(row, column, aisle, mainStairway));
         }
+        reader.close();
     }
 
     public Layout getLayout(String cinemaID) {
