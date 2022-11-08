@@ -1,4 +1,3 @@
-import java.nio.channels.OverlappingFileLockException;
 import java.util.ArrayList;
 
 public class Movie{
@@ -8,7 +7,7 @@ public class Movie{
     private ShowingStatus showingStatus;
     private Synopsis synopsis;
     private ViewingMode viewingMode;
-    private MovieHype movieHype;
+    private MovieHype movieHype; // Blockbuster
     private MovieSales movieSales;
     private OverallReviews overallReviews;
     private ArrayList<MoviePersonnel> moviePersonnelList = new ArrayList<>();
