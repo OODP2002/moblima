@@ -59,6 +59,7 @@ public class MovieGoer implements PersonInterface{
     public void listMovies() {
         // Should call from listmovie interface
         // Cannot remember if it is the movies that are watched by the moviegoer or it is all the movies, but iirc it is all movies
+        // CORRECTION: IT IS LIST ALL MOVIES SO THEY KNOW WHAT EXISTS
         Scanner sc = new Scanner(System.in);
 
         System.out.println("List movies by: \n");
@@ -87,6 +88,9 @@ public class MovieGoer implements PersonInterface{
 
     public int searchMovie(int movieID, ArrayList<Movie> movieList) {
         // CHANGE UML TO RETURN int NOT MOVIE OBJ
+
+        // Input: movieName string
+        // Output: Cineplexes, showtimes, cinemas etc. 
         for (int i=0;i<movieList.size();i++){
             if (movieList.get(i).getMovieID() == movieID){
                 return movieList.get(i).getMovieID;
