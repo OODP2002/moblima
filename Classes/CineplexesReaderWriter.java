@@ -24,7 +24,7 @@ public class CineplexesReaderWriter {
         return reader;
     }
 
-    public void readFile() throws IOException {
+    private void readFile() throws IOException {
 
     }
 

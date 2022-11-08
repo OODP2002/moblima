@@ -8,6 +8,11 @@ public class CinemaStore extends CineplexesReaderWriter{
 
     private CinemaStore() {
         this.cinemaHashMap = new HashMap<>();
+        try {
+            readFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static CinemaStore getInstance() {
@@ -17,7 +22,7 @@ public class CinemaStore extends CineplexesReaderWriter{
         return single_instance;
     }
 
-    public void readFile() throws IOException {
+    private void readFile() throws IOException {
         BufferedReader reader = getReader();
         reader.readLine();  // Header row
 

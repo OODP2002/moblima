@@ -24,11 +24,6 @@ public class Cineplex{
 
     public void addCinema() {
         CinemaStore cinemaStore = CinemaStore.getInstance();
-        try {
-            cinemaStore.readFile();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
         this.cinemaHashMap = cinemaStore.getCinemaHashMap();
     }
 
