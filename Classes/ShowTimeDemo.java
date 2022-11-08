@@ -8,7 +8,7 @@ public class ShowTimeDemo {
         Scanner sc = new Scanner(System.in);
 
         // Instantiation: new Cinema obj
-        Cinema cinema = new Cinema(3, new CinemaClass(CinemaClassLevels.GOLD));
+        Cinema cinema = new Cinema("3", CinemaClass.GOLD);
 
         // Load showTimes from Cinema object to access it
         ArrayList<ShowTime> showTimes = cinema.getShowTimes();

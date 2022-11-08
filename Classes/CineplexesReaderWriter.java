@@ -6,12 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class CineplexesReaderWriter {
-    private final String FILESOURCE = "Classes/src/cineplexes.txt";
     private BufferedReader reader;
 
     public CineplexesReaderWriter() {
         try {
-            this.reader = new BufferedReader(new FileReader(FILESOURCE));
+            String FILE_SOURCE = "Classes/src/cineplexes.txt";
+            this.reader = new BufferedReader(new FileReader(FILE_SOURCE));
         } catch (IOException e) {
             System.out.println(e.getMessage());
             System.out.println("Error: cineplexes.txt not found");

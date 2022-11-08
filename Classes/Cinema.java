@@ -3,16 +3,16 @@
 import java.util.ArrayList;
 
 public class Cinema {
-    private int cinemaID;
+    private String cinemaID;
     private CinemaClass cinemaClass;
     private ArrayList<ShowTime> showTimes = new ArrayList<ShowTime>();
 
-    public Cinema(int cinemaID, CinemaClass cinemaClass) {
+    public Cinema(String cinemaID, CinemaClass cinemaClass) {
         this.cinemaID = cinemaID;
         this.cinemaClass = cinemaClass;
     }
 
-    public int getCinemaID() {
+    public String getCinemaID() {
         return cinemaID;
     }
 
