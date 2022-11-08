@@ -1,6 +1,6 @@
+// Done by Mingyang
 import java.util.Arrays;
 
-// Done by Mingyang
 public class Layout {
     private int rows;
     private int columns;
@@ -22,12 +22,17 @@ public class Layout {
     }
 
     public void printLayout() {
-        System.out.println("SCREEN -->");
+        String s1 = "-";
+        String s = s1.repeat((columns * 4 - 4) / 2);
+        System.out.println(s + "SCREEN" + s);
 
         // Print column numbers
         System.out.printf(" ");
         for (int i = 1; i <= columns; i++) {
-            System.out.printf("[%02d]", i);
+            if (i == aisle)
+                System.out.printf("    ");
+            else
+                System.out.printf("[%02d]", i);
         }
         System.out.println();
 
@@ -37,7 +42,9 @@ public class Layout {
 
             // Print seats, [  ] for empty [XX] for taken
             for (int j = 0; j < columns; j++) {
-                if (layout[i][j] == 0) {
+                if (j == aisle-1)
+                    System.out.print("    ");
+                else if (layout[i][j] == 0) {
                     System.out.printf("[  ]");
                 }
                 else {
@@ -50,7 +57,11 @@ public class Layout {
         // Print column numbers
         System.out.printf(" ");
         for (int i = 1; i <= columns; i++) {
-            System.out.printf("[%02d]", i);
+            if (i == aisle) {
+                System.out.print("    ");
+            }
+            else
+                System.out.printf("[%02d]", i);
         }
         System.out.println();
     }
