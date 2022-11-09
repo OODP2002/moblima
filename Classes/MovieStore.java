@@ -131,16 +131,6 @@ public class MovieStore {
 
 
     public void writeToMoviesFile() {
-        // try {
-        //     FileWriter writer = new FileWriter(path);
-        //     writer.write("movieName | movieID | movieDuration | showingStatus | synopsis | viewingMode | movieHype | movieSales | overallReviews | moviePersonnelList");
-        //     for (int i = 0; i < this.movies.size(); i++) {
-
-        //     }
-        // } catch (IOException err) {
-        //     err.printStackTrace();
-        // }
-
         try{
             BufferedReader reader = new BufferedReader(new FileReader(this.path));
             String header = reader.readLine(); //Header row

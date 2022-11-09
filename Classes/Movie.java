@@ -122,6 +122,19 @@ public class Movie{
         moviePersonnelList.add(new MoviePersonnel(name, role));
     }
 
+    public void printInfo() {
+        System.out.println("Movie Name: " + this.getMovieName());
+        System.out.println("Movie ID: " + this.getMovieID());
+        System.out.println("Movie Duration: " + this.getMovieDuration().getDetail());
+        System.out.println("Showing Status: " + this.getShowingStatus().getDetailString());
+        System.out.println("Synopsis: " + this.getSynopsis().getDetail());
+        System.out.println("Viewing Mode: " + this.getViewingMode().getDetailString());
+        System.out.println("Movie Hype: " + this.getMovieHype().getDetailString());
+        System.out.println("Movie Sales: " + this.getMovieSales().getDetail());
+        System.out.println("Average rating: " + this.getOverallReviews().getAvgRating());
+        this.printMoviePersonnel();
+    }
+
     public String toString(){
         String movieDurationString = String.valueOf(this.movieDuration.getDetail());
 
