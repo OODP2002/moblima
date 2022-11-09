@@ -179,6 +179,49 @@ public class MovieStore {
         return null;
     }
 
+    public void ListTop5(int toggle) {
+        int n = this.movies.size();
+        Movie[] movieArr = new Movie[n];
+        for (int i=0; i<n; i++) {
+            movieArr[i] = this.movies.get(i);
+        }
+        // Sort by movie sales
+        if (toggle == 0) { 
+            for (int i=0; i<n-1; i++) {
+                for (int j=0; j<n-i-1; j++) {
+                    if (movieArr[j].getMovieSales().getDetail() < movieArr[j+1].getMovieSales().getDetail()) {
+                        Movie temp = movieArr[j];
+                        movieArr[j] = movieArr[j+1];
+                        movieArr[j+1] = temp;
+                    }
+                }
+            }
+            int num = (n < 5) ? n : 5;           
+            System.out.println("Top " + num + " movies by Movie Sales:");
+            for (int i=0; i<num; i++) {
+                System.out.println((i+1) + ": " + movieArr[i].getMovieName() + "\nMovie Sales: " + movieArr[i].getMovieSales().getDetail() + "\n");
+            }
+        }
+        // Sort by average rating
+        else { 
+            for (int i=0; i<n-1; i++) {
+                for (int j=0; j<n-i-1; j++) {
+                    if (movieArr[j].getOverallReviews().getAvgRating() < movieArr[j+1].getOverallReviews().getAvgRating()) {
+                        Movie temp = movieArr[j];
+                        movieArr[j] = movieArr[j+1];
+                        movieArr[j+1] = temp;
+                    }
+                }
+            }
+            int num = (n < 5) ? n : 5;           
+            System.out.println("Top " + num + " movies by rating:");
+            for (int i=0; i<num; i++) {
+                System.out.println((i+1) + ": " + movieArr[i].getMovieName() + "\nMovie Rating: " + movieArr[i].getOverallReviews().getAvgRating() + "\n");
+            }
+        }
+
+    }
+
     public void writeToMoviesFile() {
         try{
             BufferedReader reader = new BufferedReader(new FileReader(this.path));
