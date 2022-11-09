@@ -1,1 +1,4 @@
-title|sypnosis|rating|status|reviews|score|duration
+movieName | movieID | movieDuration | showingStatus | synopsis | viewingMode | movieHype | movieSales | overallReviews | moviePersonnelList
+Black Panther|69|420|Coming Soon|shitshow|2D|Regular|5|4.0.0bad show~3.0.0good show|Marcus~low zhe kai
+banana|67|99|Coming Soon|this is a banana|2D|Regular|10|5.0.0chicken~1.0.0twat|cow~fish
+Big cock|360|420|Preview|this show is astronomically bad|3D|Blockbuster|9999|2.0bad movie~55.0good movie|jackson~Wang
