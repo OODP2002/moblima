@@ -153,7 +153,7 @@ public class MovieGoer implements PersonInterface{
         tixStore.listPastPurchases(name, email, mobile);
     }
 
-    public void buyTicket(int showTimeID) {
+    public void buyTicket() {
         // Need to know what is showTimeID within showtimeStore and what exactly does price handler do  
         Scanner s = new Scanner(System.in);
         int MovieID = -1;
@@ -164,19 +164,21 @@ public class MovieGoer implements PersonInterface{
         this.searchMovie(MovieID);
 
         ShowTimeStore showStore = ShowTimeStore.getInstance();
+        MovieStore movStore = MovieStore.getInstance();
+        Movie curMovie = movStore.searchMovie(MovieID);
+        
         Set<String> keys = showStore.getShowTimeHashMap().keySet();
         ShowTime showtime;
-        Movie curMovie;
+        int showtimeMovieID;
         System.out.println("-------Showtimes------");
         for (String key: keys){
             // Get one showtime
             showtime = showStore.getShowTime(key);
-            curMovie = showtime.getMovie();
-            if (MovieID == curMovie.getMovieID()){
-                System.out.println("ShowtimeID: "+showtime.getShowtimeID());
-                System.out.println("MovieID: "+curMovie.getMovieID());
-                System.out.println("Title: "+curMovie.getMovieName());
+            showtimeMovieID = showtime.getMovieID();
+            if (MovieID == showtimeMovieID){
+                System.out.println("ShowtimeID: "+ showtime.getShowtimeID());
                 showtime.printShowTime();
+                System.out.println("----------------------");
             }
         }
     }
