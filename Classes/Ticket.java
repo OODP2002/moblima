@@ -5,14 +5,16 @@ public class Ticket {
     private Double mobile;
     private String seatID;
     private AgeGroup ageGroup;
+    private float price;
 
-    Ticket(String transactionID, String username,String email,Double mobile,String seatID, AgeGroup ageGroup){
+    Ticket(String transactionID, String username,String email,Double mobile,String seatID, AgeGroup ageGroup, float price){
         this.transactionID = transactionID;
         this.username = username;
         this.email = email;
         this.mobile = mobile;
         this.seatID = seatID;
         this.ageGroup = ageGroup;
+        this.price = price;
     }
 
     public String getTID(){
@@ -43,6 +45,7 @@ public class Ticket {
             default:
                 ageGroupStr = "ADULT";
         }
-        return this.transactionID + "|" + this.username + "|" + this.email + "|" + mobileStr + "|" + this.seatID  + "|" + ageGroupStr + "|";
+        String priceStr = Float.toString(this.price);
+        return this.transactionID + "|" + this.username + "|" + this.email + "|" + mobileStr + "|" + this.seatID  + "|" + ageGroupStr + "|" + priceStr + "|";
     }
 }   

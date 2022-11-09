@@ -44,6 +44,7 @@ public class TicketStore {
         Double mobile = Double.parseDouble(infoArr[3]);
         String seatID = infoArr[4];
         AgeGroup ageGroup;
+        float price = Float.parseFloat(infoArr[6]);
 
         switch(infoArr[5]){
             case "CHILD":
@@ -60,7 +61,7 @@ public class TicketStore {
             
         }
         
-        return new Ticket(transactionID, username, email, mobile, seatID, ageGroup);
+        return new Ticket(transactionID, username, email, mobile, seatID, ageGroup, price);
     }
 
     public void newTicket(Ticket ticket){
@@ -93,8 +94,3 @@ public class TicketStore {
         }
     }
 }
- 
-// cineplexID: [0-9][0-9]
-// cinemaID: cineplexID+ [0-9][0-9]
-// showtimeID: cinemaID + [\S][\S][\S] (3 chars = 238kshowtimes possible per cinema)
-// seatID: showtimeID + [A-Z][1-20]
