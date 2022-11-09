@@ -1,21 +1,42 @@
-// Done by Marc
-
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Set;
 
 public class MovieGoer implements PersonInterface{
     private String name;
-
-    public MovieGoer(String n) {
+    private String email;
+    
+    public MovieGoer(String n, String em, Integer mob) {
         this.name = n;
+        this.email = em;
+        this.mobile = mob;
     }
     
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String n) {
         this.name = n;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    private Integer mobile;
+
+    public Integer getMobile() {
+        return this.mobile;
+    }
+
+    public void setMobile(Integer mobile) {
+        this.mobile = mobile;
     }
 
     public void writeReview(int movieID, ArrayList<Movie> movieList) {
@@ -91,34 +112,72 @@ public class MovieGoer implements PersonInterface{
     public void listAllMovies() {
         // Use moviestore to read all the movie objects
         MovieStore movStore = MovieStore.getInstance();
+        movStore.printAllMovies();
+    }
 
+    public void searchMovie() {
+        MovieStore movStore = MovieStore.getInstance();
+        Scanner s = new Scanner(System.in);
+        int MovieID = -1;
+        System.out.println("Enter MovieID: ");
+        if (s.hasNextInt()){
+            MovieID = s.nextInt();
+        }
+        Movie movie = movStore.searchMovie(MovieID);
+        if (movie == null){
+            System.out.println("No such movie found. \n");
+        }
+        else {
+            System.out.println("--------------");
+            movie.printInfo();
+        }
 
     }
 
-    public int searchMovie(int movieID, ArrayList<Movie> movieList) {
-        // CHANGE UML TO RETURN int NOT MOVIE OBJ
-
-        // Input: movieName string
-        // Output: Cineplexes, showtimes, cinemas etc. 
+    public void searchMovie(int MovieID) {
         MovieStore movStore = MovieStore.getInstance();
-
-        for (int i=0;i<movieList.size();i++){
-            if (movieList.get(i).getMovieID() == movieID){
-                return movieList.get(i).getMovieID;
-            }
+        Movie movie = movStore.searchMovie(MovieID);
+        if (movie == null){
+            System.out.println("No such movie found. \n");
         }
-        System.out.println("No such movie found. \n");
-        return -1;
+        else {
+            System.out.println("--------------");
+            movie.printInfo();
+        }
     }
 
     public void showHistory(){
         // Use name attribute to match with ticketStore
         TicketStore tixStore = TicketStore.getInstance();
-        
-
+        System.out.println("------Past Ticket History------");
+        tixStore.listPastPurchases(name, email, mobile);
     }
 
     public void buyTicket(int showTimeID) {
         // Need to know what is showTimeID within showtimeStore and what exactly does price handler do  
+        Scanner s = new Scanner(System.in);
+        int MovieID = -1;
+        System.out.println("Enter MovieID: ");
+        if (s.hasNextInt()){
+            MovieID = s.nextInt();
+        }
+        this.searchMovie(MovieID);
+
+        ShowTimeStore showStore = ShowTimeStore.getInstance();
+        Set<String> keys = showStore.getShowTimeHashMap().keySet();
+        ShowTime showtime;
+        Movie curMovie;
+        System.out.println("-------Showtimes------");
+        for (String key: keys){
+            // Get one showtime
+            showtime = showStore.getShowTime(key);
+            curMovie = showtime.getMovie();
+            if (MovieID == curMovie.getMovieID()){
+                System.out.println("ShowtimeID: "+showtime.getShowtimeID());
+                System.out.println("MovieID: "+curMovie.getMovieID());
+                System.out.println("Title: "+curMovie.getMovieName());
+                showtime.printShowTime();
+            }
+        }
     }
 }

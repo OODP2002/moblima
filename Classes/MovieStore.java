@@ -131,10 +131,20 @@ public class MovieStore {
 
     public void printAllMovies() {
         for (int i=0; i<this.movies.size(); i++) {
-            System.out.println("Movie " + (i+1) + ": " + this.movies.get(i).getMovieName());
+            System.out.println("MovieID " + this.movies.get(i).getMovieID() + ": " + this.movies.get(i).getMovieName());
         }
     }
 
+    public Movie searchMovie(int id){
+        int movieID;
+        for (int i=0; i<this.movies.size(); i++) {
+            movieID = this.movies.get(i).getMovieID();
+            if (movieID == id){
+                return this.movies.get(i);
+            }
+        }
+        return null;
+    }
 
     public void writeToMoviesFile() {
         try{
