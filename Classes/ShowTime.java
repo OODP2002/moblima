@@ -45,6 +45,10 @@ public class ShowTime {
         return seats.get(seatID);
     }
 
+    public Layout getShowTimeLayout() {
+        return showTimeLayout;
+    }
+
     public void printShowTime() {
         String cineplexID = showtimeID.substring(0,2);
         String cinemaID = showtimeID.substring(2,4);
