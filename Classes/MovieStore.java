@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.time.LocalDate;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -49,6 +48,7 @@ public class MovieStore {
         // Need to add
         MovieHype movieHype;
         MovieSales movieSales = new MovieSales(Integer.parseInt(infoArr[7]));
+        AgeRating ageRating;
 
         // Showing status
         switch(infoArr[3]){
@@ -92,22 +92,46 @@ public class MovieStore {
                 movieHype = new MovieHype();
         }
 
-        Movie movie = new Movie(movieName, movieID, movieDuration, showingStatus, synopsis, viewingMode, movieHype, movieSales);
+        // Age Rating
+        switch(infoArr[8]) {
+            case "G":
+                ageRating = new AgeRating(AgeEnum.G);
+                break;
+            case "PG":
+                ageRating = new AgeRating(AgeEnum.PG);
+                break;
+            case "PG13":
+                ageRating = new AgeRating(AgeEnum.PG13);
+                break;
+            case "NC16":
+                ageRating = new AgeRating(AgeEnum.NC16);
+                break;
+            case "M18":
+                ageRating = new AgeRating(AgeEnum.M18);
+                break;
+            case "R21":
+                ageRating = new AgeRating(AgeEnum.R21);
+                break;
+            default:
+                ageRating = new AgeRating(AgeEnum.G);
+        }
+
+        Movie movie = new Movie(movieName, movieID, movieDuration, showingStatus, synopsis, viewingMode, movieHype, movieSales, ageRating);
 
         // Overall reviews
         char tempChar;
-        int tempInt;
+        int tempDouble;
         String tempString;
-        String[] reviewArr = infoArr[8].split("~");
+        String[] reviewArr = infoArr[9].split("~");
         for (int i=0; i<reviewArr.length; i++) {
             tempChar = reviewArr[i].charAt(0);
-            tempInt = tempChar - '0';
+            tempDouble = tempChar - '0';
             tempString = reviewArr[i].substring(1);
-            movie.getOverallReviews().addReview(tempInt, tempString);
+            movie.getOverallReviews().addReview(tempDouble, tempString);
         }
 
         // Movie Personnel List
-        String[] personnelArr = infoArr[9].split("~");
+        String[] personnelArr = infoArr[10].split("~");
         for (int i=0; i<reviewArr.length; i++) {
             if (i==0) {
                 movie.addMoviePersonnel(personnelArr[i], Role.DIRECTOR);
@@ -129,9 +153,18 @@ public class MovieStore {
         return this.movies.get(index);
     }
 
-    public void printAllMovies() {
-        for (int i=0; i<this.movies.size(); i++) {
-            System.out.println("MovieID " + this.movies.get(i).getMovieID() + ": " + this.movies.get(i).getMovieName());
+    public void printAllMovies(int toggle) {
+        if (toggle==0) { // ADMIN
+            for (int i=0; i<this.movies.size(); i++) {
+                System.out.println("MovieID " + this.movies.get(i).getMovieID() + ": " + this.movies.get(i).getMovieName());
+            }
+        }
+        else {
+            for (int i=0; i<this.movies.size(); i++) {
+                if (this.movies.get(i).getShowingStatus().getDetail() != Status.ENDOFSHOWING) {
+                    System.out.println("MovieID " + this.movies.get(i).getMovieID() + ": " + this.movies.get(i).getMovieName());
+                }
+            }
         }
     }
 

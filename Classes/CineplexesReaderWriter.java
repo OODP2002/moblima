@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class CineplexesReaderWriter {
     private ArrayList<String[]> cineplexRawStore = new ArrayList<>();
-    private final String FILE_SOURCE = "Classes/src/cineplexes.txt";
+    private final String FILE_SOURCE = "./src/cineplexes.txt";
     private String HEADER;
     private static CineplexesReaderWriter single_instance = null;
 

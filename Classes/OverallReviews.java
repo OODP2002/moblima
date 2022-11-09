@@ -17,7 +17,7 @@ public class OverallReviews {
         return this.reviews.get(index);
     }
 
-    public void addReview(double reviewRating, String reviewDescription) {
+    public void addReview(int reviewRating, String reviewDescription) {
         reviews.add(new IndividualReview(reviewRating, reviewDescription));
         this.avgRating = (this.avgRating * this.reviewCount + reviewRating)/(this.reviewCount+1);
         this.reviewCount++;

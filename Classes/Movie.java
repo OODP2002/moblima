@@ -11,6 +11,7 @@ public class Movie{
     private MovieSales movieSales;
     private OverallReviews  overallReviews;
     private ArrayList<MoviePersonnel> moviePersonnelList = new ArrayList<>();
+    private AgeRating ageRating;
 
     public Movie(){
         this.movieName = "Rush Hour";
@@ -23,9 +24,10 @@ public class Movie{
         this.movieSales = new MovieSales();
         this.overallReviews = new OverallReviews();
         this.moviePersonnelList = new ArrayList<>();
+        this.ageRating = new AgeRating();
     }
 
-    public Movie(String movieName, int movieID, MovieDuration movieDuration, ShowingStatus showingStatus, Synopsis synopsis, ViewingMode viewingMode, MovieHype movieHype, MovieSales movieSales){
+    public Movie(String movieName, int movieID, MovieDuration movieDuration, ShowingStatus showingStatus, Synopsis synopsis, ViewingMode viewingMode, MovieHype movieHype, MovieSales movieSales, AgeRating ageRating){
         this.movieName = movieName;
         this.movieID = movieID;
         this.movieDuration = movieDuration;
@@ -36,6 +38,7 @@ public class Movie{
         this.movieSales = movieSales;
         this.overallReviews = new OverallReviews(); // Can be changed to be instantiated with the parameters
         this.moviePersonnelList = new ArrayList<>();
+        this.ageRating = ageRating;
     }
 
     
@@ -121,15 +124,27 @@ public class Movie{
         moviePersonnelList.add(new MoviePersonnel(name, role));
     }
 
-    public void printInfo() {
+    public AgeRating getAgeRating() {
+        return this.ageRating;
+    }
+
+    public void setAgeRating(AgeRating ageRating) {
+        this.ageRating = ageRating;
+    }
+
+    //-------------------------------------------
+
+    public void printInfo(int toggle) {
+
         System.out.println("Movie Name: " + this.getMovieName());
         System.out.println("Movie ID: " + this.getMovieID());
         System.out.println("Movie Duration: " + this.getMovieDuration().getDetail());
         System.out.println("Showing Status: " + this.getShowingStatus().getDetailString());
+        System.out.println("Age Rating: " + this.getAgeRating().getDetailString());
         System.out.println("Synopsis: " + this.getSynopsis().getDetail());
         System.out.println("Viewing Mode: " + this.getViewingMode().getDetailString());
         System.out.println("Movie Hype: " + this.getMovieHype().getDetailString());
-        System.out.println("Movie Sales: " + this.getMovieSales().getDetail());
+        if (toggle==0) System.out.println("Movie Sales: " + this.getMovieSales().getDetail());
         System.out.println("Average rating: " + this.getOverallReviews().getAvgRating());
         this.printMoviePersonnel();
     }
@@ -138,9 +153,9 @@ public class Movie{
         String movieDurationString = String.valueOf(this.movieDuration.getDetail());
 
         String overallReviewsString = "";
-        overallReviewsString = String.valueOf(this.overallReviews.getReview(0).getReviewRating()) + this.overallReviews.getReview(0).getReviewDescription();
+        overallReviewsString = this.overallReviews.getReview(0).getReviewRating() + "" + this.overallReviews.getReview(0).getReviewDescription();
         for(int i = 1; i<this.overallReviews.getReviewCount(); i++){
-            overallReviewsString = overallReviewsString + "~" + String.valueOf(this.overallReviews.getReview(i).getReviewRating()) + this.overallReviews.getReview(i).getReviewDescription();
+            overallReviewsString = overallReviewsString + "~" + this.overallReviews.getReview(i).getReviewRating() + "" + this.overallReviews.getReview(i).getReviewDescription();
         }
 
         String moviePersonString = "";
@@ -149,6 +164,6 @@ public class Movie{
             moviePersonString = moviePersonString + "~" + this.moviePersonnelList.get(i).getName();
         }
 
-        return this.movieName + "|" + String.valueOf(this.movieID) + "|" + movieDurationString + "|" + this.showingStatus.getDetailString() + "|" + this.synopsis.getDetail() + "|" + this.viewingMode.getDetailString() + "|" + this.movieHype.getDetailString() + "|" + String.valueOf(this.movieSales.getDetail()) + "|" + overallReviewsString + "|" + moviePersonString;
+        return this.movieName + "|" + String.valueOf(this.movieID) + "|" + movieDurationString + "|" + this.showingStatus.getDetailString() + "|" + this.synopsis.getDetail() + "|" + this.viewingMode.getDetailString() + "|" + this.movieHype.getDetailString() + "|" + String.valueOf(this.movieSales.getDetail()) + "|" + this.getAgeRating().getDetailString() + "|" + overallReviewsString + "|" + moviePersonString;
     }
 }

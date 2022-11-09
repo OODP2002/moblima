@@ -128,7 +128,7 @@ public class MovieGoer implements PersonInterface{
             System.out.println("No such movie found. \n");
         }
         else {
-            System.out.println("--------------");
+            System.out.println("-------Movie Details-------");
             movie.printInfo();
         }
 
@@ -141,7 +141,7 @@ public class MovieGoer implements PersonInterface{
             System.out.println("No such movie found. \n");
         }
         else {
-            System.out.println("--------------");
+            System.out.println("-------Movie Details-------");
             movie.printInfo();
         }
     }
@@ -170,16 +170,20 @@ public class MovieGoer implements PersonInterface{
         Set<String> keys = showStore.getShowTimeHashMap().keySet();
         ShowTime showtime;
         int showtimeMovieID;
-        System.out.println("-------Showtimes------");
+        System.out.println("");
+        System.out.println("-------ShowTimes------");
         for (String key: keys){
             // Get one showtime
             showtime = showStore.getShowTime(key);
             showtimeMovieID = showtime.getMovieID();
             if (MovieID == showtimeMovieID){
-                System.out.println("ShowtimeID: "+ showtime.getShowtimeID());
+                System.out.println("ShowTimeID: "+ showtime.getShowtimeID());
                 showtime.printShowTime();
                 System.out.println("----------------------");
             }
         }
+        System.out.print("Enter ShowTimeID: ");
+        String selShowID = s.nextLine();
+        
     }
 }
