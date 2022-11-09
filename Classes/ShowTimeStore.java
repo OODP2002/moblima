@@ -90,17 +90,18 @@ public class ShowTimeStore {
 
         System.out.println("Enter movie ID: ");
         out.add(String.valueOf(sc.nextInt()));
+        sc.nextLine();
 
         System.out.println("Enter start time (DD-MM-YYYY HH:MM): ");
         String timeRaw = sc.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         try {
             LocalDateTime dateTime = LocalDateTime.parse(timeRaw, formatter);
-            out.add(String.valueOf(dateTime));
+            out.add(dateTime.format(formatter));
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Default showtime of now is used");
-            out.add(String.valueOf(LocalDateTime.now()));
+            out.add(LocalDateTime.now().format(formatter));
         }
 
         System.out.println("Entry success!");
@@ -114,12 +115,11 @@ public class ShowTimeStore {
         while (true) {
             int leftLimit = 48; // numeral '0'
             int rightLimit = 122; // letter 'z'
-            int targetStringLength = 10;
             Random random = new Random();
 
             String generatedString = random.ints(leftLimit, rightLimit + 1)
                     .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                    .limit(targetStringLength)
+                    .limit(3)
                     .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                     .toString();
             String newKey = cinemaID.concat(generatedString);
