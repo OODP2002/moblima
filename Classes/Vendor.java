@@ -21,12 +21,7 @@ public class Vendor {
 
     public void addCineplex() {
         CineplexStore cineplexStore = CineplexStore.getInstance();
-        try {
-            cineplexStore.readFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        this.cineplexHashMap = cineplexStore.getCineplexMap();
+        this.cineplexHashMap = cineplexStore.getCineplexHashMap();
     }
 
     public HashMap<String, Cineplex> getCineplexHashMap() {

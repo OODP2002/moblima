@@ -1,7 +1,7 @@
 import java.time.LocalTime;
 
 public class Pricing {
-    private CinemaClassLevels cinemaLevel; //add CinemaClass constructor 
+    private CinemaClass cinemaLevel; //add CinemaClass constructor 
     private View view; //add View Constructor
     private AgeGroup ageGroup;
     private LocalTime startTime;
@@ -10,7 +10,7 @@ public class Pricing {
     private boolean isPreferred;
     private float price;
 
-    public Pricing(CinemaClassLevels cCinemaLevel, View cView, AgeGroup cAgeGroup, LocalTime cStartTime, LocalTime cEndTime, int cDayofWeek, boolean cIsPreferred, float cPrice){
+    public Pricing(CinemaClass cCinemaLevel, View cView, AgeGroup cAgeGroup, LocalTime cStartTime, LocalTime cEndTime, int cDayofWeek, boolean cIsPreferred, float cPrice){
         this.cinemaLevel = cCinemaLevel;
         this.view = cView; //add View Constructor
         this.ageGroup = cAgeGroup;
@@ -33,7 +33,7 @@ public class Pricing {
 
 
     //query for pricing when buying ticket 
-    public boolean isPricing(CinemaClassLevels testCinemaLevel, View testView, AgeGroup testAgeGroup, LocalTime testTime, int testDayOfWeek, boolean testIsPreferred){
+    public boolean isPricing(CinemaClass testCinemaLevel, View testView, AgeGroup testAgeGroup, LocalTime testTime, int testDayOfWeek, boolean testIsPreferred){
         return (
             testCinemaLevel == this.cinemaLevel 
             && testView == this.view 
@@ -44,6 +44,7 @@ public class Pricing {
         );
     }
 
+    //check if this pricing object has the same conditions as another pricing object
     public boolean comparePricing(Pricing otherPricing){
        return (
             this.cinemaLevel == otherPricing.cinemaLevel 
@@ -61,7 +62,7 @@ public class Pricing {
         String temp = "";
 
         //Cinema Level 
-        switch(cinemaLevel){
+        switch(this.cinemaLevel){
             case STANDARD:
                 temp = "STANDARD";
                 break;
@@ -75,7 +76,7 @@ public class Pricing {
         info += temp + "|";
 
         //View 
-        switch(view){
+        switch(this.view){
             case _2D:
                 temp = "_2D";
                 break;
@@ -86,7 +87,7 @@ public class Pricing {
         info += temp + "|"; 
 
         //Age group 
-        switch(ageGroup){
+        switch(this.ageGroup){
             case CHILD:
                 temp = "CHILD";
                 break;
@@ -100,23 +101,23 @@ public class Pricing {
         info += temp + "|"; 
 
         //Start Time
-        temp = String.valueOf(startTime.getHour()) + ":" + String.valueOf(startTime.getMinute());
+        temp = String.valueOf(this.startTime.getHour()) + ":" + String.valueOf(this.startTime.getMinute());
         info += temp + "|";
         
         //End Time
-        temp = String.valueOf(endTime.getHour()) + ":" + String.valueOf(endTime.getMinute());
+        temp = String.valueOf(this.endTime.getHour()) + ":" + String.valueOf(this.endTime.getMinute());
         info += temp + "|";
 
         //Day of Week
-        temp = String.valueOf(dayOfWeek);
+        temp = String.valueOf(this.dayOfWeek);
         info += temp + "|";
 
         //Is Preferred 
-        temp = isPreferred ? "true" : "false";
+        temp = this.isPreferred ? "true" : "false";
         info += temp + "|";
 
         //Price
-        temp = String.valueOf(price);
+        temp = String.valueOf(this.price);
         info += temp + "|";
 
         return info;

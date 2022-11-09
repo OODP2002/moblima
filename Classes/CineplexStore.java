@@ -1,13 +1,20 @@
+// Done by Mingyang
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
 
 public class CineplexStore extends CineplexesReaderWriter{
-    private HashMap<String, Cineplex> cineplexMap;
+    private HashMap<String, Cineplex> cineplexHashMap;
     private static CineplexStore single_instance = null;
 
     private CineplexStore() {
-        this.cineplexMap = new HashMap<String, Cineplex>();
+        this.cineplexHashMap = new HashMap<String, Cineplex>();
+        try {
+            readFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static CineplexStore getInstance() {
@@ -17,7 +24,7 @@ public class CineplexStore extends CineplexesReaderWriter{
         return single_instance;
     }
 
-    public void readFile() throws IOException {
+    private void readFile() throws IOException {
         BufferedReader reader = getReader();
         reader.readLine();  // Header row
 
@@ -25,12 +32,19 @@ public class CineplexStore extends CineplexesReaderWriter{
         while (line != null) {
             String[] details = line.split("\\|");
             Cineplex cineplex = new Cineplex(details[1], details[0]);
-            cineplexMap.put(details[0], cineplex);
+            cineplexHashMap.put(details[0], cineplex);
             line = reader.readLine();
         }
+        reader.close();
     }
 
-    public HashMap<String, Cineplex> getCineplexMap() {
-        return cineplexMap;
+    // This function is for Vendor class to get a Hashmap of cineplexes
+    public HashMap<String, Cineplex> getCineplexHashMap() {
+        return cineplexHashMap;
+    }
+
+    // For query of Cineplex by cineplexID
+    public Cineplex getCineplex(String cineplexID) {
+        return cineplexHashMap.get(cineplexID);
     }
 }
