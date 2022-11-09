@@ -8,7 +8,7 @@ import java.io.IOException;
 public class SpecialOccasionStore {
     //Attributes
     private ArrayList<SpecialOccasion> specialOccasions = new ArrayList<SpecialOccasion>(); 
-    private String path = System.getProperty("user.dir") + ("/src/specialOccasion.txt");
+    private String path = System.getProperty("user.dir") + ("/Classes/src/specialOccasions.txt");
     private static SpecialOccasionStore instance = new SpecialOccasionStore();
 
     //Contstuctor
@@ -60,11 +60,16 @@ public class SpecialOccasionStore {
     // Overwrite old specialOccasionsList with a new set of Special Occasions
     public void writeToSpecialOccasionFile(){
         try{
-            FileWriter writer = new FileWriter(this.path);
+            BufferedReader reader = new BufferedReader(new FileReader(this.path));
+            String header = reader.readLine(); //Header row
+            
+            FileWriter writer = new FileWriter(path);
+            writer.write(header);
             for (int i = 0; i < this.specialOccasions.size(); i++){
                 writer.write("\n" + this.specialOccasions.get(i).toString());
             }
             writer.close();
+            reader.close();
         } catch (IOException err){
             err.printStackTrace();
         }

@@ -1,20 +1,17 @@
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
-public class CinemaStore extends CineplexesReaderWriter{
-    private HashMap<String, Cinema> cinemaHashMap;
+public class CinemaStore{
+    private HashMap<String, Cinema> cinemaHashMap;  // Key=cinemaID
     private static CinemaStore single_instance = null;
 
     private CinemaStore() {
         this.cinemaHashMap = new HashMap<>();
-        try {
-            readFile();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        loadCinemaHashMap();
     }
 
+    // Singleton
     public static CinemaStore getInstance() {
         if (single_instance == null)
             single_instance = new CinemaStore();
@@ -22,30 +19,33 @@ public class CinemaStore extends CineplexesReaderWriter{
         return single_instance;
     }
 
-    private void readFile() throws IOException {
-        BufferedReader reader = getReader();
-        reader.readLine();  // Header row
-
-        String line = reader.readLine();
-        while (line != null) {
-            String[] details = line.split("\\|");
-            String cinemaID = details[0].concat(details[2]);
-            CinemaClass cinemaClass;
-            try {
-                cinemaClass = CinemaClass.valueOf(details[3]);
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-                System.out.println("Default class of STANDARD is used");
-                cinemaClass = CinemaClass.STANDARD;
-            }
-            Cinema cinema = new Cinema(cinemaID, cinemaClass);
+    private void loadCinemaHashMap() {
+        ArrayList<String[]> temp = CineplexesReaderWriter.getInstance().getCineplexRawStore();
+        for (String[] line: temp) {
+            String cinemaID = line[0].concat(line[2]);
+            Cinema cinema = new Cinema(cinemaID, CinemaClass.valueOf(line[3]));
             cinemaHashMap.put(cinemaID, cinema);
-            line = reader.readLine();
         }
-        reader.close();
     }
 
-    public HashMap<String, Cinema> getCinemaHashMap() {
-        return cinemaHashMap;
+
+    // Return the cinemaHashMap for the corresponding CineplexID
+    public HashMap<String, Cinema> getCinemaHashMap(String cineplexID) {
+        // Find intersection between keys and cineplexID
+        Set<String> keys = cinemaHashMap.keySet();
+        keys.removeIf(key -> !key.substring(0, 2).equals(cineplexID));
+
+        // Create new HashMap with only relevant keys
+        HashMap<String, Cinema> tempHashMap = new HashMap<>();
+        for (String key: keys) {
+            Cinema cinema = cinemaHashMap.get(key);
+            tempHashMap.put(key, cinema);
+        }
+        return tempHashMap;
+    }
+
+
+    public Cinema getCinema(String cinemaID) {
+        return cinemaHashMap.get(cinemaID);
     }
 }

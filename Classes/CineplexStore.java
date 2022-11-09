@@ -1,20 +1,15 @@
 // Done by Mingyang
 
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CineplexStore extends CineplexesReaderWriter{
+public class CineplexStore {
     private HashMap<String, Cineplex> cineplexHashMap;
     private static CineplexStore single_instance = null;
 
     private CineplexStore() {
         this.cineplexHashMap = new HashMap<String, Cineplex>();
-        try {
-            readFile();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        loadCineplexHashMap();
     }
 
     public static CineplexStore getInstance() {
@@ -24,18 +19,12 @@ public class CineplexStore extends CineplexesReaderWriter{
         return single_instance;
     }
 
-    private void readFile() throws IOException {
-        BufferedReader reader = getReader();
-        reader.readLine();  // Header row
-
-        String line = reader.readLine();
-        while (line != null) {
-            String[] details = line.split("\\|");
-            Cineplex cineplex = new Cineplex(details[1], details[0]);
-            cineplexHashMap.put(details[0], cineplex);
-            line = reader.readLine();
+    private void loadCineplexHashMap() {
+        ArrayList<String[]> temp = CineplexesReaderWriter.getInstance().getCineplexRawStore();
+        for (String[] line: temp) {
+            Cineplex cineplex = new Cineplex(line[1], line[0]);
+            cineplexHashMap.put(line[0], cineplex);
         }
-        reader.close();
     }
 
     // This function is for Vendor class to get a Hashmap of cineplexes

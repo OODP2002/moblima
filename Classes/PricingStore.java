@@ -10,7 +10,7 @@ import java.io.IOException;
 public class PricingStore {
     //Attributes
     private ArrayList<Pricing> pricings = new ArrayList<Pricing>();
-    private String path = System.getProperty("user.dir") + ("/src/pricingList.txt");
+    private String path = System.getProperty("user.dir") + ("/Classes/src/pricings.txt");
     private static PricingStore instance = new PricingStore();
 
     //Constructor
@@ -151,11 +151,16 @@ public class PricingStore {
     //To do: edit file to only change the affected line as the edit is being made (helps to prevent information loss if app crashes before this function is called.)
     public void writeToPricingsFile(){
         try{
+            BufferedReader reader = new BufferedReader(new FileReader(this.path));
+            String header = reader.readLine(); //Header row
+            
             FileWriter writer = new FileWriter(path);
+            writer.write(header);
             for (int i = 0; i < this.pricings.size(); i++){
                 writer.write("\n" + this.pricings.get(i).toString());
             }
             writer.close();
+            reader.close();
         } catch (IOException err){
             err.printStackTrace();
         }
