@@ -28,6 +28,10 @@ public class ShowTimeStore {
         return single_instance;
     }
 
+    public HashMap<String, ShowTime> getShowTimeHashMap() {
+        return showTimeHashMap;
+    }
+
     private void loadShowTimeHashMap() {
         for (String[] line: showTimeRawStore) {
             ShowTime showTime = new ShowTime(line[0]);
