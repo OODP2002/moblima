@@ -1,15 +1,19 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 public class ShowTime {
     private String showtimeID;
     private LocalDateTime startTime;
     private int movieID;
     private ShowDate showDate;
-//    private ArrayList<Seat> seats;
+    private Layout showTimeLayout;
+    private HashMap<String, Seat> seats;
 
     public ShowTime(String showtimeID) {
         this.showtimeID = showtimeID;
+        this.showTimeLayout = LayoutStore.getInstance().getLayout(showtimeID.substring(0,4));
+        this.seats = showTimeLayout.createSeats();
     }
 
     public String getShowtimeID() {
@@ -34,6 +38,11 @@ public class ShowTime {
 
     public int getMovieID() {
         return movieID;
+    }
+
+    // Return Seat object
+    public Seat getSeat(String seatID) {
+        return seats.get(seatID);
     }
 
     public void printShowTime() {
