@@ -35,6 +35,6 @@ public class ShowTime {
 //        System.out.println("Movie showing is: " + movie.getMovieName());
         System.out.println("Date of showing: " + startTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         System.out.println("Movie starts at " + startTime.format(DateTimeFormatter.ofPattern("hh:mm a")) + " at Cinema " + cinemaID);
-        System.out.println("Location: " + cinemaID);
+        System.out.println("Location: " + CineplexStore.getInstance().getCineplex(cineplexID).getCineplexName());
     }
 }

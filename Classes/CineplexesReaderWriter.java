@@ -99,7 +99,8 @@ public class CineplexesReaderWriter {
         out.add(String.valueOf(sc.nextInt()));
         sc.nextLine();
 
-        System.out.println(String.join("|", out));        // for debugging, remove
+        System.out.println("Entry success!");
+        System.out.println(String.join("|", out));       // for debugging, remove
         String[] outFormatted = new String[out.size()];
         outFormatted = out.toArray(outFormatted);
         cineplexRawStore.add(outFormatted);
