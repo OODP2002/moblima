@@ -3,9 +3,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         // Create vendor
-        // Vendor vendor = new Vendor();
-        // vendor.addCineplex();
-        // System.out.println(vendor.getCineplexHashMap().get("00").getCineplexName());
+         Vendor vendor = new Vendor();
+         vendor.addCineplex();
 
         System.out.println("Starting app...");
         int loginChoice = 0;
@@ -35,7 +34,7 @@ public class Main {
                 case 3:
                     break;
                 default:
-                    System.out.println("Invallid Choice.");
+                    System.out.println("Invalid Choice.");
             }
         }
     }
@@ -97,6 +96,9 @@ public class Main {
     }
 
     public static void adminModule() {
+        // Initialize stores
+        ShowTimeStore showTimeStore = ShowTimeStore.getInstance();
+
         boolean loggedIn = false;
         boolean valid = false;
         String username;
@@ -152,6 +154,8 @@ public class Main {
                     break;
                 case 4:
                     // Create Movies showtime within a cinema
+                    showTimeStore.addShowTime();
+                    showTimeStore.writeFile();
                     break;
                 case 5:
                     // Update the showtime timings
