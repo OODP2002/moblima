@@ -172,7 +172,7 @@ public class MovieStore {
         int movieID;
         for (int i=0; i<this.movies.size(); i++) {
             movieID = this.movies.get(i).getMovieID();
-            if (movieID == id){
+            if (movieID == id && this.movies.get(i).getShowingStatus().getDetail() !=Status.ENDOFSHOWING){
                 return this.movies.get(i);
             }
         }

@@ -112,16 +112,21 @@ public class MovieGoer implements PersonInterface{
     public void listAllMovies() {
         // Use moviestore to read all the movie objects
         MovieStore movStore = MovieStore.getInstance();
-        movStore.printAllMovies();
+        System.out.println("----------All Movies----------");
+        movStore.printAllMovies(1);
     }
 
     public void searchMovie() {
         MovieStore movStore = MovieStore.getInstance();
         Scanner s = new Scanner(System.in);
         int MovieID = -1;
-        System.out.println("Enter MovieID: ");
+        System.out.println("-------Searching Movies-------");
+        System.out.println("Enter MovieID (-1 to return): ");
         if (s.hasNextInt()){
             MovieID = s.nextInt();
+        }
+        if (MovieID == -1){
+            return;
         }
         Movie movie = movStore.searchMovie(MovieID);
         if (movie == null){
@@ -129,7 +134,7 @@ public class MovieGoer implements PersonInterface{
         }
         else {
             System.out.println("-------Movie Details-------");
-            movie.printInfo();
+            movie.printInfo(1);
         }
 
     }
@@ -142,7 +147,7 @@ public class MovieGoer implements PersonInterface{
         }
         else {
             System.out.println("-------Movie Details-------");
-            movie.printInfo();
+            movie.printInfo(1);
         }
     }
 
@@ -157,9 +162,11 @@ public class MovieGoer implements PersonInterface{
         // Need to know what is showTimeID within showtimeStore and what exactly does price handler do  
         Scanner s = new Scanner(System.in);
         int MovieID = -1;
+        System.out.println("--------Purchase Ticket-------");
         System.out.println("Enter MovieID: ");
         if (s.hasNextInt()){
             MovieID = s.nextInt();
+            s.nextLine();
         }
         this.searchMovie(MovieID);
 
@@ -168,22 +175,27 @@ public class MovieGoer implements PersonInterface{
         Movie curMovie = movStore.searchMovie(MovieID);
         
         Set<String> keys = showStore.getShowTimeHashMap().keySet();
-        ShowTime showtime;
-        int showtimeMovieID;
         System.out.println("");
-        System.out.println("-------ShowTimes------");
+        System.out.println("-----------ShowTimes----------");
+        ArrayList<String> showTimeIDArr = new ArrayList<>();
         for (String key: keys){
             // Get one showtime
-            showtime = showStore.getShowTime(key);
-            showtimeMovieID = showtime.getMovieID();
+            ShowTime showtime = showStore.getShowTime(key);
+            int showtimeMovieID = showtime.getMovieID();
             if (MovieID == showtimeMovieID){
+                showTimeIDArr.add(showtime.getShowtimeID());
                 System.out.println("ShowTimeID: "+ showtime.getShowtimeID());
                 showtime.printShowTime();
                 System.out.println("----------------------");
             }
         }
-        System.out.print("Enter ShowTimeID: ");
+        System.out.println("Enter ShowTimeID: ");
         String selShowID = s.nextLine();
-        
+        if (showTimeIDArr.contains(selShowID)){
+            System.out.println("---Displaying Cinema Layout---");
+        }
+        else {
+            System.out.println("-------No Such ShowTime------");
+        }
     }
 }
