@@ -7,7 +7,7 @@ import java.io.IOException;
 public class CredentialStore {
     //Attributes 
     private ArrayList<Credential> credentials = new ArrayList<Credential>();
-    private String path = System.getProperty("user.dir") + ("/src/credentials.txt");
+    private String path = System.getProperty("user.dir") + ("/Classes/src/credentials.txt");
     private static CredentialStore instance = new CredentialStore();
     
     //Constructor 
