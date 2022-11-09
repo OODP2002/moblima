@@ -27,7 +27,7 @@ public class LayoutStore{
     private void loadLayoutHashMap() {
         ArrayList<String[]> temp = CineplexesReaderWriter.getInstance().getCineplexRawStore();
         for (String[] line: temp) {
-            String cinemaID = line[0].concat(line[3]);
+            String cinemaID = line[0].concat(line[2]);
             int row = Integer.parseInt(line[4]);
             int column = Integer.parseInt(line[5]);
             int aisle = Integer.parseInt(line[6]);
