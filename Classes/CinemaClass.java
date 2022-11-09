@@ -1,16 +1,14 @@
 // Done by Mingyang
-public class CinemaClass {
-    private CinemaClassLevels cinemaClass;
+public enum CinemaClass {
+        STANDARD,
+        GOLD,
+        PLATINUM;
 
-    public CinemaClass() {
-        this.cinemaClass = CinemaClassLevels.STANDARD;
-    }
-
-    public CinemaClass(CinemaClassLevels cinemaClass) {
-        this.cinemaClass = cinemaClass;
-    }
-
-    public CinemaClassLevels getCinemaClass() {
-        return cinemaClass;
-    }
+        public static boolean isValid(String s) {
+                for (CinemaClass c: values()) {
+                        if (s.toUpperCase().equals(c))
+                                return true;
+                }
+                return false;
+        }
 }

@@ -1,9 +1,10 @@
 // Done by Mingyang
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.HashMap;
 
 public class Vendor {
     private String vendorName;
-    public ArrayList<Cineplex> cineplexes = new ArrayList<Cineplex>();
+    private HashMap<String, Cineplex> cineplexHashMap = new HashMap<>();
 
     // Default vendor name: Cathay
     public Vendor() {
@@ -18,8 +19,13 @@ public class Vendor {
         return vendorName;
     }
 
-    public void addCineplex(String cineplexName) {
-        cineplexes.add(new Cineplex(cineplexName, cineplexes.size() + 1));
+    public void addCineplex() {
+        CineplexStore cineplexStore = CineplexStore.getInstance();
+        this.cineplexHashMap = cineplexStore.getCineplexHashMap();
+    }
+
+    public HashMap<String, Cineplex> getCineplexHashMap() {
+        return cineplexHashMap;
     }
 }
 

@@ -1,27 +1,20 @@
 // Done by Mingyang
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.HashMap;
 
 public class Cineplex{
     private String name;
-    private int cineplexID;
-    public ArrayList<Cinema> cinemas = new ArrayList<>();
-
-    // Default cineplex constructor: should never be called
-    public Cineplex() {
-        this.cineplexID = -1;
-        this.name = "Cinema";
-    }
+    private String cineplexID;
+    private HashMap<String, Cinema> cinemaHashMap;
 
     // Constructor: 3 cinemas are added by default
-    public Cineplex(String name, int cineplexID) {
+    public Cineplex(String name, String cineplexID) {
         this.cineplexID = cineplexID;
         this.name = name;
-        for (int i = 0; i < 3; i++) {
-            addCinema(cinemas.size() + 1, new CinemaClass(CinemaClassLevels.STANDARD));
-        }
+        addCinema();
     }
 
-    public int getCineplexID() {
+    public String getCineplexID() {
         return cineplexID;
     }
 
@@ -29,7 +22,12 @@ public class Cineplex{
         return name;
     }
 
-    public void addCinema(int cinemaID, CinemaClass cinemaClass) {
-        cinemas.add(new Cinema(cinemaID, cinemaClass)); //Does this work?
+    public void addCinema() {
+        CinemaStore cinemaStore = CinemaStore.getInstance();
+        this.cinemaHashMap = cinemaStore.getCinemaHashMap(cineplexID);
+    }
+
+    public HashMap<String, Cinema> getCinemaHashMap() {
+        return cinemaHashMap;
     }
 }

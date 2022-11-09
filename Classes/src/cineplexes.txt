@@ -1,1 +1,8 @@
-cineplex|cinema|seatCount|row|column
+CineplexID|Cineplex|Cinema|CinemaClass|Row|Column|Aisle|MainStairway
+00|CCK|01|STANDARD|10|10|3|5
+00|CCK|02|STANDARD|12|15|4|7
+00|CCK|03|STANDARD|12|15|4|7
+01|Jem|01|STANDARD|8|8|4|4
+01|Jem|02|STANDARD|8|8|4|4
+01|Jem|03|STANDARD|8|8|4|4
+01|Jem|04|GOLD|8|8|4|4
