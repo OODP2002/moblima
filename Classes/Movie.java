@@ -1,3 +1,4 @@
+import java.nio.channels.OverlappingFileLockException;
 import java.util.ArrayList;
 
 public class Movie{
@@ -121,26 +122,13 @@ public class Movie{
         moviePersonnelList.add(new MoviePersonnel(name, role));
     }
 
-    public void printInfo() {
-        System.out.println("Movie Name: " + this.getMovieName());
-        System.out.println("Movie ID: " + this.getMovieID());
-        System.out.println("Movie Duration: " + this.getMovieDuration().getDetail());
-        System.out.println("Showing Status: " + this.getShowingStatus().getDetailString());
-        System.out.println("Synopsis: " + this.getSynopsis().getDetail());
-        System.out.println("Viewing Mode: " + this.getViewingMode().getDetailString());
-        System.out.println("Movie Hype: " + this.getMovieHype().getDetailString());
-        System.out.println("Movie Sales: " + this.getMovieSales().getDetail());
-        System.out.println("Average rating: " + this.getOverallReviews().getAvgRating());
-        this.printMoviePersonnel();
-    }
-
     public String toString(){
         String movieDurationString = String.valueOf(this.movieDuration.getDetail());
 
         String overallReviewsString = "";
-        overallReviewsString = String.valueOf(this.overallReviews.getReview(0).getReviewRating()) + this.overallReviews.getReview(0).getReviewDescription();
+        overallReviewsString = this.overallReviews.getReview(0).getReviewRating() + "" + this.overallReviews.getReview(0).getReviewDescription();
         for(int i = 1; i<this.overallReviews.getReviewCount(); i++){
-            overallReviewsString = overallReviewsString + "~" + String.valueOf(this.overallReviews.getReview(i).getReviewRating()) + this.overallReviews.getReview(i).getReviewDescription();
+            overallReviewsString = overallReviewsString + "~" + this.overallReviews.getReview(i).getReviewRating() + "" + this.overallReviews.getReview(i).getReviewDescription();
         }
 
         String moviePersonString = "";

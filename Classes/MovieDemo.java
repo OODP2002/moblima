@@ -5,7 +5,7 @@ public class MovieDemo{
     public static void main (String[] args){
         MovieStore movieStore = MovieStore.getInstance();
 
-        System.out.println(movieStore.getMovie(0).getMovieID());
+        //System.out.println(movieStore.getMovie(2).getOverallReviews().getAvgRating());
 
         MovieDuration movieDuration = new MovieDuration(420);
         ShowingStatus showingStatus = new ShowingStatus(Status.PREVIEW);
@@ -15,9 +15,9 @@ public class MovieDemo{
         MovieSales movieSales = new MovieSales(9999);
 
 
-        Movie movie3 = new Movie("Big cock", 360, movieDuration, showingStatus, synopsis, viewingMode, movieHype, movieSales);
+        Movie movie3 = new Movie("Free Willy", 360, movieDuration, showingStatus, synopsis, viewingMode, movieHype, movieSales);
         movie3.getOverallReviews().addReview(2, "bad movie");
-        movie3.getOverallReviews().addReview(55, "good movie");
+        movie3.getOverallReviews().addReview(5, "good movie");
 
         movie3.addMoviePersonnel("jackson", Role.DIRECTOR);
         movie3.addMoviePersonnel("Wang", Role.CAST);

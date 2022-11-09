@@ -1,14 +1,14 @@
 public class IndividualReview {
-    private double reviewRating;
+    private int reviewRating;
     private String reviewDescription;
-    public IndividualReview(double reviewRating, String reviewDescription) {
+    public IndividualReview(int reviewRating, String reviewDescription) {
         this.reviewRating = reviewRating;
         this.reviewDescription = reviewDescription;
     }
-    public double getReviewRating() {
+    public int getReviewRating() {
         return this.reviewRating;
     }
-    public void setReviewRating(double reviewRating) {
+    public void setReviewRating(int reviewRating) {
         this.reviewRating = reviewRating;
     }
     public String getReviewDescription() {

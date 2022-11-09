@@ -96,14 +96,14 @@ public class MovieStore {
 
         // Overall reviews
         char tempChar;
-        int tempInt;
+        int tempDouble;
         String tempString;
         String[] reviewArr = infoArr[8].split("~");
         for (int i=0; i<reviewArr.length; i++) {
             tempChar = reviewArr[i].charAt(0);
-            tempInt = tempChar - '0';
+            tempDouble = tempChar - '0';
             tempString = reviewArr[i].substring(1);
-            movie.getOverallReviews().addReview(tempInt, tempString);
+            movie.getOverallReviews().addReview(tempDouble, tempString);
         }
 
         // Movie Personnel List
@@ -129,14 +129,18 @@ public class MovieStore {
         return this.movies.get(index);
     }
 
-    public void printAllMovies() {
-        for (int i=0; i<this.movies.size(); i++) {
-            System.out.println("Movie " + (i+1) + ": " + this.movies.get(i).getMovieName());
-        }
-    }
-
 
     public void writeToMoviesFile() {
+        // try {
+        //     FileWriter writer = new FileWriter(path);
+        //     writer.write("movieName | movieID | movieDuration | showingStatus | synopsis | viewingMode | movieHype | movieSales | overallReviews | moviePersonnelList");
+        //     for (int i = 0; i < this.movies.size(); i++) {
+
+        //     }
+        // } catch (IOException err) {
+        //     err.printStackTrace();
+        // }
+
         try{
             BufferedReader reader = new BufferedReader(new FileReader(this.path));
             String header = reader.readLine(); //Header row
