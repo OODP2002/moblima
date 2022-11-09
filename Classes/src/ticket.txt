@@ -1,0 +1,3 @@
+transactionID|username|email|mobile|seatID|ageGroup|
+0305ALPN18202211021704|zhekai|zhekai@gmail.com|99993333|0305ALPN18|ADULT
+0106HTYD08202210152230|Marcus Yeo|yeos@gmail.com|92929292|0106HTYD08|ADULT
