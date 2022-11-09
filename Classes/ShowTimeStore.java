@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ShowTimeStore {
     private HashMap<String, ShowTime> showTimeHashMap = new HashMap<>();  // key=SHOWTIME_ID
-    private final String FILE_SOURCE = "Classes/src/showtimes.txt";
+    private final String FILE_SOURCE = "./src/showtimes.txt";
     private String HEADER;
     private static ShowTimeStore single_instance = null;
     private ArrayList<String[]> showTimeRawStore = new ArrayList<>();

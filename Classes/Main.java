@@ -9,7 +9,7 @@ public class Main {
         System.out.println("Starting app...");
         int loginChoice = 0;
         Scanner s = new Scanner(System.in);
-
+        
         while(loginChoice != 3){
             System.out.println("-----Login Panel-----");
             System.out.println("(1) Admin");
@@ -71,7 +71,7 @@ public class Main {
                     // List will only show one if admin chooses to opt out of one
                     break;
                 case 3:
-                    // Call searchMovie, data from movie store
+                    // Call searchMovie, data from movie store 
                     break;
                 case 4:
                     // Call writeReview, should be under movieGoer
@@ -127,8 +127,8 @@ public class Main {
         while (choice != 0){
             System.out.println("-----Admin Panel-----");
             System.out.println("(1) Create Movie Listing");
-            System.out.println("(2) Update Movie Listing");
-            System.out.println("(3) Remove Movie Listing");
+            System.out.println("(2) Update Movie Listing"); 
+            System.out.println("(3) Remove Movie Listing"); 
             System.out.println("(4) Create Movie Showtime");
             System.out.println("(5) Update Movie Showtime");
             System.out.println("(6) Remove Movie Showtime");
@@ -149,8 +149,8 @@ public class Main {
                     // Must be able to update all the fields that were previously set in option 1
                     break;
                 case 3:
-                    // Choose a movie to set to End_Of_Showing
-                    // This means will not show up in list of movies for the customer as well
+                    // Choose a movie to set to End_Of_Showing 
+                    // This means will not show up in list of movies for the customer as well 
                     break;
                 case 4:
                     // Create Movies showtime within a cinema
