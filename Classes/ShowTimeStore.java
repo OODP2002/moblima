@@ -133,60 +133,61 @@ public class ShowTimeStore {
         }
     }
 
-    public void updateShowtime() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Welcome to update Show Time module");
-        System.out.println("Enter showtime ID you wish to change: ");
-        String showtimeID = sc.nextLine();
-
-        if (!showtimeID.matches("[0-9][0-9][0-9][0-9][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z]")) {
-            System.out.println("Invalid showtimeID, exiting update show time module");
-            return;
-        } else if (!showTimeHashMap.containsKey(showtimeID)) {
-            System.out.println("Key not found, exiting update show time module");
-            return;
-        }
-
-        ShowTime showTime = showTimeHashMap.get(showtimeID);
-        boolean showtimeIDChanged = false;  // If true, re-create showtime object
-
-        while (true) {
-            System.out.println("Enter detail you wish to change" +
-                    "(1) Cineplex" +
-                    "(2) Cinema" +
-                    "(3) Movie" +
-                    "(4) Start Time" +
-                    "(5) Quit");
-
-            int input = sc.nextInt();
-
-            switch (input){
-                case 1 -> {
-                    showtimeIDChanged = true;
-                    System.out.println("Enter new Cineplex ID: ");
-                    int cineplexID = sc.nextInt();
-                    String newShowtimeID = showtimeID.replace(showtimeID.substring(0,2), Integer.toString(cineplexID));
-                }
-
-                case 2 -> {
-                    showtimeIDChanged = true;
-                    System.out.println("Enter new cinema ID: ");
-                    int cinemaID = sc.nextInt();
-                    String newShowtimeID = showtimeID.replace(showtimeID.substring(2,4), Integer.toString(cinemaID));
-                }
-
-                case 3 -> {
-
-                }
-
-                case 4 -> {
-
-                }
-
-                default -> {
-
-                }
-            }
-        }
-    }
+    // WIP, incomplete
+//    public void updateShowtime() {
+//        Scanner sc = new Scanner(System.in);
+//        System.out.println("Welcome to update Show Time module");
+//        System.out.println("Enter showtime ID you wish to change: ");
+//        String showtimeID = sc.nextLine();
+//
+//        if (!showtimeID.matches("[0-9][0-9][0-9][0-9][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z]")) {
+//            System.out.println("Invalid showtimeID, exiting update show time module");
+//            return;
+//        } else if (!showTimeHashMap.containsKey(showtimeID)) {
+//            System.out.println("Key not found, exiting update show time module");
+//            return;
+//        }
+//
+//        ShowTime showTime = showTimeHashMap.get(showtimeID);
+//        boolean showtimeIDChanged = false;  // If true, re-create showtime object
+//
+//        while (true) {
+//            System.out.println("Enter detail you wish to change" +
+//                    "(1) Cineplex" +
+//                    "(2) Cinema" +
+//                    "(3) Movie" +
+//                    "(4) Start Time" +
+//                    "(5) Quit");
+//
+//            int input = sc.nextInt();
+//
+//            switch (input){
+//                case 1 -> {
+//                    showtimeIDChanged = true;
+//                    System.out.println("Enter new Cineplex ID: ");
+//                    int cineplexID = sc.nextInt();
+//                    String newShowtimeID = showtimeID.replace(showtimeID.substring(0,2), Integer.toString(cineplexID));
+//                }
+//
+//                case 2 -> {
+//                    showtimeIDChanged = true;
+//                    System.out.println("Enter new cinema ID: ");
+//                    int cinemaID = sc.nextInt();
+//                    String newShowtimeID = showtimeID.replace(showtimeID.substring(2,4), Integer.toString(cinemaID));
+//                }
+//
+//                case 3 -> {
+//
+//                }
+//
+//                case 4 -> {
+//
+//                }
+//
+//                default -> {
+//
+//                }
+//            }
+//        }
+//    }
 }
