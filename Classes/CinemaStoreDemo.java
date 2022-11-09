@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.util.Scanner;
+
+import org.omg.CORBA.SystemException;
 
 public class CinemaStoreDemo {
     public static void main(String[] args) {
@@ -12,6 +15,7 @@ public class CinemaStoreDemo {
 //        System.out.println(cineplexStore.getCineplexMap().get("00").getCineplexName());
         Vendor vendor = new Vendor();
         vendor.addCineplex();
+        System.out.println(vendor.getCineplexHashMap().get("00").getCineplexName());
 
-    }
+    }       
 }
