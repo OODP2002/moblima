@@ -1,5 +1,5 @@
 public class Seat {
-    private String seatID;
+    private String seatID;  // eg.A1, [row][column]
     private boolean isAvail;
     private String cinemaCode;
 
