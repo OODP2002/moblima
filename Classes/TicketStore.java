@@ -43,14 +43,38 @@ public class TicketStore {
         String email = infoArr[2];
         Double mobile = Double.parseDouble(infoArr[3]);
         String seatID = infoArr[4];
+        AgeGroup ageGroup;
+
+        switch(infoArr[5]){
+            case "CHILD":
+                ageGroup = AgeGroup.CHILD;
+                break;
+            case "ADULT":
+                ageGroup = AgeGroup.ADULT;
+                break;
+            case "SENIOR":
+                ageGroup = AgeGroup.SENIOR;
+                break;
+            default:
+                ageGroup = AgeGroup.ADULT;
+            
+        }
         
-        return new Ticket(transactionID, username, email, mobile, seatID);
+        return new Ticket(transactionID, username, email, mobile, seatID, ageGroup);
     }
 
     public void newTicket(Ticket ticket){
         this.tickets.add(ticket);
         return;
     }
+
+    public void listPastPurchases(String username, String email, Double mobile){
+        for (int i = 0; i < this.tickets.size(); i++){
+            if (this.tickets.get(i).isUser(username, email, mobile)){
+                System.out.println(this.tickets.get(i).toString());
+            }
+        }
+    }   
 
     public void writeToTicketsFile(){
         try{
