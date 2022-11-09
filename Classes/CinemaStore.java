@@ -33,10 +33,7 @@ public class CinemaStore{
     public HashMap<String, Cinema> getCinemaHashMap(String cineplexID) {
         // Find intersection between keys and cineplexID
         Set<String> keys = cinemaHashMap.keySet();
-        for (String key: keys) {
-            if (!key.substring(0,2).equals(cineplexID))
-                keys.remove(key);
-        }
+        keys.removeIf(key -> !key.substring(0, 2).equals(cineplexID));
 
         // Create new HashMap with only relevant keys
         HashMap<String, Cinema> tempHashMap = new HashMap<>();

@@ -5,7 +5,7 @@ import java.util.Collection;
 public class CineplexWriterDemo {
     public static void main(String[] args) {
         CinemaStore cs = CinemaStore.getInstance();
-        System.out.println(cs.getCinema("0001").getCinemaClass());
+//        System.out.println(cs.getCinema("0001").getCinemaClass());
 
         // Add to raw ArrayList
 //        CineplexesReaderWriter.getInstance().addCineplexData();
