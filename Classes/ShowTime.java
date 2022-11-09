@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class ShowTime {
     private String showtimeID;
     private LocalDateTime startTime;
-//    private Movie movie;
+    private int movieID;
     private ShowDate showDate;
 //    private ArrayList<Seat> seats;
 
@@ -27,6 +27,14 @@ public class ShowTime {
 
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
+    }
+
+    public void setMovieID(int movieID) {
+        this.movieID = movieID;
+    }
+
+    public int getMovieID() {
+        return movieID;
     }
 
     public void printShowTime() {
