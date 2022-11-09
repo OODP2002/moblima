@@ -1,6 +1,3 @@
-import java.util.Scanner;
-
-import javax.lang.model.element.ModuleElement.DirectiveKind;
 public class MovieDemo{
     public static void main (String[] args){
         MovieStore movieStore = MovieStore.getInstance();
@@ -13,9 +10,9 @@ public class MovieDemo{
         ViewingMode viewingMode = new ViewingMode(View._3D);
         MovieHype movieHype = new MovieHype(Hype.BLOCKBUSTER);
         MovieSales movieSales = new MovieSales(9999);
+        AgeRating ageRating = new AgeRating(AgeEnum.NC16);
 
-
-        Movie movie3 = new Movie("Free Willy", 360, movieDuration, showingStatus, synopsis, viewingMode, movieHype, movieSales);
+        Movie movie3 = new Movie("Free Willy", 360, movieDuration, showingStatus, synopsis, viewingMode, movieHype, movieSales, ageRating);
         movie3.getOverallReviews().addReview(2, "bad movie");
         movie3.getOverallReviews().addReview(5, "good movie");
 

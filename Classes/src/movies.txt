@@ -1,3 +1,4 @@
-movieName | movieID | movieDuration | showingStatus | synopsis | viewingMode | movieHype | movieSales | overallReviews | moviePersonnelList
-Black Panther|69|420|Coming Soon|bad|2D|Regular|5|4bad show|Marcus
-Free Willy|360|420|Preview|this show is astronomically bad|3D|Blockbuster|9999|2bad movie|jackson
+movieName|movieID|movieDuration|showingStatus|synopsis|viewingMode|movieHype|movieSales|ageRating|overallReviews|moviePersonnelList
+Black Panther|69|420|Coming Soon|bad|2D|Regular|5|PG13|4bad show|Marcus
+Free Willy|360|420|Preview|this show is astronomically bad|3D|Blockbuster|999|R21|2bad movie|jackson
+Avengers|3|123|Coming Soon|Temporary synopsis|3D|Blockbuster|33|NC16|4Pretty decent movie|James Bond~Marc
