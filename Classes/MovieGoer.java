@@ -67,7 +67,6 @@ public class MovieGoer implements PersonInterface{
         if (sc.hasNextLine()){
             reviewDes = sc.nextLine();
         }
-        sc.close();
 
         // Adding review to the correct movie object, validation should be done before calling this method in main()
         for (int i=0;i<movieList.size();i++){
@@ -104,7 +103,6 @@ public class MovieGoer implements PersonInterface{
             default:
                 System.out.println("Invalid Choice");
         }
-        sc.close();
     }
 
     public void listAllMovies() {

@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.util.Scanner;
 
-import org.omg.CORBA.SystemException;
 
 public class CinemaStoreDemo {
     public static void main(String[] args) {
