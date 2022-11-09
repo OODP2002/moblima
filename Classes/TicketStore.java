@@ -8,9 +8,9 @@ public class TicketStore {
 
     //Attributes
     private ArrayList<Ticket> tickets = new ArrayList<Ticket>();
-    private String path = System.getProperty("user.dir") + ("/src/tickets.txt");
+    private String path = System.getProperty("user.dir") + ("/Classes/src/tickets.txt");
     private static TicketStore instance = new TicketStore();
-
+    
     //Constructor
     private TicketStore(){
         try{
@@ -23,8 +23,8 @@ public class TicketStore {
             }
             reader.close();
         } catch (IOException err){
-            //System.out.println(err.getStackTrace());
-            System.out.println("Error: Credential list not found");
+            err.printStackTrace();
+            System.out.println("Error: Ticket list not found");
         }
     }
 
@@ -35,15 +35,16 @@ public class TicketStore {
     }
 
     //Creates Ticket obj based on a line in the tickets txt file
-    public Ticket createTicketObj(String info){
+    private Ticket createTicketObj(String info){
         String[] infoArr = info.split("\\|");
         
         String transactionID = infoArr[0]; //SeatID + YYYYMMDDhhmm
         String username = infoArr[1];
         String email = infoArr[2];
-        Double mobile = Double.parseDouble(infoArr[3]);
+        Integer mobile = Integer.parseInt(infoArr[3]);
         String seatID = infoArr[4];
         AgeGroup ageGroup;
+        float price = Float.parseFloat(infoArr[6]);
 
         switch(infoArr[5]){
             case "CHILD":
@@ -60,7 +61,7 @@ public class TicketStore {
             
         }
         
-        return new Ticket(transactionID, username, email, mobile, seatID, ageGroup);
+        return new Ticket(transactionID, username, email, mobile, seatID, ageGroup, price);
     }
 
     public void newTicket(Ticket ticket){
@@ -68,7 +69,8 @@ public class TicketStore {
         return;
     }
 
-    public void listPastPurchases(String username, String email, Double mobile){
+    public void listPastPurchases(String username, String email, Integer mobile){
+        
         for (int i = 0; i < this.tickets.size(); i++){
             if (this.tickets.get(i).isUser(username, email, mobile)){
                 System.out.println(this.tickets.get(i).toString());
@@ -93,8 +95,3 @@ public class TicketStore {
         }
     }
 }
- 
-// cineplexID: [0-9][0-9]
-// cinemaID: cineplexID+ [0-9][0-9]
-// showtimeID: cinemaID + [\S][\S][\S] (3 chars = 238kshowtimes possible per cinema)
-// seatID: showtimeID + [A-Z][1-20]
