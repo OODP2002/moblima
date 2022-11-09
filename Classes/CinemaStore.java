@@ -1,10 +1,9 @@
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class CinemaStore{
-    private HashMap<String, Cinema> cinemaHashMap;
+    private HashMap<String, Cinema> cinemaHashMap;  // Key=cinemaID
     private static CinemaStore single_instance = null;
 
     private CinemaStore() {
@@ -30,8 +29,22 @@ public class CinemaStore{
     }
 
 
-    public HashMap<String, Cinema> getCinemaHashMap() {
-        return cinemaHashMap;
+    // Return the cinemaHashMap for the corresponding CineplexID
+    public HashMap<String, Cinema> getCinemaHashMap(String cineplexID) {
+        // Find intersection between keys and cineplexID
+        Set<String> keys = cinemaHashMap.keySet();
+        for (String key: keys) {
+            if (!key.substring(0,2).equals(cineplexID))
+                keys.remove(key);
+        }
+
+        // Create new HashMap with only relevant keys
+        HashMap<String, Cinema> tempHashMap = new HashMap<>();
+        for (String key: keys) {
+            Cinema cinema = cinemaHashMap.get(key);
+            tempHashMap.put(key, cinema);
+        }
+        return tempHashMap;
     }
 
 

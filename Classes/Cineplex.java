@@ -24,7 +24,7 @@ public class Cineplex{
 
     public void addCinema() {
         CinemaStore cinemaStore = CinemaStore.getInstance();
-        this.cinemaHashMap = cinemaStore.getCinemaHashMap();
+        this.cinemaHashMap = cinemaStore.getCinemaHashMap(cineplexID);
     }
 
     public HashMap<String, Cinema> getCinemaHashMap() {
