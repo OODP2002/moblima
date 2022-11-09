@@ -8,7 +8,7 @@ import java.io.IOException;
 public class SpecialOccasionStore {
     //Attributes
     private ArrayList<SpecialOccasion> specialOccasions = new ArrayList<SpecialOccasion>(); 
-    private String path = System.getProperty("user.dir") + ("/Classes/src/specialOccasions.txt");
+    private String path = System.getProperty("user.dir") + ("/src/specialOccasions.txt");
     private static SpecialOccasionStore instance = new SpecialOccasionStore();
 
     //Contstuctor

@@ -8,7 +8,7 @@ public class TicketStore {
 
     //Attributes
     private ArrayList<Ticket> tickets = new ArrayList<Ticket>();
-    private String path = System.getProperty("user.dir") + ("/Classes/src/tickets.txt");
+    private String path = System.getProperty("user.dir") + ("/src/tickets.txt");
     private static TicketStore instance = new TicketStore();
     
     //Constructor
