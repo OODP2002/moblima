@@ -4,8 +4,14 @@ public class ShowTimeStoreDemo {
         ShowTime showTime = sts.getShowTime("0001aaa");
         showTime.printShowTime();
 
+        // Add new show time module
         sts.addShowTime();
 
+
+        // Update showtime module
+        sts.updateShowtime();
+
+        // Call to update txt file
         sts.writeFile();
     }
 }
