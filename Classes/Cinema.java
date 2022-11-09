@@ -23,7 +23,11 @@ public class Cinema {
         return cinemaClass;
     }
 
-//    public ArrayList<ShowTime> getShowTimes() {
+    public Layout getLayout() {
+        return layout;
+    }
+
+    //    public ArrayList<ShowTime> getShowTimes() {
 //        return showTimes;
 //    }
 }
