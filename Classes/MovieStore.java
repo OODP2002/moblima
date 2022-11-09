@@ -129,6 +129,12 @@ public class MovieStore {
         return this.movies.get(index);
     }
 
+    public void printAllMovies() {
+        for (int i=0; i<this.movies.size(); i++) {
+            System.out.println("Movie " + (i+1) + ": " + this.movies.get(i).getMovieName());
+        }
+    }
+
 
     public void writeToMoviesFile() {
         try{
