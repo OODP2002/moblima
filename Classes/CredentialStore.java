@@ -7,8 +7,8 @@ import java.io.IOException;
 public class CredentialStore {
     //Attributes 
     private ArrayList<Credential> credentials = new ArrayList<Credential>();
+    private String path = System.getProperty("user.dir") + ("/Classes/src/credentials.txt");
     private static CredentialStore instance = new CredentialStore();
-    private String path = System.getProperty("user.dir") + ("/src/credentials.txt");
     
     //Constructor 
     private CredentialStore(){
@@ -34,7 +34,7 @@ public class CredentialStore {
         return instance;
     }
 
-    //Creates a new credential object based on 
+    //Creates a new credential object based on a line in the credentials txt file
     private Credential createCredentialObj(String info){
         String[] infoArr =  info.split("\\|");
 

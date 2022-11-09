@@ -1,1 +1,2 @@
-title|sypnosis|rating|status|reviews|score|duration
+movieName|moveID|movieDuration|showingstatus|synopsis|viewingMode|movieHype|movieSales|overallReviews|moviePersonnelList|
+Rush Hour|1|120|PREVIEW|Jackie Chan pew pew pew|_2D|REGULAR|1023|4.3|Jackie Chan,Chris Tucker,Julia Hsu,Zhang Jing Chu|

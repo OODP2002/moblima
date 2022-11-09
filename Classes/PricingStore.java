@@ -10,7 +10,7 @@ import java.io.IOException;
 public class PricingStore {
     //Attributes
     private ArrayList<Pricing> pricings = new ArrayList<Pricing>();
-    private String path = System.getProperty("user.dir") + ("/src/pricingList.txt");
+    private String path = System.getProperty("user.dir") + ("/Classes/src/pricings.txt");
     private static PricingStore instance = new PricingStore();
 
     //Constructor
