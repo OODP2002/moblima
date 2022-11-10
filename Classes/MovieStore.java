@@ -222,6 +222,10 @@ public class MovieStore {
 
     }
 
+    public ArrayList<Movie> getMovies() {
+        return movies;
+    }
+
     public void writeToMoviesFile() {
         try{
             BufferedReader reader = new BufferedReader(new FileReader(this.path));

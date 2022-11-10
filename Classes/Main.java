@@ -32,6 +32,7 @@ public class Main {
                     custModule();
                     break;
                 case 3:
+                    System.out.println("Exiting system...");
                     break;
                 default:
                     System.out.println("Invalid Choice.");
@@ -40,8 +41,8 @@ public class Main {
     }
 
     private static void custModule() {
-        System.out.println("Enter name: ");
-        String name = sc.nextLine();
+        // Create MovieGoer obj
+        MovieGoer movieGoer = new MovieGoer();
 
         // Menu of choices the customer can choose from
         int choice = 0;
@@ -63,34 +64,45 @@ public class Main {
             switch(choice) {
                 case 1:
                     // Call listAllMovies, data from movie store
-                    MovieStore movieStore = MovieStore.getInstance();
-                    movieStore.printAllMovies(1);
+                    movieGoer.listAllMovies();
                     break;
+
                 case 2:
                     // Call listBy, data from movie store
                     // List by default must show both types of top 5
                     // List will only show one if admin chooses to opt out of one
+                    movieGoer.listBy();
+                    break;
 
-                    break;
                 case 3:
-                    // Call searchMovie, data from movie store 
+                    // Call searchMovie, data from movie store
+                    movieGoer.searchMovie();
                     break;
+
                 case 4:
                     // Call writeReview, should be under movieGoer
+                    movieGoer.writeReview();
                     break;
+
                 case 5:
                     // Call buyTicket, should be under movieGoer
                     // Must have checkAvailability fn
                     // must be able to select more than one seat
                     // Must store customer'sc name, email, mobile address
                     // Must create ticketID (TID)of the format XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters)
+                    movieGoer.buyTicket();
                     break;
+
                 case 6:
                     // Call showHistory, should be under movieGoer
+                    movieGoer.showHistory();
                     break;
+
                 case 7:
                     // Quit
+                    System.out.println("Exiting customer module...");
                     break;
+
                 default:
                     System.out.println("Invalid choice.");
             }
