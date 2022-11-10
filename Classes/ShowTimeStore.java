@@ -12,13 +12,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ShowTimeStore {
     private HashMap<String, ShowTime> showTimeHashMap = new HashMap<>();  // key=SHOWTIME_ID
     private final String FILE_SOURCE = "./src/showtimes.txt";
-    private String HEADER;
     private static ShowTimeStore single_instance = null;
-    private ArrayList<String[]> showTimeRawStore = new ArrayList<>();
+    private Scanner sc = new Scanner(System.in);
 
     private ShowTimeStore() {
-        readFile();
-        loadShowTimeHashMap();
+        TxtReaderWriter showtimeReaderWriter = new TxtReaderWriter(FILE_SOURCE);
+        loadShowTimeHashMap(showtimeReaderWriter.getRawStringFromFile());
     }
 
     public static ShowTimeStore getInstance(){
@@ -32,8 +31,8 @@ public class ShowTimeStore {
         return showTimeHashMap;
     }
 
-    private void loadShowTimeHashMap() {
-        for (String[] line: showTimeRawStore) {
+    private void loadShowTimeHashMap(ArrayList<String[]> showtimeRawStore) {
+        for (String[] line: showtimeRawStore) {
             ShowTime showTime = new ShowTime(line[0]);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
             showTime.setStartTime(LocalDateTime.parse(line[2], formatter));
@@ -46,42 +45,8 @@ public class ShowTimeStore {
         return showTimeHashMap.get(showTimeID);
     }
 
-    // Read from .txt into raw ArrayList<String[]>
-    private void readFile() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(FILE_SOURCE));
-            this.HEADER = reader.readLine();    // Header
-
-            String line = reader.readLine();
-            while (line != null) {
-                showTimeRawStore.add(line.split("\\|"));
-                line = reader.readLine();
-            }
-            reader.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    // Write from ShowTimeStore into .txt
-    // Call before terminating the program!!!
-    public void writeFile() {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_SOURCE));
-            writer.write(HEADER);
-            for (String[] line : showTimeRawStore) {
-                writer.write("\n" + String.join("|", line));
-            }
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
+    // To-do: convert this to write into HashMap
     public void addShowTime() {
-        Scanner sc = new Scanner(System.in);
-        ArrayList<String> out = new ArrayList<>();
         System.out.println("Welcome to add ShowTime module");
 
         System.out.println("Enter Cineplex ID: ");
@@ -90,30 +55,27 @@ public class ShowTimeStore {
 
         System.out.println("Enter Cinema no.: ");
         String cinemaID = cineplexID.concat(sc.next("[0-9][0-9]"));
-        out.add(generateShowTimeID(cinemaID));
         sc.nextLine();
+        String showtimeID = generateShowTimeID(cinemaID);
+        ShowTime showTime = new ShowTime(showtimeID);
 
         System.out.println("Enter movie ID: ");
-        out.add(String.valueOf(sc.nextInt()));
-        sc.nextLine();
+        showTime.setMovieID(sc.nextInt());
 
         System.out.println("Enter start time (DD-MM-YYYY HH:MM): ");
         String timeRaw = sc.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         try {
             LocalDateTime dateTime = LocalDateTime.parse(timeRaw, formatter);
-            out.add(dateTime.format(formatter));
+            showTime.setStartTime(dateTime);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Default showtime of now is used");
-            out.add(LocalDateTime.now().format(formatter));
+            showTime.setStartTime(LocalDateTime.parse(LocalDateTime.now().format(formatter)));
         }
 
         System.out.println("Entry success!");
-        System.out.println(String.join("|", out));       // for debugging, remove
-        String[] outFormatted = new String[out.size()];
-        outFormatted = out.toArray(outFormatted);
-        showTimeRawStore.add(outFormatted);
+        showTimeHashMap.put(showtimeID, showTime);
     }
 
     private String generateShowTimeID(String cinemaID) {
