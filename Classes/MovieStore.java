@@ -115,8 +115,17 @@ public class MovieStore {
             default:
                 ageRating = new AgeRating(AgeEnum.G);
         }
+        Movie movie = new Movie();
+        movie.setMovieName(movieName);
+        movie.setMovieID(movieID);
+        movie.setMovieDuration(movieDuration);
+        movie.setShowingStatus(showingStatus);
+        movie.setSynopsis(synopsis);
+        movie.setViewingMode(viewingMode);
+        movie.setMovieHype(movieHype);
+        movie.setMovieSales(movieSales);
+        movie.setAgeRating(ageRating);
 
-        Movie movie = new Movie(movieName, movieID, movieDuration, showingStatus, synopsis, viewingMode, movieHype, movieSales, ageRating);
 
         // Overall reviews
         char tempChar;

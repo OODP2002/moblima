@@ -26,21 +26,6 @@ public class Movie{
         this.moviePersonnelList = new ArrayList<>();
         this.ageRating = new AgeRating();
     }
-
-    public Movie(String movieName, int movieID, MovieDuration movieDuration, ShowingStatus showingStatus, Synopsis synopsis, ViewingMode viewingMode, MovieHype movieHype, MovieSales movieSales, AgeRating ageRating){
-        this.movieName = movieName;
-        this.movieID = movieID;
-        this.movieDuration = movieDuration;
-        this.showingStatus = showingStatus;
-        this.synopsis = synopsis;
-        this.viewingMode = viewingMode;
-        this.movieHype = movieHype;
-        this.movieSales = movieSales;
-        this.overallReviews = new OverallReviews(); // Can be changed to be instantiated with the parameters
-        this.moviePersonnelList = new ArrayList<>();
-        this.ageRating = ageRating;
-    }
-
     
     public String getMovieName(){
         return this.movieName;
@@ -134,6 +119,7 @@ public class Movie{
 
     //-------------------------------------------
 
+    // to remove
     public void printInfo(int toggle) {
 
         System.out.println("Movie Name: " + this.getMovieName());
