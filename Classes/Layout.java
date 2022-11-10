@@ -28,8 +28,8 @@ public class Layout {
     public HashMap<String, Seat> createSeats() {
         HashMap<String, Seat> seats = new HashMap<>();
 
-        for (int r = 0; r < rows; r++) {
-            for (int c = 0; c < columns; c++) {
+        for (int r = 1; r <= rows; r++) {
+            for (int c = 1; c <= columns; c++) {
                 String seatID = generateSeatID(r,c);
                 Seat seat = new Seat(seatID);
                 seats.put(seatID, seat);
