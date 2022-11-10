@@ -44,7 +44,7 @@ public class ShowTimeStore {
 
     // parseHashMap to ArrayList<String[]>
     private ArrayList<String[]> parseHashMap() {
-        List<String[]> arrayListOut = new ArrayList<>();
+        ArrayList<String[]> arrayListOut = new ArrayList<>();
         Set<String> keys = showTimeHashMap.keySet();
 
         // Iterate over each ShowTime item
@@ -60,7 +60,7 @@ public class ShowTimeStore {
             String[] out = new String[line.size()];
             arrayListOut.add(line.toArray(out));
         }
-        return (ArrayList<String[]>) arrayListOut;
+        return arrayListOut;
     }
 
     // Destructor

@@ -3,28 +3,58 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Set;
 
 public class MovieStore {
     
     // Attributes
-    private ArrayList<Movie> movies = new ArrayList<Movie>();
+
     private String path = ("Classes/src/movies.txt");
     private static MovieStore instance = new MovieStore();
+    private HashMap<Integer, Movie> movieHashMap = new HashMap<>();     // key=MOVIE_ID
+    private TxtReaderWriter movieReaderWriter = new TxtReaderWriter(path);
 
 
+    // Get Movie object given movie_ID
+    public Movie getMovie(int movieID) {
+        return movieHashMap.get(movieID);
+    }
     // Constructor
     private MovieStore() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(this.path));
-            String header = reader.readLine();
-            String line = reader.readLine();
-            while (line != null) {
-                movies.add(createMovieObj(line));
-                line = reader.readLine();
+        loadMovieHashMap(movieReaderWriter.getRawStringFromFile());
+    }
+
+    // Destructor
+    public void closeMovieStore() {
+        movieReaderWriter.setRawStringFromFile(parseHashMap());
+    }
+
+    private void loadMovieHashMap(ArrayList<String[]> movieRawStore) {
+        for (String[] line: movieRawStore) {
+            Movie movie = new Movie(Integer.parseInt(line[1]));
+            movie.setMovieName(line[0]);
+            movie.setMovieDuration(new MovieDuration(Integer.parseInt(line[2])));
+            movie.setShowingStatus(Status.valueOf(line[3]));
+            movie.setSynopsis(new Synopsis(line[4]));
+            movie.setViewingMode(new ViewingMode(View.valueOf(line[5])));
+            movie.setMovieHype(new MovieHype(Hype.valueOf(line[6])));
+            movie.setMovieSales(new MovieSales(Integer.parseInt(line[7])));
+            movie.setAgeRating(new AgeRating(AgeEnum.valueOf(line[8])));
+
+            // Get overall reviews
+            String[] reviewArr = line[9].split("~");
+            for (String review: reviewArr) {
+                int rating = Integer.parseInt(review.substring(0,1));
+                movie.getOverallReviews().addReview(rating, review.substring(1));
             }
-            reader.close();
-        } catch (IOException err) {
-            System.out.println("Error: Movie List not found.");
+
+            // Get movie ppl
+            String[] personnelArr = line[10].split("~");
+            for (int i = 0; i < personnelArr.length; i++) {
+                movie.addMoviePersonnel(personnelArr[i], (i == 1) ? Role.DIRECTOR : Role.CAST);
+            }
+            movieHashMap.put(movie.getMovieID(), movie);
         }
     }
 
@@ -33,147 +63,64 @@ public class MovieStore {
         return instance;
     }
 
-    // Creates a new movie object based on a string
-    private Movie createMovieObj(String info) {
-        String[] infoArr = info.split("\\|");
-        
-        String movieName = infoArr[0];
-        int movieID = Integer.parseInt(infoArr[1]);
-        MovieDuration movieDuration = new MovieDuration(Integer.parseInt(infoArr[2]));
-        // Need to add
-        ShowingStatus showingStatus;
-        Synopsis synopsis = new Synopsis(infoArr[4]);
-        // Need to add
-        ViewingMode viewingMode;
-        // Need to add
-        MovieHype movieHype;
-        MovieSales movieSales = new MovieSales(Integer.parseInt(infoArr[7]));
-        AgeRating ageRating;
-
-        // Showing status
-        switch(infoArr[3]){
-            case "Coming Soon":
-                showingStatus = new ShowingStatus(Status.COMINGSOON);
-                break;
-            case "Preview":
-                showingStatus = new ShowingStatus(Status.PREVIEW);
-                break;
-            case "Now Showing":
-                showingStatus = new ShowingStatus(Status.NOWSHOWING);
-                break;
-            case "End Of Showing":
-                showingStatus = new ShowingStatus(Status.ENDOFSHOWING);
-                break;
-            default:
-                showingStatus = new ShowingStatus();
-        }
-        
-        // Viewing mode
-        switch(infoArr[5]){
-            case "2D":
-                viewingMode = new ViewingMode(View._2D);
-                break;
-            case "3D":
-                viewingMode = new ViewingMode(View._3D);
-                break;
-            default:
-                viewingMode = new ViewingMode();
-        }
-
-        // Movie hype
-        switch(infoArr[6]) {
-            case "Regular":
-                movieHype = new MovieHype(Hype.REGULAR);
-                break;
-            case "Blockbuster":
-                movieHype = new MovieHype(Hype.BLOCKBUSTER);
-                break;
-            default:
-                movieHype = new MovieHype();
-        }
-
-        // Age Rating
-        switch(infoArr[8]) {
-            case "G":
-                ageRating = new AgeRating(AgeEnum.G);
-                break;
-            case "PG":
-                ageRating = new AgeRating(AgeEnum.PG);
-                break;
-            case "PG13":
-                ageRating = new AgeRating(AgeEnum.PG13);
-                break;
-            case "NC16":
-                ageRating = new AgeRating(AgeEnum.NC16);
-                break;
-            case "M18":
-                ageRating = new AgeRating(AgeEnum.M18);
-                break;
-            case "R21":
-                ageRating = new AgeRating(AgeEnum.R21);
-                break;
-            default:
-                ageRating = new AgeRating(AgeEnum.G);
-        }
-        Movie movie = new Movie();
-        movie.setMovieName(movieName);
-        movie.setMovieID(movieID);
-        movie.setMovieDuration(movieDuration);
-        movie.setShowingStatus(showingStatus);
-        movie.setSynopsis(synopsis);
-        movie.setViewingMode(viewingMode);
-        movie.setMovieHype(movieHype);
-        movie.setMovieSales(movieSales);
-        movie.setAgeRating(ageRating);
-
-
-        // Overall reviews
-        char tempChar;
-        int tempDouble;
-        String tempString;
-        String[] reviewArr = infoArr[9].split("~");
-        for (int i=0; i<reviewArr.length; i++) {
-            tempChar = reviewArr[i].charAt(0);
-            tempDouble = tempChar - '0';
-            tempString = reviewArr[i].substring(1);
-            movie.getOverallReviews().addReview(tempDouble, tempString);
-        }
-
-        // Movie Personnel List
-        String[] personnelArr = infoArr[10].split("~");
-        for (int i=0; i<reviewArr.length; i++) {
-            if (i==0) {
-                movie.addMoviePersonnel(personnelArr[i], Role.DIRECTOR);
-            }
-            else {
-                movie.addMoviePersonnel(personnelArr[i], Role.CAST);
-            }
-        }
-
-        return movie;
-    }
 
     public void addMovie(Movie movie) {
-        this.movies.add(movie);
-        return;
+        movieHashMap.put(movie.getMovieID(), movie);
     }
 
-    public Movie getMovie(int index){
-        return this.movies.get(index);
-    }
+    // parse HashMap to ArrayList<String[]>\
+    private ArrayList<String[]> parseHashMap() {
+        ArrayList<String[]> arrayListOut = new ArrayList<>();
+        Set<Integer> keys = movieHashMap.keySet();
 
-    public void printAllMovies(int toggle) {
-        if (toggle==0) { // ADMIN
-            for (int i=0; i<this.movies.size(); i++) {
-                System.out.println("MovieID " + this.movies.get(i).getMovieID() + ": " + this.movies.get(i).getMovieName());
+        // Iterate over each Movie object
+        for (Integer key: keys) {
+            Movie movie = movieHashMap.get(key);
+            ArrayList<String> line = new ArrayList<>();
+
+            line.add(movie.getMovieName());
+            line.add(String.valueOf(key));
+            line.add(String.valueOf(movie.getMovieDuration()));
+            line.add(String.valueOf(movie.getShowingStatus()));
+            line.add(String.valueOf(movie.getSynopsis()));
+            line.add(String.valueOf(movie.getShowingStatus()));
+            line.add(String.valueOf(movie.getViewingMode()));
+            line.add(String.valueOf(movie.getMovieHype()));
+            line.add(String.valueOf(movie.getMovieSales()));
+            line.add(String.valueOf(movie.getAgeRating()));
+
+            // Add overall reviews
+            OverallReviews overallReviews = movie.getOverallReviews();
+            ArrayList<String> overallReviewsArr = new ArrayList<>();
+            for (int i = 0; i < overallReviews.getReviewCount(); i++) {
+                IndividualReview individualReview = overallReviews.getReview(i);
+                // Join rating with review
+                String rating = String.valueOf(individualReview.getReviewRating());
+                String temp = rating.concat(individualReview.getReviewDescription());
+                overallReviewsArr.add(temp);
             }
+            line.add(String.join("~", overallReviewsArr));
+
+            // Add movie personnel
+            ArrayList<MoviePersonnel> moviePersonnelList = movie.getMoviePersonnelList();
+            ArrayList<String> out = new ArrayList<>();
+            for (MoviePersonnel moviePersonnel : moviePersonnelList) {
+                if (moviePersonnel.getRole() == Role.DIRECTOR)
+                    out.add(0, moviePersonnel.getName());
+                else
+                    out.add(moviePersonnel.getName());
+            }
+            line.add(String.join("~", out));
+
+            String[] strArr = new String[line.size()];
+            arrayListOut.add(line.toArray(strArr));
         }
-        else {
-            for (int i=0; i<this.movies.size(); i++) {
-                if (this.movies.get(i).getShowingStatus().getDetail() != Status.ENDOFSHOWING) {
-                    System.out.println("MovieID " + this.movies.get(i).getMovieID() + ": " + this.movies.get(i).getMovieName());
-                }
-            }
+        return arrayListOut;
+    }
+    public void printAllMovies(int toggle) {
+        for (Movie movie: movieHashMap.values()) {
+            if (movie.getShowingStatus() == Status.ENDOFSHOWING && toggle == 1 || movie.getShowingStatus() != Status.ENDOFSHOWING)
+                System.out.println("MovieID " + movie.getMovieID() + ": " + movie.getMovieName());
         }
     }
 

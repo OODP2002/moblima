@@ -4,7 +4,7 @@ public class Movie{
     private String movieName;
     private int movieID;
     private MovieDuration movieDuration;
-    private ShowingStatus showingStatus;
+    private Status showingStatus;
     private Synopsis synopsis;
     private ViewingMode viewingMode;
     private MovieHype movieHype;
@@ -13,11 +13,10 @@ public class Movie{
     private ArrayList<MoviePersonnel> moviePersonnelList = new ArrayList<>();
     private AgeRating ageRating;
 
-    public Movie(){
+    public Movie(int movieID){
         this.movieName = "Rush Hour";
-        this.movieID = -1;
+        this.movieID = movieID;
         this.movieDuration = new MovieDuration();
-        this.showingStatus = new ShowingStatus();
         this.synopsis = new Synopsis();
         this.viewingMode = new ViewingMode();
         this.movieHype = new MovieHype();
@@ -29,6 +28,10 @@ public class Movie{
     
     public String getMovieName(){
         return this.movieName;
+    }
+
+    public ArrayList<MoviePersonnel> getMoviePersonnelList() {
+        return moviePersonnelList;
     }
 
     public void setMovieName(String movieName ){
@@ -51,11 +54,11 @@ public class Movie{
         this.movieDuration = movieDuration;
     }
 
-    public ShowingStatus getShowingStatus(){
+    public Status getShowingStatus(){
         return this.showingStatus;
     }
 
-    public void setShowingStatus(ShowingStatus showingStatus){
+    public void setShowingStatus(Status showingStatus){
         this.showingStatus = showingStatus;
     }
 
@@ -93,10 +96,6 @@ public class Movie{
 
     public OverallReviews getOverallReviews() {
         return this.overallReviews;
-    }
-
-    public void setOverallReviews(OverallReviews overallReviews) {
-        this.overallReviews = overallReviews;
     }
 
     public void printMoviePersonnel() {
