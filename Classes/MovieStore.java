@@ -8,7 +8,7 @@ public class MovieStore {
     
     // Attributes
     private ArrayList<Movie> movies = new ArrayList<Movie>();
-    private String path = ("./src/movies.txt");
+    private String path = ("Classes/src/movies.txt");
     private static MovieStore instance = new MovieStore();
 
 

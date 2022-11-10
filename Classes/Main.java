@@ -1,15 +1,15 @@
 import java.util.Scanner;
 
 public class Main {
+    static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
-        // Create vendor
-         Vendor vendor = new Vendor();
-         vendor.addCineplex();
+         // Create vendor
+        Vendor vendor = new Vendor();
 
         System.out.println("Starting app...");
+        System.out.println("Welcome to " + vendor.getVendorName() + "Movie Booking System");
         int loginChoice = 0;
-        Scanner s = new Scanner(System.in);
-        
+
         while(loginChoice != 3){
             System.out.println("-----Login Panel-----");
             System.out.println("(1) Admin");
@@ -18,8 +18,8 @@ public class Main {
             System.out.println("---------------------");
             System.out.print("Choice: ");
 
-            if (s.hasNextInt()){
-                loginChoice = s.nextInt();
+            if (sc.hasNextInt()){
+                loginChoice = sc.nextInt();
             }
 
             switch(loginChoice) {
@@ -39,14 +39,13 @@ public class Main {
         }
     }
 
-    public static void custModule() {
-        String name = "";
-        Scanner s = new Scanner(System.in);
+    private static void custModule() {
         System.out.println("Enter name: ");
-        name = s.nextLine();
+        String name = sc.nextLine();
 
         // Menu of choices the customer can choose from
         int choice = 0;
+
         while (choice != 7){
             System.out.println("----Customer Panel---");
             System.out.println("(1) List all movies");
@@ -58,17 +57,20 @@ public class Main {
             System.out.println("(7) Quit");
             System.out.println("---------------------");
             System.out.print("Choice: ");
-            if (s.hasNextInt()){
-                choice = s.nextInt();
+            if (sc.hasNextInt()){
+                choice = sc.nextInt();
             }
             switch(choice) {
                 case 1:
                     // Call listAllMovies, data from movie store
+                    MovieStore movieStore = MovieStore.getInstance();
+                    movieStore.printAllMovies(1);
                     break;
                 case 2:
                     // Call listBy, data from movie store
                     // List by default must show both types of top 5
                     // List will only show one if admin chooses to opt out of one
+
                     break;
                 case 3:
                     // Call searchMovie, data from movie store 
@@ -80,7 +82,7 @@ public class Main {
                     // Call buyTicket, should be under movieGoer
                     // Must have checkAvailability fn
                     // must be able to select more than one seat
-                    // Must store customer's name, email, mobile address
+                    // Must store customer'sc name, email, mobile address
                     // Must create ticketID (TID)of the format XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters)
                     break;
                 case 6:
@@ -95,7 +97,7 @@ public class Main {
         }
     }
 
-    public static void adminModule() {
+    private static void adminModule() {
         // Initialize stores
         ShowTimeStore showTimeStore = ShowTimeStore.getInstance();
 
@@ -103,13 +105,13 @@ public class Main {
         boolean valid = false;
         String username;
         String password;
-        Scanner s = new Scanner(System.in);
+
         // Login Admin
         while (!loggedIn){
             System.out.println("Enter username: ");
-            username = s.nextLine();
+            username = sc.nextLine();
             System.out.println("Enter password: ");
-            password = s.nextLine();
+            password = sc.nextLine();
             // Verify using proper login handler
             valid = true;
             // if correct, set loggedIn to be true
@@ -138,8 +140,8 @@ public class Main {
             System.out.println("(0) Quit");
             System.out.println("---------------------");
             System.out.print("Choice: ");
-            if (s.hasNextInt()){
-                choice = s.nextInt();
+            if (sc.hasNextInt()){
+                choice = sc.nextInt();
             }
             switch(choice) {
                 case 1:
