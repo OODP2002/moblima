@@ -3,22 +3,18 @@
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ShowTimeStore {
     private HashMap<String, ShowTime> showTimeHashMap = new HashMap<>();  // key=SHOWTIME_ID
     private final String FILE_SOURCE = "Classes/src/showtimes.txt";
-    private String HEADER;
     private static ShowTimeStore single_instance = null;
-    private ArrayList<String[]> showTimeRawStore = new ArrayList<>();
+    private Scanner sc = new Scanner(System.in);
+    private TxtReaderWriter showtimeReaderWriter = new TxtReaderWriter(FILE_SOURCE);
 
     private ShowTimeStore() {
-        readFile();
-        loadShowTimeHashMap();
+        loadShowTimeHashMap(showtimeReaderWriter.getRawStringFromFile());
     }
 
     public static ShowTimeStore getInstance(){
@@ -32,8 +28,8 @@ public class ShowTimeStore {
         return showTimeHashMap;
     }
 
-    private void loadShowTimeHashMap() {
-        for (String[] line: showTimeRawStore) {
+    private void loadShowTimeHashMap(ArrayList<String[]> showtimeRawStore) {
+        for (String[] line: showtimeRawStore) {
             ShowTime showTime = new ShowTime(line[0]);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
             showTime.setStartTime(LocalDateTime.parse(line[2], formatter));
@@ -46,55 +42,33 @@ public class ShowTimeStore {
         return showTimeHashMap.get(showTimeID);
     }
 
-    // Read from .txt into raw ArrayList<String[]>
-    private void readFile() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(FILE_SOURCE));
-            this.HEADER = reader.readLine();    // Header
 
-            String line = reader.readLine();
-            while (line != null) {
-                showTimeRawStore.add(line.split("\\|"));
-                line = reader.readLine();
-            }
-            reader.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+
+
+
+    // parseHashMap to ArrayList<String[]>
+    private ArrayList<String[]> parseHashMap() {
+        List<String[]> arrayListOut = new ArrayList<>();
+        Set<String> keys = showTimeHashMap.keySet();
+
+        // Iterate over each ShowTime item
+        for (String key: keys) {
+            ShowTime showTime = showTimeHashMap.get(key);
+            ArrayList<String> line = new ArrayList<>();
+
+            line.add(showTime.getShowtimeID());
+            line.add(String.valueOf(showTime.getMovieID()));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            line.add(showTime.getStartTime().format(formatter));
+
+            String[] out = new String[line.size()];
+            arrayListOut.add(line.toArray(out));
         }
+        return (ArrayList<String[]>) arrayListOut;
     }
 
-    // Write from ShowTimeStore into .txt
-    // Call before terminating the program!!!
-    public void writeFile() {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_SOURCE));
-            writer.write(HEADER);
-            for (String[] line : showTimeRawStore) {
-                writer.write("\n" + String.join("|", line));
-            }
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-
-
-    private String generateShowTimeID(String cinemaID) {
-        while (true) {
-            int leftLimit = 48; // numeral '0'
-            int rightLimit = 122; // letter 'z'
-            Random random = new Random();
-
-            String generatedString = random.ints(leftLimit, rightLimit + 1)
-                    .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                    .limit(3)
-                    .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                    .toString();
-            String newKey = cinemaID.concat(generatedString);
-            if (!showTimeHashMap.containsKey(newKey))
-                return newKey;
-        }
+    // Destructor
+    public void closeShowTimeStore() {
+        showtimeReaderWriter.setRawStringFromFile(parseHashMap());
     }
 }

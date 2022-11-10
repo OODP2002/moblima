@@ -164,7 +164,7 @@ public class Main {
                     break;
                 case 4:
                     // Create Movies showtime within a cinema
-                    ShowTimeStore.getInstance().addShowTime();
+                    cinemaStaff.addShowTime();
                     break;
 
                 case 5:

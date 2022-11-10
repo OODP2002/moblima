@@ -1,7 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Scanner;
 
 interface Admin {
@@ -17,7 +17,7 @@ interface Admin {
             System.out.println("Invalid showtimeID, exiting update show time module");
             return;
         } else if (!showTimeHashMap.containsKey(showtimeID)) {
-            System.out.println("Key not found, exiting update show time module");
+            System.out.println("ShowtimeID not found, exiting update show time module");
             return;
         }
 
@@ -27,12 +27,14 @@ interface Admin {
         boolean loop = true;
 
         while (loop) {
-            System.out.println("Enter detail you wish to change\n" +
-                    "(1) Cineplex\n" +
-                    "(2) Cinema\n" +
-                    "(3) Movie\n" +
-                    "(4) Start Time\n" +
-                    "(5) Quit\n");
+            System.out.println("""
+                    Enter detail you wish to change
+                    (1) Cineplex
+                    (2) Cinema
+                    (3) Movie
+                    (4) Start Time
+                    (5) Quit
+                    """);
 
             int input = sc.nextInt();
 
@@ -69,16 +71,7 @@ interface Admin {
 
                 case 4 -> {
                     System.out.println("Enter new start time (DD-MM-YYYY HH:MM): ");
-                    String rawTimeIn = sc.nextLine();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-                    try {
-                        LocalDateTime dateTime = LocalDateTime.parse(rawTimeIn, formatter);
-                        showTime.setStartTime(dateTime);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        System.out.println("Default showtime of now is used");
-                        showTime.setStartTime(LocalDateTime.parse(LocalDateTime.now().format(formatter)));
-                    }
+                    setShowtime(showTime);
                 }
 
                 default -> {
@@ -86,7 +79,7 @@ interface Admin {
                     loop = false;
                 }
             }
-            if (showtimeIDChanged == true) {
+            if (showtimeIDChanged) {
                 showTimeHashMap.remove(showtimeID);
                 showTimeHashMap.put(newShowtimeID, showTime);
             } else {
@@ -96,7 +89,8 @@ interface Admin {
     }
 
     default void addShowTime() {
-        ArrayList<String> out = new ArrayList<>();
+        HashMap<String, ShowTime> showTimeHashMap = ShowTimeStore.getInstance().getShowTimeHashMap();
+
         System.out.println("Welcome to add ShowTime module");
 
         System.out.println("Enter Cineplex ID: ");
@@ -105,29 +99,50 @@ interface Admin {
 
         System.out.println("Enter Cinema no.: ");
         String cinemaID = cineplexID.concat(sc.next("[0-9][0-9]"));
-        out.add(generateShowTimeID(cinemaID));
         sc.nextLine();
+        String showtimeID = generateShowTimeID(cinemaID);
+        ShowTime showTime = new ShowTime(showtimeID);
 
         System.out.println("Enter movie ID: ");
-        out.add(String.valueOf(sc.nextInt()));
+        showTime.setMovieID(sc.nextInt());
         sc.nextLine();
 
         System.out.println("Enter start time (DD-MM-YYYY HH:MM): ");
+        setShowtime(showTime);
+
+        System.out.println("Entry success!");
+        showTimeHashMap.put(showtimeID, showTime);
+    }
+
+    private void setShowtime(ShowTime showTime) {
         String timeRaw = sc.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         try {
             LocalDateTime dateTime = LocalDateTime.parse(timeRaw, formatter);
-            out.add(dateTime.format(formatter));
+            showTime.setStartTime(dateTime);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Default showtime of now is used");
-            out.add(LocalDateTime.now().format(formatter));
+            showTime.setStartTime(LocalDateTime.parse(LocalDateTime.now().format(formatter)));
         }
+    }
 
-        System.out.println("Entry success!");
-        System.out.println(String.join("|", out));       // for debugging, remove
-        String[] outFormatted = new String[out.size()];
-        outFormatted = out.toArray(outFormatted);
-        showTimeRawStore.add(outFormatted);
+    private String generateShowTimeID(String cinemaID) {
+        HashMap<String, ShowTime> showTimeHashMap = ShowTimeStore.getInstance().getShowTimeHashMap();
+
+        while (true) {
+            int leftLimit = 48; // numeral '0'
+            int rightLimit = 122; // letter 'z'
+            Random random = new Random();
+
+            String generatedString = random.ints(leftLimit, rightLimit + 1)
+                    .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                    .limit(3)
+                    .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                    .toString();
+            String newKey = cinemaID.concat(generatedString);
+            if (!showTimeHashMap.containsKey(newKey))
+                return newKey;
+        }
     }
 }
