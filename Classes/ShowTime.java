@@ -18,6 +18,9 @@ public class ShowTime {
         this.showTimeLayout = new ShowTimeLayout(showtimeID.substring(0,4));
     }
 
+    public ShowTimeLayout getShowTimeLayout() {
+        return showTimeLayout;
+    }
 
     public String getShowtimeID() {
         return showtimeID;

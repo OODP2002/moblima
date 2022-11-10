@@ -57,7 +57,7 @@ public class ShowTimeLayout {
                     System.out.print("[XX]");
                 }
             }
-            System.out.printf("%c\n", r+65);
+            System.out.printf("%c\n", r+64);
         }
 
         // Print column numbers

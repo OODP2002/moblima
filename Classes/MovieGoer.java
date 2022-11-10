@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.HashMap;
 
 public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketHandler {
     private String name;
