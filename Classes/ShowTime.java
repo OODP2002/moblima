@@ -1,19 +1,21 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 
+/*
+* ShowTime class created by Mingyang
+* Purpose of ShowTime class: ShowTime obj that has-a ShowTime layout
+* ShowTime has no Seats
+* */
 public class ShowTime {
     private String showtimeID;
     private LocalDateTime startTime;
     private int movieID;
     private ShowDate showDate;
-    private Layout showTimeLayout;
-    private HashMap<String, Seat> seats;
+    private ShowTimeLayout showTimeLayout;
 
     public ShowTime(String showtimeID) {
         this.showtimeID = showtimeID;
-        this.showTimeLayout = LayoutStore.getInstance().getLayout(showtimeID.substring(0,4));
-        this.seats = showTimeLayout.createSeats();
+        this.showTimeLayout = new ShowTimeLayout(showtimeID.substring(0,4));
     }
 
     public String getShowtimeID() {
@@ -38,15 +40,6 @@ public class ShowTime {
 
     public int getMovieID() {
         return movieID;
-    }
-
-    // Return Seat object
-    public Seat getSeat(String seatID) {
-        return seats.get(seatID);
-    }
-
-    public Layout getShowTimeLayout() {
-        return showTimeLayout;
     }
 
     public void printShowTime() {

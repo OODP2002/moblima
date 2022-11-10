@@ -110,16 +110,13 @@ public class Main {
     }
 
     private static void adminModule() {
-        // Initialize stores
-        ShowTimeStore showTimeStore = ShowTimeStore.getInstance();
-
         boolean loggedIn = false;
         boolean valid = false;
-        String username;
+        String username = null;
         String password;
 
         // Login Admin
-        while (!loggedIn){
+        while (!loggedIn) {
             System.out.println("Enter username: ");
             username = sc.nextLine();
             System.out.println("Enter password: ");
@@ -130,19 +127,18 @@ public class Main {
             if (valid) {
                 System.out.println("Logging in...");
                 loggedIn = true;
-            }
-            else {
+            } else {
                 System.out.println("Invalid credentials.");
             }
         }
-
+        CinemaStaff cinemaStaff = new CinemaStaff(username);
         // Menu of choices the customer can choose from
         int choice = -1;
-        while (choice != 0){
+        while (choice != 0) {
             System.out.println("-----Admin Panel-----");
             System.out.println("(1) Create Movie Listing");
-            System.out.println("(2) Update Movie Listing"); 
-            System.out.println("(3) Remove Movie Listing"); 
+            System.out.println("(2) Update Movie Listing");
+            System.out.println("(3) Remove Movie Listing");
             System.out.println("(4) Create Movie Showtime");
             System.out.println("(5) Update Movie Showtime");
             System.out.println("(6) Remove Movie Showtime");
@@ -152,10 +148,10 @@ public class Main {
             System.out.println("(0) Quit");
             System.out.println("---------------------");
             System.out.print("Choice: ");
-            if (sc.hasNextInt()){
+            if (sc.hasNextInt()) {
                 choice = sc.nextInt();
             }
-            switch(choice) {
+            switch (choice) {
                 case 1:
                     // Create new movie listing, setting all the required fields
                     break;
@@ -168,12 +164,14 @@ public class Main {
                     break;
                 case 4:
                     // Create Movies showtime within a cinema
-                    showTimeStore.addShowTime();
-                    showTimeStore.writeFile();
+                    cinemaStaff.addShowTime();
                     break;
+
                 case 5:
                     // Update the showtime timings
+                    cinemaStaff.updateShowTime();
                     break;
+
                 case 6:
                     // Remove a particular showtime timing
                     break;
