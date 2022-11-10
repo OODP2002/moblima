@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
 public class LoginHandler {
-    public Admin login(){
+    public CinemaStaff login(){
         Scanner sc = new Scanner(System.in); 
         
         //Admin object if login in successful
-        Admin admObj = null; 
+        CinemaStaff admObj = null;
         
         //user input
         String username, password;
@@ -23,9 +23,9 @@ public class LoginHandler {
             
             if (option == 1){
                 System.out.print("Enter Username: ");
-                username = sc.next();
+                username = sc.nextLine();
                 System.out.print("Enter Password: ");
-                password = sc.next();
+                password = sc.nextLine();
                 
                 admObj = CredentialStore.getInstance().validate(username, password);
                 

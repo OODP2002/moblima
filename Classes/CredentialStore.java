@@ -1,37 +1,46 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class CredentialStore {
-    //Attributes 
+    //Attributes
+    private HashMap<String, Credential> credentialHashMap = new HashMap<>();
+    private String path = "Classes/src/credentials.txt";
     private ArrayList<Credential> credentials = new ArrayList<Credential>();
-    private String path = System.getProperty("user.dir") + ("/src/credentials.txt");
-    private static CredentialStore instance = new CredentialStore();
+    private static CredentialStore single_instance = null;
+    private TxtReaderWriter credentialReaderWriter = new TxtReaderWriter(path);
     
     //Constructor 
     private CredentialStore(){
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(this.path));
-            String header = reader.readLine(); //Header row
-            String line = reader.readLine();
-            while (line != null){
-                credentials.add(createCredentialObj(line)); //Add pricing object to special occasion array list
-                line = reader.readLine(); // Reading next line in txt file
-            }
-            reader.close();
-        } catch (IOException err){
-            //System.out.println(err.getStackTrace());
-            System.out.println("Error: Credential list not found");
-        }
-
+        loadCredentialHashMap(credentialReaderWriter.getRawStringFromFile());
     }
 
+    private void loadCredentialHashMap(ArrayList<String[]> credentialRawStore) {
+        for (String[] line : credentialRawStore) {
+            AdminRole admRole;
+            switch (line[2]) {
+                case "CinemaStaff":
+                    admRole = AdminRole.CINEMASTAFF;
+                    break;
+                default:
+                    admRole = AdminRole.CINEMASTAFF; // lowest priority
+                    Credential credential = new Credential(line[0], line[1], admRole);
+                    credentialHashMap.put(line[0], credential);
+            }
+        }
+    }
     //Operations 
     //Return instance of store
-    public static CredentialStore getInstance(){
-        return instance;
+    public static CredentialStore getInstance() {
+            if (single_instance == null)
+                single_instance = new CredentialStore();
+
+            return single_instance;
     }
 
     //Creates a new credential object based on a line in the credentials txt file
@@ -39,11 +48,10 @@ public class CredentialStore {
         String[] infoArr =  info.split("\\|");
 
         AdminRole admRole;
+
+        // Switch statement for future extensibility (super admin)
         switch(infoArr[2]){
-            case "CinemaStaff":
-                admRole = AdminRole.CINEMASTAFF;
-                break;
-            default: 
+            default:
                 admRole = AdminRole.CINEMASTAFF; // lowest priority
         }
         return new Credential(infoArr[0], infoArr[1], admRole);
@@ -66,11 +74,11 @@ public class CredentialStore {
         return -1;
     }
 
-    //validate credentials for login (poly)
-    public Admin validate(String username, String password){
+    // validate credentials for login (poly)
+    public CinemaStaff validate(String username, String password){
         int index = getUserIndex(username);
         if (index != -1 && credentials.get(index).check(password)){
-            Admin admObj = null;
+            CinemaStaff admObj = null;
             switch(credentials.get(index).getRole()){
                 case CINEMASTAFF:
                     admObj = new CinemaStaff(username);

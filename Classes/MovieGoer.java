@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
 
-public class MovieGoer implements PersonInterface{
+public class MovieGoer implements Person{
     private String name;
     private MovieStore movStore = MovieStore.getInstance();
     private String email;

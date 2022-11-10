@@ -110,28 +110,15 @@ public class Main {
     }
 
     private static void adminModule() {
-        boolean loggedIn = false;
-        boolean valid = false;
-        String username = null;
-        String password;
+        LoginHandler loginHandler = new LoginHandler();
+        CinemaStaff cinemaStaff = loginHandler.login();
 
-        // Login Admin
-        while (!loggedIn) {
-            System.out.println("Enter username: ");
-            username = sc.nextLine();
-            System.out.println("Enter password: ");
-            password = sc.nextLine();
-            // Verify using proper login handler
-            valid = true;
-            // if correct, set loggedIn to be true
-            if (valid) {
-                System.out.println("Logging in...");
-                loggedIn = true;
-            } else {
-                System.out.println("Invalid credentials.");
-            }
+        // Login fails
+        if (cinemaStaff == null) {
+            System.out.println("Login failed, exiting admin module now");
+            return;
         }
-        CinemaStaff cinemaStaff = new CinemaStaff(username);
+
         // Menu of choices the customer can choose from
         int choice = -1;
         while (choice != 0) {

@@ -60,3 +60,4 @@ public class Credential {
         return this.username + "|" + this.password + "|" + roleStr + "|";
     }
 }
+
