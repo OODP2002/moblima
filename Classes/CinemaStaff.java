@@ -10,23 +10,7 @@ public class CinemaStaff implements Admin, SysPriceHandler, SysSpecialOccasionHa
         this.name = name;
     }
 
-    //Option 1 - Pricings
-    public void editPricing(Pricing newPricing){    
-        pricingStore.newRule(newPricing);
-        System.out.println("Pricing rule added.");
-        return;
-    }
-    
-    public void removePricing(Integer pricingID){
-        if(pricingStore.remove(pricingID)){
-            System.out.println("Pricing rule removed.");
-        }
-        return;
-    }
-
-    public void printPricingList(){
-        pricingStore.printAll();
-    }
+    public void editPricing(){}
 
     //Option 2 - Special Occasion
     public boolean addSpecialOccasion(String date, String name){
@@ -35,7 +19,7 @@ public class CinemaStaff implements Admin, SysPriceHandler, SysSpecialOccasionHa
     }
 
     public boolean updateSpecialOccasion(String name, LocalDate date){
-
+        return true;
     }
 
     public boolean removeSpecialOccasion(String date, String name){
@@ -45,6 +29,5 @@ public class CinemaStaff implements Admin, SysPriceHandler, SysSpecialOccasionHa
 
     public void printSpecialOccasionList(){
         specialOccasionStore.printAll();
-    }
     }
 }

@@ -1,3 +1,13 @@
-pricingID|cinemaClass|view|ageGroup|startTime|endTime|dayOfWeek|isPreferred|price|
-2|GOLD|2D|CHILD|19:30|21:30|3|true|13.00|
-1|STANDARD|3D|SENIOR|21:30|22:30|3|false|9.00|
+Type|value|AddPrice
+base|base|8.50
+hype|BLOCKBUSTER|1
+cinemaClass|PLATINUM|3
+cinemaClass|GOLD|1.5
+dayOfWeek|4|1
+dayOfWeek|5|1
+dayOfWeek|6|2.5
+dayOfWeek|7|2.5
+fridayRule|1800|1.5
+ageGroup|CHILD|7
+ageGroup|SENIOR|4
+view|_3D|3

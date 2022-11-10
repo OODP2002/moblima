@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class SpecialOccasionStore {
     //Attributes
@@ -72,6 +73,14 @@ public class SpecialOccasionStore {
         for (int i = 0; i < this.specialOccasions.size(); i++){
             System.out.println(this.specialOccasions.get(i).toString());
         }
+    }
+
+    //query if date provided is a special occasion or eve of special occasion 
+    public boolean isSpecialOccasion(LocalDate date){
+        for (int i = 0; i < this.specialOccasions.size(); i++){
+            if(this.specialOccasions.get(i).isSpecialOccasion(date)) return true;
+        }
+        return false;
     }
 
     // Overwrite old specialOccasionsList with a new set of Special Occasions

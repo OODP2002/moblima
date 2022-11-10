@@ -14,8 +14,12 @@ public class SpecialOccasion {
 
     public boolean isSameOccasion(SpecialOccasion otherSpecialOccasion){
         return (
-            this.date == otherSpecialOccasion.date
-            && this.name == otherSpecialOccasion.name
+            this.date.equals(otherSpecialOccasion.date)
+            && this.name.equals(otherSpecialOccasion.name)
         );
     }
+
+    public boolean isSpecialOccasion(LocalDate date){
+        return this.date.equals(date) || this.date.equals(date.plusDays(1)); //checks if its a special occasion or eve of a special occasion
+    } 
 }

@@ -75,18 +75,18 @@ public class CinemaStaffHandler {
                                         price = sc.next();
 
                                         //Creates a temporary pricingID for Pricing object. Pricing object will take on this pricingID if this rule does not exist within current pricing rules
-                                        pricingID = PricingStore.getInstance().numPricings().toString();
-                                        this.cinemaStaff.editPricing(new Pricing(pricingID, cinemaLevel, view, ageGroup, startTime, endTime, dayofWeek, isPreferred, price));
+                                        //pricingID = PricingStore.getInstance().numPricings().toString();
+                                        //this.cinemaStaff.editPricing(new Pricing(pricingID, cinemaLevel, view, ageGroup, startTime, endTime, dayofWeek, isPreferred, price));
                                         break;
 
                                     case 2: //Remove Pricing 
                                         System.out.print("Enter Pricing ID to be removed: ");
                                         pricingID = sc.next();
-                                        this.cinemaStaff.removePricing(Integer.parseInt(pricingID));
+                                        //this.cinemaStaff.removePricing(Integer.parseInt(pricingID));
                                         break;
 
                                     case 3: //Print all Pricings
-                                        this.cinemaStaff.printPricingList();
+                                        //this.cinemaStaff.printPricingList();
                                         break;
 
                                     case 4: //Quit
