@@ -2,13 +2,10 @@ import java.util.Scanner;
 
 public class LoginHandler {
     public CinemaStaff login(){
-        Scanner sc = new Scanner(System.in); 
-        
-        //Admin object if login in successful
-        CinemaStaff admObj = null;
+        Scanner sc = new Scanner(System.in);
+        CinemaStaff cinemaStaff;
         
         //user input
-        String username, password;
         int option;
 
         while (true){
@@ -23,21 +20,21 @@ public class LoginHandler {
             
             if (option == 1){
                 System.out.print("Enter Username: ");
-                username = sc.nextLine();
+                String username = sc.nextLine();
+                cinemaStaff = new CinemaStaff(username);
                 System.out.print("Enter Password: ");
-                password = sc.nextLine();
+                String password = sc.nextLine();
                 
-                admObj = CredentialStore.getInstance().validate(username, password);
-                
-                if (admObj == null){
+                if (!cinemaStaff.validate(password)){
                     System.out.println("Error: Invalid Credential");
+                    return null;
                 } else {
                     System.out.println("Logged in. Welcome " + username + ".");
                     break;
                 }
-            } 
+            }
             
-            else if (option == 2){
+            else if (option == 2) {
                 return null;
             } 
             
@@ -46,6 +43,6 @@ public class LoginHandler {
             }
         }
         sc.close();
-        return admObj; // returns null object if login fails 
+        return cinemaStaff; // returns null object if login fails
     }
 }

@@ -34,6 +34,6 @@ public class CinemaStaff implements Admin, SysPriceHandler, SysSpecialOccasionHa
 
     // Encapsulation: CinemaStaff responsible for own validation and persistence
     public boolean validate(String password) {
-        return password.equals(CredentialStore.getInstance().)
+        return password.equals(CredentialStore.getInstance().getPassword(name));
     }
 }

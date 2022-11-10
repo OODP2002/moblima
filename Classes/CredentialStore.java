@@ -97,23 +97,7 @@ public class CredentialStore {
         return credentialHashMap.get(username).getPassword();
     }
 
-    // validate credentials for login (poly)
-    public CinemaStaff validate(String username, String password){
-        int index = getUserIndex(username);
-        if (index != -1 && credentials.get(index).check(password)){
-            CinemaStaff admObj = null;
-            switch(credentials.get(index).getRole()){
-                case CINEMASTAFF:
-                    admObj = new CinemaStaff(username);
-                    break;
-            }
-            return admObj;
-        } else {
-            return null; //User does not exist 
-        }
-    }
-
-    //changing username
+    // changing username --> current admin doesnt have the right to change
     public boolean changeUsername(String oldUsername, String newUsername, String password){
         int index = getUserIndex(oldUsername);
         if (index != -1){
@@ -123,7 +107,7 @@ public class CredentialStore {
         }
     }
 
-    //changing password 
+    //changing password --> current admin doesnt have the right to change
     public boolean changePassword(String username, String oldPassword, String newPassword){
         int index = getUserIndex(username);
         if (index != -1){
@@ -133,21 +117,4 @@ public class CredentialStore {
         }
     }
 
-    //Overwrite old credential list with a new set of credentials
-    public void writeToCredentialsFile(){
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(this.path));
-            String header = reader.readLine(); //Header row
-            
-            FileWriter writer = new FileWriter(path);
-            writer.write(header);
-            for (int i = 0; i < this.credentials.size(); i++){
-                writer.write("\n" + this.credentials.get(i).toString());
-            }
-            writer.close();
-            reader.close();
-        } catch (IOException err){
-            err.printStackTrace();
-        }
-    }
 }
