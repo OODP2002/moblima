@@ -5,10 +5,10 @@ public class CustomerModule {
     private static CustomerModule single_instance = null;
 
     private CustomerModule() {
-        int choice = 0;
         MovieGoer movieGoer = new MovieGoer();
 
-        while (choice != 7){
+        int choice;
+        do {
             System.out.println("----Customer Panel---");
             System.out.println("(1) List all movies");
             System.out.println("(2) List top 5 movies"); // This one depends on admin setting to determine which is top 5
@@ -19,55 +19,21 @@ public class CustomerModule {
             System.out.println("(7) Quit");
             System.out.println("---------------------");
             System.out.print("Choice: ");
-            if (sc.hasNextInt()){
-                choice = sc.nextInt();
+
+            choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice) {
+                case 1 -> movieGoer.listAllMovies();
+                case 2 -> movieGoer.listBy();
+                case 3 -> movieGoer.searchMovie();
+                case 4 -> movieGoer.writeReview();
+                case 5 -> movieGoer.buyTicket();
+                case 6 -> movieGoer.showHistory();
+                case 7 -> System.out.println("Exiting customer module...");
+                default -> System.out.println("Invalid choice.");
             }
-            switch(choice) {
-                case 1:
-                    // Call listAllMovies, data from movie store
-                    movieGoer.listAllMovies();
-                    break;
-
-                case 2:
-                    // Call listBy, data from movie store
-                    // List by default must show both types of top 5
-                    // List will only show one if admin chooses to opt out of one
-                    movieGoer.listBy();
-                    break;
-
-                case 3:
-                    // Call searchMovie, data from movie store
-                    movieGoer.searchMovie();
-                    break;
-
-                case 4:
-                    // Call writeReview, should be under movieGoer
-                    movieGoer.writeReview();
-                    break;
-
-                case 5:
-                    // Call buyTicket, should be under movieGoer
-                    // Must have checkAvailability fn
-                    // must be able to select more than one seat
-                    // Must store customer's c name, email, mobile address
-                    // Must create ticketID (TID)of the format XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters)
-                    movieGoer.buyTicket();
-                    break;
-
-                case 6:
-                    // Call showHistory, should be under movieGoer
-                    movieGoer.showHistory();
-                    break;
-
-                case 7:
-                    // Quit
-                    System.out.println("Exiting customer module...");
-                    return;
-
-                default:
-                    System.out.println("Invalid choice.");
-            }
-        }
+        } while (choice != 7);
     }
 
     public static CustomerModule getInstance() {
