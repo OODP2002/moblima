@@ -12,6 +12,6 @@ public class ShowTimeStoreDemo {
         sts.updateShowtime();
 
         // Call to update txt file
-        sts.writeFile();
+        sts.closeShowTimeStore();
     }
 }

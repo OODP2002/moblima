@@ -3,20 +3,17 @@
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ShowTimeStore {
     private HashMap<String, ShowTime> showTimeHashMap = new HashMap<>();  // key=SHOWTIME_ID
-    private final String FILE_SOURCE = "./src/showtimes.txt";
+    private final String FILE_SOURCE = "Classes/src/showtimes.txt";
     private static ShowTimeStore single_instance = null;
     private Scanner sc = new Scanner(System.in);
+    private TxtReaderWriter showtimeReaderWriter = new TxtReaderWriter(FILE_SOURCE);
 
     private ShowTimeStore() {
-        TxtReaderWriter showtimeReaderWriter = new TxtReaderWriter(FILE_SOURCE);
         loadShowTimeHashMap(showtimeReaderWriter.getRawStringFromFile());
     }
 
@@ -45,7 +42,6 @@ public class ShowTimeStore {
         return showTimeHashMap.get(showTimeID);
     }
 
-    // To-do: convert this to write into HashMap
     public void addShowTime() {
         System.out.println("Welcome to add ShowTime module");
 
@@ -61,8 +57,16 @@ public class ShowTimeStore {
 
         System.out.println("Enter movie ID: ");
         showTime.setMovieID(sc.nextInt());
+        sc.nextLine();
 
         System.out.println("Enter start time (DD-MM-YYYY HH:MM): ");
+        setShowtime(showTime);
+
+        System.out.println("Entry success!");
+        showTimeHashMap.put(showtimeID, showTime);
+    }
+
+    private void setShowtime(ShowTime showTime) {
         String timeRaw = sc.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         try {
@@ -73,9 +77,6 @@ public class ShowTimeStore {
             System.out.println("Default showtime of now is used");
             showTime.setStartTime(LocalDateTime.parse(LocalDateTime.now().format(formatter)));
         }
-
-        System.out.println("Entry success!");
-        showTimeHashMap.put(showtimeID, showTime);
     }
 
     private String generateShowTimeID(String cinemaID) {
@@ -95,7 +96,6 @@ public class ShowTimeStore {
         }
     }
 
-    // WIP, incomplete
     public void updateShowtime() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Welcome to update Show Time module");
@@ -106,7 +106,7 @@ public class ShowTimeStore {
             System.out.println("Invalid showtimeID, exiting update show time module");
             return;
         } else if (!showTimeHashMap.containsKey(showtimeID)) {
-            System.out.println("Key not found, exiting update show time module");
+            System.out.println("ShowtimeID not found, exiting update show time module");
             return;
         }
 
@@ -158,16 +158,7 @@ public class ShowTimeStore {
 
                 case 4 -> {
                     System.out.println("Enter new start time (DD-MM-YYYY HH:MM): ");
-                    String rawTimeIn = sc.nextLine();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-                    try {
-                        LocalDateTime dateTime = LocalDateTime.parse(rawTimeIn, formatter);
-                        showTime.setStartTime(dateTime);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        System.out.println("Default showtime of now is used");
-                        showTime.setStartTime(LocalDateTime.parse(LocalDateTime.now().format(formatter)));
-                    }
+                    setShowtime(showTime);
                 }
 
                 default -> {
@@ -182,5 +173,31 @@ public class ShowTimeStore {
                 showTimeHashMap.replace(newShowtimeID, showTime);
             }
         }
+    }
+
+    // parseHashMap to ArrayList<String[]>
+    private ArrayList<String[]> parseHashMap() {
+        List<String[]> arrayListOut = new ArrayList<>();
+        Set<String> keys = showTimeHashMap.keySet();
+
+        // Iterate over each ShowTime item
+        for (String key: keys) {
+            ShowTime showTime = showTimeHashMap.get(key);
+            ArrayList<String> line = new ArrayList<>();
+
+            line.add(showTime.getShowtimeID());
+            line.add(String.valueOf(showTime.getMovieID()));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            line.add(showTime.getStartTime().format(formatter));
+
+            String[] out = new String[line.size()];
+            arrayListOut.add(line.toArray(out));
+        }
+        return (ArrayList<String[]>) arrayListOut;
+    }
+
+    // Destructor
+    public void closeShowTimeStore() {
+        showtimeReaderWriter.setRawStringFromFile(parseHashMap());
     }
 }

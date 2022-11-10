@@ -155,7 +155,6 @@ public class Main {
                 case 4:
                     // Create Movies showtime within a cinema
                     showTimeStore.addShowTime();
-                    showTimeStore.writeFile();
                     break;
                 case 5:
                     // Update the showtime timings
