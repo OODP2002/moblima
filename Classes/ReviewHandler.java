@@ -8,7 +8,8 @@ public interface ReviewHandler {
         // Honestly have no clue how this works rn like how do i reference the movie object that the person is looking at
         // Think we should relook the UML and have a user class, which handles the purchasing, then these movieGoers are like ticket objects
 
-        ArrayList<Movie> movieList = MovieStore.getInstance().getMovies();
+        // Commented out due to red squiggly
+//        ArrayList<Movie> movieList = MovieStore.getInstance().getMovies();
 
         // Getting review information
         System.out.print("Enter movie ID you wish to write a review for: ");
@@ -38,13 +39,14 @@ public interface ReviewHandler {
             reviewDes = sc.nextLine();
         }
 
+        // Commented out due to red squiggly
         // Adding review to the correct movie object, validation should be done before calling this method in main()
-        for (int i=0;i<movieList.size();i++){
-            if (movieList.get(i).getMovieID() == movieID){
-                // Calls addReview Method within the OverallReview class
-                movieList.get(i).getOverallReviews().addReview(reviewRating, reviewDes);
-            }
-        }
+//        for (int i=0;i<movieList.size();i++){
+//            if (movieList.get(i).getMovieID() == movieID){
+//                // Calls addReview Method within the OverallReview class
+//                movieList.get(i).getOverallReviews().addReview(reviewRating, reviewDes);
+//            }
+//        }
 
     }
  }

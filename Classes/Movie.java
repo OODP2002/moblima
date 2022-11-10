@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Movie() {
+public class Movie {
     private String movieName;
     private int movieID;
     private MovieDuration movieDuration;
@@ -20,7 +20,6 @@ public class Movie() {
         this.synopsis = new Synopsis();
         this.viewingMode = new ViewingMode();
         this.movieHype = new MovieHype();
-        this.movieSales = new MovieSales();
         this.overallReviews = new OverallReviews();
         this.moviePersonnelList = new ArrayList<>();
         this.ageRating = new AgeRating();
@@ -133,7 +132,7 @@ public class Movie() {
         System.out.println("Synopsis: " + this.getSynopsis().getDetail());
         System.out.println("Viewing Mode: " + this.getViewingMode().getDetailString());
         System.out.println("Movie Hype: " + this.getMovieHype().getDetailString());
-        if (toggle==0) System.out.println("Movie Sales: " + this.getMovieSales().getDetail());
+        if (toggle==0) System.out.println("Movie Sales: " + this.getMovieSales());
         System.out.println("Average rating: " + this.getOverallReviews().getAvgRating());
         this.printMoviePersonnel();
     }
@@ -153,6 +152,6 @@ public class Movie() {
             moviePersonString = moviePersonString + "~" + this.moviePersonnelList.get(i).getName();
         }
 
-        return this.movieName + "|" + String.valueOf(this.movieID) + "|" + movieDurationString + "|" + this.showingStatus.getDetailString() + "|" + this.synopsis.getDetail() + "|" + this.viewingMode.getDetailString() + "|" + this.movieHype.getDetailString() + "|" + String.valueOf(this.movieSales.getDetail()) + "|" + this.getAgeRating().getDetailString() + "|" + overallReviewsString + "|" + moviePersonString;
+        return this.movieName + "|" + String.valueOf(this.movieID) + "|" + movieDurationString + "|" + this.showingStatus + "|" + this.synopsis.getDetail() + "|" + this.viewingMode.getDetailString() + "|" + this.movieHype.getDetailString() + "|" + String.valueOf(this.movieSales) + "|" + this.getAgeRating().getDetailString() + "|" + overallReviewsString + "|" + moviePersonString;
     }
 }
