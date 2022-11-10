@@ -6,7 +6,7 @@ public enum CinemaClass {
 
         public static boolean isValid(String s) {
                 for (CinemaClass c: values()) {
-                        if (s.toUpperCase().equals(c))
+                        if (s.equals(c.toString()))
                                 return true;
                 }
                 return false;
