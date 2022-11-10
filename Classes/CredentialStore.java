@@ -1,55 +1,81 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public class CredentialStore {
-    //Attributes 
+    //Attributes
+    private HashMap<String, Credential> credentialHashMap = new HashMap<>();
+    private String path = "Classes/src/credentials.txt";
     private ArrayList<Credential> credentials = new ArrayList<Credential>();
-    private String path = System.getProperty("user.dir") + ("/src/credentials.txt");
-    private static CredentialStore instance = new CredentialStore();
+    private static CredentialStore single_instance = null;
+    private TxtReaderWriter credentialReaderWriter = new TxtReaderWriter(path);
     
     //Constructor 
     private CredentialStore(){
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(this.path));
-            String header = reader.readLine(); //Header row
-            String line = reader.readLine();
-            while (line != null){
-                credentials.add(createCredentialObj(line)); //Add pricing object to special occasion array list
-                line = reader.readLine(); // Reading next line in txt file
+        loadCredentialHashMap(credentialReaderWriter.getRawStringFromFile());
+    }
+
+    public HashMap<String, Credential> getCredentialHashMap() {
+        return credentialHashMap;
+    }
+
+    // parse HashMap to ArrayList<String[]>
+    private ArrayList<String[]> parseHashMap() {
+        List<String[]> arrayListOut = new ArrayList<>();
+        Set<String> keys = credentialHashMap.keySet();
+
+        // Iterate over each Credential item
+        for (String key: keys) {
+            Credential credential = credentialHashMap.get(key);
+            ArrayList<String> line = new ArrayList<>();
+
+            line.add(credential.getUsername());
+            line.add(credential.getPassword());
+            line.add(String.valueOf(credential.getRole()));
+
+            String[] out = new String[line.size()];
+            arrayListOut.add(line.toArray(out));
+        }
+        return (ArrayList<String[]>) arrayListOut;
+    }
+
+    // Destructor
+    public void closeShowTimeStore() {
+        credentialReaderWriter.setRawStringFromFile(parseHashMap());
+    }
+
+
+    private void loadCredentialHashMap(ArrayList<String[]> credentialRawStore) {
+        for (String[] line : credentialRawStore) {
+            AdminRole admRole;
+            switch (line[2]) {
+                case "CinemaStaff":
+                    admRole = AdminRole.CINEMASTAFF;
+                    break;
+                default:
+                    admRole = AdminRole.CINEMASTAFF; // lowest priority
+                    Credential credential = new Credential(line[0], line[1], admRole);
+                    credentialHashMap.put(line[0], credential);
             }
-            reader.close();
-        } catch (IOException err){
-            //System.out.println(err.getStackTrace());
-            System.out.println("Error: Credential list not found");
         }
-
     }
 
-    //Operations 
     //Return instance of store
-    public static CredentialStore getInstance(){
-        return instance;
+    public static CredentialStore getInstance() {
+            if (single_instance == null)
+                single_instance = new CredentialStore();
+
+            return single_instance;
     }
 
-    //Creates a new credential object based on a line in the credentials txt file
-    private Credential createCredentialObj(String info){
-        String[] infoArr =  info.split("\\|");
-
-        AdminRole admRole;
-        switch(infoArr[2]){
-            case "CinemaStaff":
-                admRole = AdminRole.CINEMASTAFF;
-                break;
-            default: 
-                admRole = AdminRole.CINEMASTAFF; // lowest priority
-        }
-        return new Credential(infoArr[0], infoArr[1], admRole);
-    }
-
-    //create new user
+    // create new user
     public void newUser(Credential newCredential){
         this.credentials.add(newCredential);
         return;
@@ -66,23 +92,12 @@ public class CredentialStore {
         return -1;
     }
 
-    //validate credentials for login (poly)
-    public Admin validate(String username, String password){
-        int index = getUserIndex(username);
-        if (index != -1 && credentials.get(index).check(password)){
-            Admin admObj = null;
-            switch(credentials.get(index).getRole()){
-                case CINEMASTAFF:
-                    admObj = new CinemaStaff(username);
-                    break;
-            }
-            return admObj;
-        } else {
-            return null; //User does not exist 
-        }
+    // Return password given String
+    public String getPassword(String username) {
+        return credentialHashMap.get(username).getPassword();
     }
 
-    //changing username
+    // changing username --> current admin doesnt have the right to change
     public boolean changeUsername(String oldUsername, String newUsername, String password){
         int index = getUserIndex(oldUsername);
         if (index != -1){
@@ -92,7 +107,7 @@ public class CredentialStore {
         }
     }
 
-    //changing password 
+    //changing password --> current admin doesnt have the right to change
     public boolean changePassword(String username, String oldPassword, String newPassword){
         int index = getUserIndex(username);
         if (index != -1){
@@ -102,21 +117,4 @@ public class CredentialStore {
         }
     }
 
-    //Overwrite old credential list with a new set of credentials
-    public void writeToCredentialsFile(){
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(this.path));
-            String header = reader.readLine(); //Header row
-            
-            FileWriter writer = new FileWriter(path);
-            writer.write(header);
-            for (int i = 0; i < this.credentials.size(); i++){
-                writer.write("\n" + this.credentials.get(i).toString());
-            }
-            writer.close();
-            reader.close();
-        } catch (IOException err){
-            err.printStackTrace();
-        }
-    }
 }

@@ -1,4 +1,4 @@
 interface Person {
-    public String getName();
-    public void setName(String s);
+    String getName();
+    void setName(String name);
 }
