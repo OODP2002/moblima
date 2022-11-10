@@ -42,10 +42,6 @@ public class ShowTimeStore {
         return showTimeHashMap.get(showTimeID);
     }
 
-
-
-
-
     // parseHashMap to ArrayList<String[]>
     private ArrayList<String[]> parseHashMap() {
         List<String[]> arrayListOut = new ArrayList<>();

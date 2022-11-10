@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public class CredentialStore {
     //Attributes
@@ -19,6 +21,36 @@ public class CredentialStore {
     private CredentialStore(){
         loadCredentialHashMap(credentialReaderWriter.getRawStringFromFile());
     }
+
+    public HashMap<String, Credential> getCredentialHashMap() {
+        return credentialHashMap;
+    }
+
+    // parse HashMap to ArrayList<String[]>
+    private ArrayList<String[]> parseHashMap() {
+        List<String[]> arrayListOut = new ArrayList<>();
+        Set<String> keys = credentialHashMap.keySet();
+
+        // Iterate over each Credential item
+        for (String key: keys) {
+            Credential credential = credentialHashMap.get(key);
+            ArrayList<String> line = new ArrayList<>();
+
+            line.add(credential.getUsername());
+            line.add(credential.getPassword());
+            line.add(String.valueOf(credential.getRole()));
+
+            String[] out = new String[line.size()];
+            arrayListOut.add(line.toArray(out));
+        }
+        return (ArrayList<String[]>) arrayListOut;
+    }
+
+    // Destructor
+    public void closeShowTimeStore() {
+        credentialReaderWriter.setRawStringFromFile(parseHashMap());
+    }
+
 
     private void loadCredentialHashMap(ArrayList<String[]> credentialRawStore) {
         for (String[] line : credentialRawStore) {
@@ -34,7 +66,7 @@ public class CredentialStore {
             }
         }
     }
-    //Operations 
+
     //Return instance of store
     public static CredentialStore getInstance() {
             if (single_instance == null)
@@ -43,21 +75,7 @@ public class CredentialStore {
             return single_instance;
     }
 
-    //Creates a new credential object based on a line in the credentials txt file
-    private Credential createCredentialObj(String info){
-        String[] infoArr =  info.split("\\|");
-
-        AdminRole admRole;
-
-        // Switch statement for future extensibility (super admin)
-        switch(infoArr[2]){
-            default:
-                admRole = AdminRole.CINEMASTAFF; // lowest priority
-        }
-        return new Credential(infoArr[0], infoArr[1], admRole);
-    }
-
-    //create new user
+    // create new user
     public void newUser(Credential newCredential){
         this.credentials.add(newCredential);
         return;
@@ -72,6 +90,11 @@ public class CredentialStore {
         }
         System.out.println("Username not found.");
         return -1;
+    }
+
+    // Return password given String
+    public String getPassword(String username) {
+        return credentialHashMap.get(username).getPassword();
     }
 
     // validate credentials for login (poly)

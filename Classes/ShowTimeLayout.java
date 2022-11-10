@@ -4,7 +4,7 @@ import java.util.HashMap;
 *  Purpose of class: know which seats are taken and which are not
 *  Has a HashMap containing all Seats in this ShowTime */
 public class ShowTimeLayout {
-    private final HashMap<String, Seat> seatHashMap;
+    private final HashMap<String, Seat> seatHashMap;    // key=SEAT_ID
     private final int rows;
     private final int columns;
     private final int aisle;

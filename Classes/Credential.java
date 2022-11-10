@@ -49,7 +49,11 @@ public class Credential {
         return this.password.equals(password);
     }
 
-    //Converts Credential instance to a string 
+    public String getPassword() {
+        return password;
+    }
+
+    //Converts Credential instance to a string
     public String toString(){
         String roleStr = "";
         switch(this.role){
