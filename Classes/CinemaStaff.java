@@ -10,10 +10,7 @@ public class CinemaStaff implements Admin, SysPriceHandler, SysSpecialOccasionHa
         setName(name);
     }
 
-    public void editPricing(Pricing newPricing){    
-        pricingStore.addPricing(newPricing);
-        return;
-    }
+
 
     public void addSpecialOccasion(String name, LocalDate date){
 

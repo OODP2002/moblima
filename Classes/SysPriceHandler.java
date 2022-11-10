@@ -1,3 +1,6 @@
 interface SysPriceHandler {
-    public void editPricing(Pricing newPricing);    
+    default void editPricing(Pricing newPricing){
+        PricingStore pricingStore = PricingStore.getInstance();
+        pricingStore.addPricing(newPricing);
+    }
 }
