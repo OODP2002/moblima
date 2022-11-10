@@ -1,17 +1,27 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.HashMap;
 import java.util.Set;
 
 public class MovieGoer implements PersonInterface{
     private String name;
     private MovieStore movStore = MovieStore.getInstance();
     private String email;
-    
-    public MovieGoer(String n, String em, Integer mob) {
-        this.name = n;
-        this.email = em;
-        this.mobile = mob;
+    private Integer mobile;
+    Scanner sc = new Scanner(System.in);
+
+
+    // Initialization: get Movie Goer details
+    public MovieGoer() {
+        System.out.println("Welcome to Movie Goer registration module");
+        System.out.print("Enter name: ");
+        this.name = sc.nextLine();
+
+        System.out.print("Enter mobile number: ");
+        this.mobile = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter email address: ");
+        this.email = sc.nextLine();
     }
     
     public String getName() {
@@ -30,7 +40,6 @@ public class MovieGoer implements PersonInterface{
         this.email = email;
     }
 
-    private Integer mobile;
 
     public Integer getMobile() {
         return this.mobile;
@@ -40,19 +49,24 @@ public class MovieGoer implements PersonInterface{
         this.mobile = mobile;
     }
 
-    public void writeReview(int movieID, ArrayList<Movie> movieList) {
+    public void writeReview() {
         // Honestly have no clue how this works rn like how do i reference the movie object that the person is looking at
         // Think we should relook the UML and have a user class, which handles the purchasing, then these movieGoers are like ticket objects
         
         // Getting review information
+        System.out.print("Enter movie ID you wish to write a review for: ");
+        int movieID = sc.nextInt();
+        sc.nextLine();
+        // IMPLEMENT: Validate if movieID is valid
 
-        Scanner sc = new Scanner(System.in);
+        ArrayList<Movie> movieList = MovieStore.getInstance().getMovies();
+
         // Review Rating
         System.out.println("Enter Movie Rating (1 - 5 Stars): ");
         int reviewRating = 0;
-        if (sc.hasNextInt()){
-            reviewRating = sc.nextInt();
-        }
+        reviewRating = sc.nextInt();
+        sc.nextLine();
+
         while (reviewRating > 5 && reviewRating < 1){
             // Checks for valid rating
             System.out.println("Invalid rating, please try again. \n");

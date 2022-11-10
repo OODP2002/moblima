@@ -1,6 +1,6 @@
 public class MovieGoerDemo {
     public static void main(String[] args){
-        MovieGoer person = new MovieGoer("zhekai","zhekai@gmail.com",99993333);
+        MovieGoer person = new MovieGoer();
         person.listAllMovies();
         person.listBy();
         person.listBy();
