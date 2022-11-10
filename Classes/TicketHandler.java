@@ -20,10 +20,9 @@ public interface TicketHandler {
             System.out.println("return");
             return;
         }
-        this.searchMovie(MovieID);
 
         ShowTimeStore showStore = ShowTimeStore.getInstance();
-        Movie curMovie = movStore.searchMovie(MovieID);
+        Movie curMovie = MovieStore.getInstance().searchMovie(MovieID);
 
         Set<String> keys = showStore.getShowTimeHashMap().keySet();
         System.out.println("");

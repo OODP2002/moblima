@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Movie{
+public class Movie() {
     private String movieName;
     private int movieID;
     private MovieDuration movieDuration;
@@ -8,7 +8,7 @@ public class Movie{
     private Synopsis synopsis;
     private ViewingMode viewingMode;
     private MovieHype movieHype;
-    private MovieSales movieSales;
+    private int movieSales;
     private OverallReviews  overallReviews;
     private ArrayList<MoviePersonnel> moviePersonnelList = new ArrayList<>();
     private AgeRating ageRating;
@@ -86,16 +86,20 @@ public class Movie{
         this.movieHype = movieHype;
     }
 
-    public MovieSales getMovieSales(){
-        return this.movieSales;
+    public int getMovieSales(){
+        return movieSales;
     }
 
-    public void setMovieSales(MovieSales movieSales){
+    public void setMovieSales(int movieSales){
         this.movieSales = movieSales;
     }
 
     public OverallReviews getOverallReviews() {
         return this.overallReviews;
+    }
+
+    public double getAvgRating() {
+        return getOverallReviews().getAvgRating();
     }
 
     public void printMoviePersonnel() {
@@ -124,7 +128,7 @@ public class Movie{
         System.out.println("Movie Name: " + this.getMovieName());
         System.out.println("Movie ID: " + this.getMovieID());
         System.out.println("Movie Duration: " + this.getMovieDuration().getDetail());
-        System.out.println("Showing Status: " + this.getShowingStatus().getDetailString());
+        System.out.println("Showing Status: " + this.getShowingStatus());
         System.out.println("Age Rating: " + this.getAgeRating().getDetailString());
         System.out.println("Synopsis: " + this.getSynopsis().getDetail());
         System.out.println("Viewing Mode: " + this.getViewingMode().getDetailString());

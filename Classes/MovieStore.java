@@ -1,16 +1,9 @@
-import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 public class MovieStore {
     
     // Attributes
-
-    private String path = ("Classes/src/movies.txt");
+    private final String path = ("Classes/src/movies.txt");
     private static MovieStore instance = new MovieStore();
     private HashMap<Integer, Movie> movieHashMap = new HashMap<>();     // key=MOVIE_ID
     private TxtReaderWriter movieReaderWriter = new TxtReaderWriter(path);
@@ -39,7 +32,7 @@ public class MovieStore {
             movie.setSynopsis(new Synopsis(line[4]));
             movie.setViewingMode(new ViewingMode(View.valueOf(line[5])));
             movie.setMovieHype(new MovieHype(Hype.valueOf(line[6])));
-            movie.setMovieSales(new MovieSales(Integer.parseInt(line[7])));
+            movie.setMovieSales(Integer.parseInt(line[7]));
             movie.setAgeRating(new AgeRating(AgeEnum.valueOf(line[8])));
 
             // Get overall reviews
@@ -64,6 +57,7 @@ public class MovieStore {
     }
 
 
+    // Add movie to HashMap given Movie object
     public void addMovie(Movie movie) {
         movieHashMap.put(movie.getMovieID(), movie);
     }
@@ -119,84 +113,33 @@ public class MovieStore {
     }
     public void printAllMovies(int toggle) {
         for (Movie movie: movieHashMap.values()) {
-            if (movie.getShowingStatus() == Status.ENDOFSHOWING && toggle == 1 || movie.getShowingStatus() != Status.ENDOFSHOWING)
+            if (movie.getShowingStatus() != Status.ENDOFSHOWING || toggle == 1)
                 System.out.println("MovieID " + movie.getMovieID() + ": " + movie.getMovieName());
         }
     }
 
+    // Returns null if movie does not exist
     public Movie searchMovie(int id){
-        int movieID;
-        for (int i=0; i<this.movies.size(); i++) {
-            movieID = this.movies.get(i).getMovieID();
-            if (movieID == id && this.movies.get(i).getShowingStatus().getDetail() !=Status.ENDOFSHOWING){
-                return this.movies.get(i);
-            }
-        }
-        return null;
+        return movieHashMap.get(id);
     }
 
     public void ListTop5(int toggle) {
-        int n = this.movies.size();
-        Movie[] movieArr = new Movie[n];
-        for (int i=0; i<n; i++) {
-            movieArr[i] = this.movies.get(i);
-        }
+        List<Movie> movies = (List<Movie>) movieHashMap.values();
+
         // Sort by movie sales
-        if (toggle == 0) { 
-            for (int i=0; i<n-1; i++) {
-                for (int j=0; j<n-i-1; j++) {
-                    if (movieArr[j].getMovieSales().getDetail() < movieArr[j+1].getMovieSales().getDetail()) {
-                        Movie temp = movieArr[j];
-                        movieArr[j] = movieArr[j+1];
-                        movieArr[j+1] = temp;
-                    }
-                }
-            }
-            int num = (n < 5) ? n : 5;           
-            System.out.println("Top " + num + " movies by Movie Sales:");
-            for (int i=0; i<num; i++) {
-                System.out.println((i+1) + ": " + movieArr[i].getMovieName() + "\nMovie Sales: " + movieArr[i].getMovieSales().getDetail() + "\n");
-            }
-        }
-        // Sort by average rating
-        else { 
-            for (int i=0; i<n-1; i++) {
-                for (int j=0; j<n-i-1; j++) {
-                    if (movieArr[j].getOverallReviews().getAvgRating() < movieArr[j+1].getOverallReviews().getAvgRating()) {
-                        Movie temp = movieArr[j];
-                        movieArr[j] = movieArr[j+1];
-                        movieArr[j+1] = temp;
-                    }
-                }
-            }
-            int num = (n < 5) ? n : 5;           
-            System.out.println("Top " + num + " movies by rating:");
-            for (int i=0; i<num; i++) {
-                System.out.println((i+1) + ": " + movieArr[i].getMovieName() + "\nMovie Rating: " + movieArr[i].getOverallReviews().getAvgRating() + "\n");
-            }
+        if (toggle == 0) {
+            movies.sort(Comparator.comparing(Movie::getMovieSales).reversed());
+        } else {
+            movies.sort(Comparator.comparing(Movie::getAvgRating).reversed());
         }
 
-    }
-
-    public ArrayList<Movie> getMovies() {
-        return movies;
-    }
-
-    public void writeToMoviesFile() {
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(this.path));
-            String header = reader.readLine(); //Header row
-            
-            FileWriter writer = new FileWriter(path);
-            writer.write(header);
-            for (int i = 0; i < this.movies.size(); i++){
-                writer.write("\n" + this.movies.get(i).toString());
-            }
-            writer.close();
-            reader.close();
-        } catch (IOException err){
-            err.printStackTrace();
+        // List the movies
+        int num = Math.min(movies.size(), 5);
+        System.out.println("Top " + num + " movies by Movie Sales:");
+        for (int i = 1; i <= num; i++) {
+            System.out.printf("%d: %s\n", i, movies.get(i).getMovieName());
+            System.out.println("Sales: " + movies.get(i).getMovieSales());
+            System.out.println("Average rating: " + movies.get(i).getAvgRating());
         }
     }
-
 }
