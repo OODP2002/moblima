@@ -1,6 +1,7 @@
 import java.time.LocalTime;
 
 public class Pricing {
+    private Integer pricingID;
     private CinemaClass cinemaLevel; //add CinemaClass constructor 
     private View view; //add View Constructor
     private AgeGroup ageGroup;
@@ -10,17 +11,99 @@ public class Pricing {
     private boolean isPreferred;
     private float price;
 
-    public Pricing(CinemaClass cCinemaLevel, View cView, AgeGroup cAgeGroup, LocalTime cStartTime, LocalTime cEndTime, int cDayofWeek, boolean cIsPreferred, float cPrice){
-        this.cinemaLevel = cCinemaLevel;
-        this.view = cView; //add View Constructor
-        this.ageGroup = cAgeGroup;
-        this.startTime = cStartTime;
-        this.endTime = cEndTime;
-        this.dayOfWeek = cDayofWeek; // 1-indexed
-        this.isPreferred = cIsPreferred;
-        this.price = cPrice;
+    public Pricing(String cPricingID, String cCinemaLevel, String cView, String cAgeGroup, String cStartTime, String cEndTime, String cDayofWeek, String cIsPreferred, String cPrice){
+        //PricingID
+        this.pricingID = Integer.parseInt(cPricingID);
+        
+        //Cinema Class 
+        switch(cCinemaLevel){
+            case "STANDARD":
+                cinemaLevel = CinemaClass.STANDARD;
+                break;
+            case "GOLD":
+                cinemaLevel = CinemaClass.GOLD;
+                break;
+            case "PLATINUM":
+                cinemaLevel = CinemaClass.PLATINUM;
+                break;
+            default:
+                cinemaLevel = CinemaClass.STANDARD;
+        }
+
+        //View Class
+        switch(cView){
+            case "2D":
+                this.view = View._2D;
+                break;
+            case "3D":
+                this.view = View._3D;
+                break;
+            default:
+                this.view = View._2D;
+        }
+
+        // Age Group
+        switch(cAgeGroup){
+            case "CHILD":
+                this.ageGroup = AgeGroup.CHILD;
+                break;
+            case "ADULT":
+                this.ageGroup = AgeGroup.ADULT;
+                break;
+            case "SENIOR":
+                this.ageGroup = AgeGroup.SENIOR;
+                break;
+            default:
+                this.ageGroup = AgeGroup.ADULT;
+        }
+        
+        //Time 
+        String[] startTimeArr = cStartTime.split(":");
+        try{
+            this.startTime = LocalTime.of(Integer.parseInt(startTimeArr[0]), Integer.parseInt(startTimeArr[1]));
+        } catch (NumberFormatException err){
+           err.printStackTrace();
+        }
+
+        String[] endTimeArr = cEndTime.split(":");
+        try{
+            this.endTime = LocalTime.of(Integer.parseInt(endTimeArr[0]), Integer.parseInt(endTimeArr[1]));
+        } catch (NumberFormatException err){
+           err.printStackTrace();
+        }
+
+        //Day of Week
+        try{  
+            this.dayOfWeek = Integer.parseInt(cDayofWeek);
+        } catch(NumberFormatException err) {
+           err.printStackTrace();
+        }
+
+        // Is Preferred 
+        switch(cIsPreferred){
+            case "true":
+                this.isPreferred = true;
+                break;
+            case "false":
+                this.isPreferred = false;
+                break;
+            default:
+                this.isPreferred = false;
+        }
+
+        //price 
+        try{
+            this.price = Float.parseFloat(cPrice);
+        } catch(NumberFormatException err) {
+           err.printStackTrace();
+        }
     }
-    
+
+    //returns pricingID
+    public Integer getPricingID(){
+        return this.pricingID;
+    }
+
     //returns price of ticket
     public float getPrice(){
         return price;
@@ -30,7 +113,6 @@ public class Pricing {
     public void setPrice(float newPrice){
         this.price = newPrice;
     }
-
 
     //query for pricing when buying ticket 
     public boolean isPricing(CinemaClass testCinemaLevel, View testView, AgeGroup testAgeGroup, LocalTime testTime, int testDayOfWeek, boolean testIsPreferred){
@@ -61,6 +143,9 @@ public class Pricing {
         String info = ""; 
         String temp = "";
 
+        //priceID
+        info += this.pricingID.toString() + "|";
+
         //Cinema Level 
         switch(this.cinemaLevel){
             case STANDARD:
@@ -78,10 +163,10 @@ public class Pricing {
         //View 
         switch(this.view){
             case _2D:
-                temp = "_2D";
+                temp = "2D";
                 break;
             case _3D:
-                temp = "_3D";
+                temp = "3D";
                 break;
         }
         info += temp + "|"; 
@@ -123,4 +208,3 @@ public class Pricing {
         return info;
     }
 }
-

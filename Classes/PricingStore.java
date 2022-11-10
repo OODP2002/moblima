@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.time.LocalTime;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -9,6 +8,7 @@ import java.io.IOException;
 
 public class PricingStore {
     //Attributes
+    private String pricingHeader;
     private ArrayList<Pricing> pricings = new ArrayList<Pricing>();
     private String path = System.getProperty("user.dir") + ("/src/pricings.txt");
     private static PricingStore instance = new PricingStore();
@@ -18,7 +18,7 @@ public class PricingStore {
         // Reads a file line by line
         try{
             BufferedReader reader = new BufferedReader(new FileReader(this.path));
-            String header = reader.readLine(); //Header row
+            this.pricingHeader = reader.readLine(); //Header row
             String line = reader.readLine();
             while (line != null){
                 pricings.add(createPricingObj(line)); //Add pricing object to pricings array list
@@ -38,104 +38,11 @@ public class PricingStore {
     
     private Pricing createPricingObj(String info){
         String[] infoArr = info.split("\\|");
-        CinemaClass cinemaLevel; 
-        View view; 
-        AgeGroup ageGroup;
-        LocalTime startTime = LocalTime.of(0,0);
-        LocalTime endTime = LocalTime.of(23,59);
-        int dayOfWeek = 0; 
-        boolean isPreferred;
-        float price = 0;
-
-        //Cinema Class 
-        switch(infoArr[0]){
-            case "STANDARD":
-                cinemaLevel = CinemaClass.STANDARD;
-                break;
-            case "GOLD":
-                cinemaLevel = CinemaClass.GOLD;
-                break;
-            case "PLATINUM":
-                cinemaLevel = CinemaClass.PLATINUM;
-                break;
-            default:
-                cinemaLevel = CinemaClass.STANDARD;
-        }
-
-        //View Class
-        switch(infoArr[1]){
-            case "_2D":
-                view = View._2D;
-                break;
-            case "_3D":
-                view = View._3D;
-                break;
-            default:
-                view = View._2D;
-        }
-
-        // Age Group
-        switch(infoArr[2]){
-            case "CHILD":
-                ageGroup = AgeGroup.CHILD;
-                break;
-            case "ADULT":
-                ageGroup = AgeGroup.ADULT;
-                break;
-            case "SENIOR":
-                ageGroup = AgeGroup.SENIOR;
-                break;
-            default:
-                ageGroup = AgeGroup.ADULT;
-        }
-        
-        //Time 
-        String[] startTimeArr = infoArr[3].split(":");
-        try{
-            startTime = LocalTime.of(Integer.parseInt(startTimeArr[0]), Integer.parseInt(startTimeArr[1]));
-        } catch (NumberFormatException err){
-           err.printStackTrace();
-        }
-
-        String[] endTimeArr = infoArr[4].split(":");
-        try{
-            endTime = LocalTime.of(Integer.parseInt(endTimeArr[0]), Integer.parseInt(endTimeArr[1]));
-        } catch (NumberFormatException err){
-           err.printStackTrace();
-        }
-
-        //Day of Week
-        try{  
-            dayOfWeek = Integer.parseInt(infoArr[5]);
-        } catch(NumberFormatException err) {
-           err.printStackTrace();
-        }
-
-        // Is Preferred 
-        switch(infoArr[6]){
-            case "true":
-                isPreferred = true;
-                break;
-            case "false":
-                isPreferred = false;
-                break;
-            default:
-                isPreferred = false;
-        }
-
-        //price 
-        try{
-            price = Float.parseFloat(infoArr[7]);
-        } catch(NumberFormatException err) {
-           err.printStackTrace();
-        }
-
-        //Create and return Price Object 
-        return new Pricing(cinemaLevel, view, ageGroup, startTime, endTime, dayOfWeek, isPreferred, price);
+        return new Pricing(infoArr[0], infoArr[1], infoArr[2], infoArr[3], infoArr[4], infoArr[5], infoArr[6], infoArr[7],  infoArr[8]);
     }
 
     //New pricing 
-    public void addPricing(Pricing newPricing){
+    public void newRule(Pricing newPricing){
         //Edit existing pricing object or add new pricing object into the array list
         for (int i = 0; i < this.pricings.size(); i++){
             if (pricings.get(i).comparePricing(newPricing)) {
@@ -144,23 +51,41 @@ public class PricingStore {
                 pricings.add(newPricing);
             }
         } 
+        pricings.add(newPricing);
+    }
+
+    public boolean remove(Integer pricingID){
+        for (int i = 0; i < pricings.size(); i++){
+            if (pricings.get(i).getPricingID().equals(pricingID)){
+                pricings.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public Integer numPricings(){
+        return this.pricings.size();
+    }
+
+    public void printAll(){
+        System.out.println();
+        for (int i = 0; i < pricings.size(); i++){
+            System.out.println(pricings.get(i).toString());
+        }
     }
 
     //Overwrite the old priceList with a new set of Pricings
     //To do: function should only be trigger
     //To do: edit file to only change the affected line as the edit is being made (helps to prevent information loss if app crashes before this function is called.)
     public void writeToPricingsFile(){
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(this.path));
-            String header = reader.readLine(); //Header row
-            
-            FileWriter writer = new FileWriter(path);
-            writer.write(header);
+        try{        
+            FileWriter writer = new FileWriter(this.path);
+            writer.write(this.pricingHeader);
             for (int i = 0; i < this.pricings.size(); i++){
                 writer.write("\n" + this.pricings.get(i).toString());
             }
             writer.close();
-            reader.close();
         } catch (IOException err){
             err.printStackTrace();
         }
