@@ -1,48 +1,10 @@
 import java.util.Scanner;
 
-public class Main {
-    static Scanner sc = new Scanner(System.in);
-    public static void main(String[] args) {
-         // Create vendor
-        Vendor vendor = new Vendor();
+public class AdminModule {
+    private static AdminModule single_instance = null;
+    Scanner sc = new Scanner(System.in);
 
-        System.out.println("Starting app...");
-        System.out.println("Welcome to " + vendor.getVendorName() + "Movie Booking System");
-        int loginChoice = 0;
-
-        while(loginChoice != 3){
-            System.out.println("-----Login Panel-----");
-            System.out.println("(1) Admin");
-            System.out.println("(2) Customer");
-            System.out.println("(3) Quit");
-            System.out.println("---------------------");
-            System.out.print("Choice: ");
-
-            if (sc.hasNextInt()){
-                loginChoice = sc.nextInt();
-            }
-
-            switch(loginChoice) {
-                case 1:
-                    // Call admin logic
-                    AdminModule.getInstance();
-                    adminModule();
-                    break;
-                case 2:
-                    // Call user logic
-                    CustomerModule.getInstance();
-                    break;
-                case 3:
-                    System.out.println("Exiting system...");
-                    break;
-                default:
-                    System.out.println("Invalid Choice.");
-            }
-        }
-    }
-
-
-    private static void adminModule() {
+    private AdminModule() {
         LoginHandler loginHandler = new LoginHandler();
         CinemaStaff cinemaStaff = loginHandler.login();
 
@@ -79,8 +41,8 @@ public class Main {
                     // Must be able to update all the fields that were previously set in option 1
                     break;
                 case 3:
-                    // Choose a movie to set to End_Of_Showing 
-                    // This means will not show up in list of movies for the customer as well 
+                    // Choose a movie to set to End_Of_Showing
+                    // This means will not show up in list of movies for the customer as well
                     break;
                 case 4:
                     // Create Movies showtime within a cinema
@@ -115,5 +77,13 @@ public class Main {
                     System.out.println("Invalid choice.");
             }
         }
+    }
+
+
+    public static AdminModule getInstance() {
+        if (single_instance == null)
+            single_instance = new AdminModule();
+
+        return single_instance;
     }
 }
