@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 public interface SysMovieHandler {
@@ -22,6 +23,15 @@ public interface SysMovieHandler {
     }
 
     default void printAllMovies() {
-        MovieStore.getInstance().printAllMovies(1);
+        HashMap<String, Movie> movies = MovieStore.getInstance().getMovieHashMap();
+        for (Movie movie: movies.values()) {
+            System.out.println("=======================");
+            System.out.println("Movie name: " + movie.getMovieName());
+            System.out.println("Movie ID: "+ movie.getMovieID());
+            System.out.printf("Movie details: %s, %s\n", movie.getMovieHype(), movie.getViewingMode());
+            System.out.println("Movie is rated: " + movie.getAgeRating());
+            System.out.println("Sypnosis: " + movie.getSynopsis());
+            System.out.println("=======================");
+        }
     }
 }

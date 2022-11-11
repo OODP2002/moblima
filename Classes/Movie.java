@@ -16,6 +16,7 @@ public class Movie {
 
     public Movie(String movieID){
         this.movieID = movieID;
+        this.overallReviews = new OverallReviews();
     }
 
     public String getMovieName() {
