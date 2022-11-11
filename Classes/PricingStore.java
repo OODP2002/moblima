@@ -1,9 +1,6 @@
-import java.util.ArrayList;
-import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -13,7 +10,6 @@ import java.util.HashMap;
 public class PricingStore {
     //Attributes
     private String pricingHeader;
-
     private Float base;
     private HashMap<AgeGroup, Float> ageGroupChange =  new HashMap<AgeGroup, Float>();
     private HashMap<Hype, Float> hypeAdd = new HashMap<Hype, Float>();
@@ -125,7 +121,7 @@ public class PricingStore {
         } else return false;
     }
 
-    public boolean changCinemaClass(CinemaClass cinemaClass, Float newVal){
+    public boolean changeCinemaClass(CinemaClass cinemaClass, Float newVal){
         if (this.cinemaClassAdd.containsKey(cinemaClass)){
             cinemaClassAdd.replace(cinemaClass, newVal);
             return true;
@@ -164,4 +160,8 @@ public class PricingStore {
         } else return false;
     }
    
+
+    public void listRules(){
+        
+    }
 }   
