@@ -10,13 +10,25 @@ public class CinemaStaff implements Admin, SysPriceHandler, SysSpecialOccasionHa
         setName(name);
     }
 
+    public void editPricing(){}
 
+    //Option 2 - Special Occasion
+    public boolean addSpecialOccasion(String date, String name){
+        SpecialOccasion specialOccasion =  new SpecialOccasion(date, name);
+        return specialOccasionStore.add(specialOccasion);
+    }
 
-    public void addSpecialOccasion(String name, LocalDate date){
+    public boolean updateSpecialOccasion(String name, LocalDate date){
+        return true;
+    }
 
-        SpecialOccasion newSpecialOccasion =  new SpecialOccasion(date, name);
-        specialOccasionStore.addSpecialOccasion(newSpecialOccasion);
-        return;
+    public boolean removeSpecialOccasion(String date, String name){
+        SpecialOccasion specialOccasion =  new SpecialOccasion(date, name);
+        return specialOccasionStore.remove(specialOccasion);
+    }
+
+    public void printSpecialOccasionList(){
+        specialOccasionStore.printAll();
     }
 
     @Override
