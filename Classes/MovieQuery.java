@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 public interface MovieQuery {
@@ -29,9 +30,11 @@ public interface MovieQuery {
     }
 
     default void listAllMovies() {
-        MovieStore movStore = MovieStore.getInstance();
-        System.out.println("----------All Movies----------");
-        movStore.printAllMovies(1);
+        HashMap<String, Movie> movies = MovieStore.getInstance().getMovieHashMap();
+        for (Movie movie: movies.values()) {
+            if (movie.getShowingStatus() != Status.ENDOFSHOWING)
+                movie.printMovie();
+        }
     }
 
     default void searchMovie() {
@@ -53,7 +56,7 @@ public interface MovieQuery {
         }
         else {
             System.out.println("-------Movie Details-------");
-            printMovieInfo(String.valueOf(movieID), 1);
+            printMovieInfo(String.valueOf(movieID));
         }
 
     }
@@ -66,22 +69,12 @@ public interface MovieQuery {
         }
         else {
             System.out.println("-------Movie Details-------");
-            printMovieInfo(movieID, 1);
+            printMovieInfo(movieID);
         }
     }
 
-    private void printMovieInfo(String movieID, int toggle) {
+    private void printMovieInfo(String movieID) {
         Movie movie = MovieStore.getInstance().searchMovie(movieID);
-        System.out.println("Movie Name: " + movie.getMovieName());
-        System.out.println("Movie ID: " + movie.getMovieID());
-        System.out.println("Movie Duration: " + movie.getMovieDuration());
-        System.out.println("Showing Status: " + movie.getShowingStatus());
-        System.out.println("Age Rating: " + movie.getAgeRating());
-        System.out.println("Synopsis: " + movie.getSynopsis());
-        System.out.println("Viewing Mode: " + movie.getViewingMode());
-        System.out.println("Movie Hype: " + movie.getMovieHype());
-        if (toggle==0) System.out.println("Movie Sales: " + movie.getMovieSales());
-        System.out.println("Average rating: " + movie.getOverallReviews().getAvgRating());
-        movie.printMoviePersonnel();
+        movie.printMovie();
     }
 }

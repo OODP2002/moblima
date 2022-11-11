@@ -19,6 +19,20 @@ public class Movie {
         this.overallReviews = new OverallReviews();
     }
 
+    public void printMovie() {
+        System.out.println("=======================");
+        System.out.println("Movie name: " + movieName);
+        System.out.println("Movie ID: "+ movieID);
+        System.out.printf("Movie details: %s, %s\n", movieHype, viewingMode);
+        System.out.println("Movie is rated: " + ageRating);
+        System.out.println("Sypnosis: " + synopsis);
+        System.out.println("Movie avg rating: " + overallReviews.getAvgRating());
+        System.out.println("Number of reviews: " + overallReviews.getReviewCount());
+        System.out.println("Showing status: " + showingStatus);
+        System.out.println("Movie sales: " + movieSales);
+        printMoviePersonnel();
+        System.out.println("=======================");
+    }
     public String getMovieName() {
         return movieName;
     }
@@ -103,7 +117,7 @@ public class Movie {
         return getOverallReviews().getAvgRating();
     }
 
-    public void printMoviePersonnel() {
+    private void printMoviePersonnel() {
         for (MoviePersonnel moviePersonnel : this.moviePersonnelList) {
             System.out.println("Name: " + moviePersonnel.getName() + "\t Role: " + moviePersonnel.getRole());
         }

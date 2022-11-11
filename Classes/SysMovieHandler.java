@@ -22,16 +22,11 @@ public interface SysMovieHandler {
             System.out.println(movieID + " removed successfully!");
     }
 
+    // Admin implementation of printAll movies shows ALL details
     default void printAllMovies() {
         HashMap<String, Movie> movies = MovieStore.getInstance().getMovieHashMap();
         for (Movie movie: movies.values()) {
-            System.out.println("=======================");
-            System.out.println("Movie name: " + movie.getMovieName());
-            System.out.println("Movie ID: "+ movie.getMovieID());
-            System.out.printf("Movie details: %s, %s\n", movie.getMovieHype(), movie.getViewingMode());
-            System.out.println("Movie is rated: " + movie.getAgeRating());
-            System.out.println("Sypnosis: " + movie.getSynopsis());
-            System.out.println("=======================");
+            movie.printMovie();
         }
     }
 }
