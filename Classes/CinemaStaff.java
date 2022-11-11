@@ -1,5 +1,5 @@
 import java.time.LocalDate;
-public class CinemaStaff implements Admin, SysPriceHandler, SysSpecialOccasionHandler, Person{
+public class CinemaStaff implements Admin, SysPriceHandler, SysSpecialOccasionHandler, Person, AdminTicketPricingModule{
 
     private String name;
     private PricingStore pricingStore = PricingStore.getInstance();
@@ -11,12 +11,6 @@ public class CinemaStaff implements Admin, SysPriceHandler, SysSpecialOccasionHa
     }
 
     public void editPricing(){}
-
-    //Option 2 - Special Occasion
-    public boolean addSpecialOccasion(String date, String name){
-        SpecialOccasion specialOccasion =  new SpecialOccasion(date, name);
-        return specialOccasionStore.add(specialOccasion);
-    }
 
     public boolean updateSpecialOccasion(String name, LocalDate date){
         return true;

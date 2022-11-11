@@ -128,7 +128,7 @@ public class CinemaStaffHandler {
                                         name = sc.next();
                                         System.out.print("Enter date (DD-MM): ");
                                         date = sc.next();
-                                        this.cinemaStaff.addSpecialOccasion(date,name);
+                                        this.cinemaStaff.addSpecialOccasion();
                                         break;
                                     case 2: //Update special occasion
                                         break;
