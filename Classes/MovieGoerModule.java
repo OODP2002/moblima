@@ -5,8 +5,8 @@ public class MovieGoerModule {
 
     public void run() {
         MovieGoer movieGoer = new MovieGoer();
-
         int choice;
+
         do {
             System.out.println("----Customer Panel---");
             System.out.println("(1) List all movies");
