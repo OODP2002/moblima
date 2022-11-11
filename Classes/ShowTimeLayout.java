@@ -32,6 +32,10 @@ public class ShowTimeLayout {
     public void printLayout() {
         String s1 = "-";
         String s = s1.repeat((columns * 4 - 4) / 2);
+        System.out.println(s + "LEGEND" + s);
+        System.out.println("[  ]: Seat available");
+        System.out.println("[XX]: Seat unavailable");
+        System.out.println(s + "------" + s);
         System.out.println(s + "SCREEN" + s);
 
         // Print column numbers

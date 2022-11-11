@@ -10,10 +10,11 @@ public class MovieStore {
     private TxtReaderWriter movieReaderWriter = new TxtReaderWriter(path);
 
 
-    // Get Movie object given movie_ID
-    public Movie getMovie(String movieID) {
+    // Get Movie object given movie_ID, returns null if movie does not exist
+    public Movie searchMovie(String movieID) {
         return movieHashMap.get(movieID);
     }
+
 
     // Constructor
     private MovieStore() {
@@ -118,11 +119,6 @@ public class MovieStore {
             if (movie.getShowingStatus() != Status.ENDOFSHOWING || toggle == 1)
                 System.out.println("MovieID " + movie.getMovieID() + ": " + movie.getMovieName());
         }
-    }
-
-    // Returns null if movie does not exist
-    public Movie searchMovie(String id){
-        return movieHashMap.get(id);
     }
 
     public void ListTop5(int toggle) {

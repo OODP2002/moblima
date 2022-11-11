@@ -39,7 +39,7 @@ public class ShowTimeStore {
             ShowTime showTime = new ShowTime(line[0]);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
             showTime.setStartTime(LocalDateTime.parse(line[2], formatter));
-            showTime.setMovieID(Integer.parseInt(line[1]));
+            showTime.setMovieID(line[1]);
             showTimeHashMap.put(line[0], showTime);
         }
     }

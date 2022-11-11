@@ -37,8 +37,12 @@ public class TicketStore {
     private void loadTicketHashMap(ArrayList<String []> ticketRawStore) {
         for (String[] line: ticketRawStore) {
             Ticket ticket = new Ticket(line[0]);
-            ticket.setShowTimeID(line[1]);
-            ticket.setSeatID(line[2]);
+            ticket.setUsername(line[1]);
+            ticket.setEmail(line[2]);
+            ticket.setMobile(line[3]);
+            ticket.setSeatID(line[4]);
+            ticket.setAgeGroup(AgeGroup.valueOf(line[5]));
+            ticket.setPrice(Long.getLong(line[6]));
             ticketHashMap.put(line[0], ticket);
         }
     }
@@ -51,8 +55,12 @@ public class TicketStore {
             ArrayList<String> line = new ArrayList<>();
 
             line.add(ticket.getTransactionID());
-            line.add(ticket.getShowTimeID());
+            line.add(ticket.getUsername());
+            line.add(ticket.getEmail());
+            line.add(ticket.getMobile());
             line.add(ticket.getSeatID());
+            line.add(String.valueOf(ticket.getAgeGroup()));
+            line.add(String.valueOf(ticket.getPrice()));
 
             String[] strArr = new String[line.size()];
             arrayListOut.add(line.toArray(strArr));

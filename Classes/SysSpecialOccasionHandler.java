@@ -1,5 +1,6 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 interface SysSpecialOccasionHandler {
-    public boolean addSpecialOccasion(String name, String newDate);
+    boolean addSpecialOccasion(String name, String newDate);
 }

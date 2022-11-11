@@ -9,13 +9,14 @@ import java.time.format.DateTimeFormatter;
 public class ShowTime {
     private String showtimeID;
     private LocalDateTime startTime;
-    private int movieID;
-    private ShowDate showDate;
+    private String movieID;
+    private Cinema cinema;
     private ShowTimeLayout showTimeLayout;
 
     public ShowTime(String showtimeID) {
         this.showtimeID = showtimeID;
         this.showTimeLayout = new ShowTimeLayout(showtimeID.substring(0,4));
+        this.cinema = CinemaStore.getInstance().getCinema(showtimeID.substring(2,4));
     }
 
     public ShowTimeLayout getShowTimeLayout() {
@@ -38,20 +39,15 @@ public class ShowTime {
         this.startTime = startTime;
     }
 
-    public void setMovieID(int movieID) {
+    public void setMovieID(String movieID) {
         this.movieID = movieID;
     }
 
-    public int getMovieID() {
+    public String getMovieID() {
         return movieID;
     }
 
-    public void printShowTime() {
-        String cineplexID = showtimeID.substring(0,2);
-        String cinemaID = showtimeID.substring(2,4);
-//        System.out.println("Movie showing is: " + movie.getMovieName());
-        System.out.println("Date of showing: " + startTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-        System.out.println("Movie starts at " + startTime.format(DateTimeFormatter.ofPattern("hh:mm a")) + " at Cinema " + cinemaID);
-        System.out.println("Location: " + CineplexStore.getInstance().getCineplex(cineplexID).getCineplexName());
+    public CinemaClass getCinemaClass() {
+        return cinema.getCinemaClass();
     }
 }

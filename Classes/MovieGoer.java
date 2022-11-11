@@ -44,8 +44,8 @@ public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInter
         return tickets;
     }
 
-    public Integer getMobile() {
-        return this.mobile;
+    public String getMobile() {
+        return String.valueOf(this.mobile);
     }
 
     public void setMobile(Integer mobile) {
@@ -66,6 +66,7 @@ public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInter
         }
 
         TicketHandler ticketHandler = new TicketHandler(showtimeID);
+        ticketHandler.getMovieGoerDetails(this);
 
         Ticket newTicket = ticketHandler.buyTicket();
         tickets.put(newTicket.getTransactionID(), newTicket);

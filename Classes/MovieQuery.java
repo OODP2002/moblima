@@ -71,7 +71,7 @@ public interface MovieQuery {
     }
 
     private void printMovieInfo(String movieID, int toggle) {
-        Movie movie = MovieStore.getInstance().getMovie(movieID);
+        Movie movie = MovieStore.getInstance().searchMovie(movieID);
         System.out.println("Movie Name: " + movie.getMovieName());
         System.out.println("Movie ID: " + movie.getMovieID());
         System.out.println("Movie Duration: " + movie.getMovieDuration());

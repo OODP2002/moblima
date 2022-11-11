@@ -10,7 +10,7 @@ public class Main {
         System.out.println("Welcome to " + vendor.getVendorName() + "Movie Booking System");
         int loginChoice = 0;
 
-        while(loginChoice != 3){
+        while(loginChoice != 4){
             System.out.println("-----Login Panel-----");
             System.out.println("(1) Admin");
             System.out.println("(2) Customer (Sign in required)");

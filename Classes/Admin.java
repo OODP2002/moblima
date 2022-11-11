@@ -65,7 +65,7 @@ interface Admin {
 
                 case 3 -> {
                     System.out.println("Enter new movieID: ");
-                    int movieID = sc.nextInt();
+                    String movieID = sc.nextLine();
                     showTime.setMovieID(movieID);
                 }
 
@@ -104,8 +104,7 @@ interface Admin {
         ShowTime showTime = new ShowTime(showtimeID);
 
         System.out.println("Enter movie ID: ");
-        showTime.setMovieID(sc.nextInt());
-        sc.nextLine();
+        showTime.setMovieID(sc.nextLine());
 
         System.out.println("Enter start time (DD-MM-YYYY HH:MM): ");
         setShowtime(showTime);
