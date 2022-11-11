@@ -19,6 +19,9 @@ public class MovieStore {
         return movieHashMap.remove(movieID);
     }
 
+    public HashMap<String, Movie> getMovieHashMap() {
+        return movieHashMap;
+    }
 
     // Constructor
     private MovieStore() {
