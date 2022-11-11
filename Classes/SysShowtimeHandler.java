@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 // Update showtimes and movies
-interface Admin {
+interface SysShowtimeHandler {
     Scanner sc = new Scanner(System.in);
     default void updateShowTime() {
         HashMap<String, ShowTime> showTimeHashMap = ShowTimeStore.getInstance().getShowTimeHashMap();
@@ -125,9 +125,7 @@ interface Admin {
             System.out.println("Showtime successfully removed!");
     }
 
-    default void printAllMovies() {
-        MovieStore.getInstance().printAllMovies(1);
-    }
+
 
     private void setShowtime(ShowTime showTime) {
         String timeRaw = sc.nextLine();

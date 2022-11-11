@@ -1,28 +1,9 @@
-import java.time.LocalDate;
-public class CinemaStaff implements Admin, SysPriceHandler, SysSpecialOccasionHandler, Person, AdminTicketPricingModule{
+public class CinemaStaff implements SysShowtimeHandler, SysPriceHandler, SysSpecialOccasionHandler, SysMovieHandler, SysSettings, Person {
 
     private String name;
-    private PricingStore pricingStore = PricingStore.getInstance();
-    private SpecialOccasionStore specialOccasionStore = SpecialOccasionStore.getInstance();
-    
     
     public CinemaStaff(String name){
         setName(name);
-    }
-
-    public void editPricing(){}
-
-    public boolean updateSpecialOccasion(String name, LocalDate date){
-        return true;
-    }
-
-    public boolean removeSpecialOccasion(String date, String name){
-        SpecialOccasion specialOccasion =  new SpecialOccasion(date, name);
-        return specialOccasionStore.remove(specialOccasion);
-    }
-
-    public void printSpecialOccasionList(){
-        specialOccasionStore.printAll();
     }
 
     @Override

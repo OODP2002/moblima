@@ -28,4 +28,8 @@ interface SysSpecialOccasionHandler {
 
         return specialOccasionStore.remove(new SpecialOccasion(date, name));
     }
+
+    default void printSpecialOccasions() {
+        SpecialOccasionStore.getInstance().printAll();
+    }
 }

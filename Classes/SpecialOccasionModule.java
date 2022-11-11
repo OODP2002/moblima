@@ -13,7 +13,7 @@ public class SpecialOccasionModule {
         System.out.println("Select an option below (1-5):");
         System.out.println("1 - Create new special occasion ");
         System.out.println("2 - Update special occasion");
-        System.out.println("3 - Remove speical occasion ");
+        System.out.println("3 - Remove special occasion ");
         System.out.println("4 - Print all special occasions");
         System.out.println("5 - Quit");
         System.out.println("-----------------------------");
@@ -26,6 +26,9 @@ public class SpecialOccasionModule {
             case 1 -> cinemaStaff.addSpecialOccasion();
             case 2 -> cinemaStaff.updateSpecialOccasion();
             case 3 -> cinemaStaff.removeSpecialOccasion();
+            case 4 -> cinemaStaff.printSpecialOccasions();
+            case 5-> System.out.println("Exiting Special Occasion Module");
+            default -> System.out.println("Invalid choice, exiting Special Occasion module");
         }
     }
 }
