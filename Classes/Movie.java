@@ -18,6 +18,7 @@ public class Movie {
         this.movieID = movieID;
     }
 
+    //Get Methods
     public String getMovieName() {
         return movieName;
     }
@@ -33,14 +34,14 @@ public class Movie {
     public Duration getMovieDuration() {
         return movieDuration;
     }
+    public Status getShowingStatus() {
+        return showingStatus;
+    }
 
     public void setMovieDuration(Duration movieDuration) {
         this.movieDuration = movieDuration;
     }
 
-    public Status getShowingStatus() {
-        return showingStatus;
-    }
 
     public void setShowingStatus(Status showingStatus) {
         this.showingStatus = showingStatus;
