@@ -22,7 +22,7 @@ public class AdminModule {
 
         // Menu of choices the customer can choose from
         int choice = -1;
-        while (choice != 0) {
+        while (choice != 6) {
             System.out.println("-----Admin Panel-----");
             System.out.println("Option Available: (1-6):");
             System.out.println("1 - Ticket pricing ");
