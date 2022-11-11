@@ -1,16 +1,25 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
+/*
+* ShowTime class created by Mingyang
+* Purpose of ShowTime class: ShowTime obj that has-a ShowTime layout
+* ShowTime has no Seats
+* */
 public class ShowTime {
     private String showtimeID;
     private LocalDateTime startTime;
     private int movieID;
     private ShowDate showDate;
-//    private ArrayList<Seat> seats;
+    private ShowTimeLayout showTimeLayout;
 
     public ShowTime(String showtimeID) {
         this.showtimeID = showtimeID;
+        this.showTimeLayout = new ShowTimeLayout(showtimeID.substring(0,4));
+    }
+
+    public ShowTimeLayout getShowTimeLayout() {
+        return showTimeLayout;
     }
 
     public String getShowtimeID() {

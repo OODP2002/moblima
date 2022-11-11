@@ -9,6 +9,7 @@ public class Vendor {
     // Default vendor name: Cathay
     public Vendor() {
         this.vendorName = "Cathay Cineplexes";
+        addCineplex();
     }
 
     public Vendor(String vendorName) {
@@ -19,7 +20,7 @@ public class Vendor {
         return vendorName;
     }
 
-    public void addCineplex() {
+    private void addCineplex() {
         CineplexStore cineplexStore = CineplexStore.getInstance();
         this.cineplexHashMap = cineplexStore.getCineplexHashMap();
     }
@@ -29,4 +30,4 @@ public class Vendor {
     }
 }
 
-// Notes: add changeVendorName() method in the future when there is times
+// Notes: add changeVendorName() method in the future when there is time

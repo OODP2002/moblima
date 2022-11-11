@@ -1,11 +1,15 @@
 // Done by Mingyang
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Layout {
-    private int rows;
-    private int columns;
-    private int aisle;
-    private int mainStairway;
+    private int rows;   // Num of rows
+    private int columns;    // Num of columns
+    private int aisle;      // Empty row (not part of rows)
+    private int mainStairway;   // Empty column (not part of col)
+
+
+
     private int[][] layout;
 
     public Layout(int rows, int columns, int aisle, int mainStairway) {
@@ -21,48 +25,36 @@ public class Layout {
         }
     }
 
-    public void printLayout() {
-        String s1 = "-";
-        String s = s1.repeat((columns * 4 - 4) / 2);
-        System.out.println(s + "SCREEN" + s);
+    public HashMap<String, Seat> createSeats() {
+        HashMap<String, Seat> seats = new HashMap<>();
 
-        // Print column numbers
-        System.out.printf(" ");
-        for (int i = 1; i <= columns; i++) {
-            if (i == aisle)
-                System.out.printf("    ");
-            else
-                System.out.printf("[%02d]", i);
-        }
-        System.out.println();
-
-        for (int i = 0; i < rows; i++) {
-            // Print row letters
-            System.out.printf("%c", i+65);
-
-            // Print seats, [  ] for empty [XX] for taken
-            for (int j = 0; j < columns; j++) {
-                if (j == aisle-1)
-                    System.out.print("    ");
-                else if (layout[i][j] == 0) {
-                    System.out.printf("[  ]");
-                }
-                else {
-                    System.out.print("[XX]");
-                }
+        for (int r = 1; r <= rows; r++) {
+            for (int c = 1; c <= columns; c++) {
+                String seatID = generateSeatID(r,c);
+                Seat seat = new Seat(seatID);
+                seats.put(seatID, seat);
             }
-            System.out.printf("%c\n", i+65);
         }
+        return seats;
+    }
 
-        // Print column numbers
-        System.out.printf(" ");
-        for (int i = 1; i <= columns; i++) {
-            if (i == aisle) {
-                System.out.print("    ");
-            }
-            else
-                System.out.printf("[%02d]", i);
-        }
-        System.out.println();
+    public String generateSeatID(int r, int c) {
+        return String.format("%c%d", r+64, c);
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getColumns() {
+        return columns;
+    }
+
+    public int getAisle() {
+        return aisle;
+    }
+
+    public int getMainStairway() {
+        return mainStairway;
     }
 }

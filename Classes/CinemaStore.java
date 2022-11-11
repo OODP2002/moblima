@@ -48,4 +48,9 @@ public class CinemaStore{
     public Cinema getCinema(String cinemaID) {
         return cinemaHashMap.get(cinemaID);
     }
+
+    // Returns true if cinemaID is valid (existing cinema)
+    public boolean isValidCinema(String cinemaID) {
+        return cinemaHashMap.containsKey(cinemaID);
+    }
 }
