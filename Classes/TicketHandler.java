@@ -15,8 +15,8 @@ public class TicketHandler {
     Scanner sc = new Scanner(System.in);
 
     public TicketHandler(String showtimeID) {
-        Ticket ticket = new Ticket(generateTransactionID(showtimeID));
         showTime = ShowTimeStore.getInstance().getShowTime(showtimeID);
+        System.out.println(showTime.getCinemaClass());
         getMovie();
 
         System.out.println(showtimeID + " selected. Choose your seats ");
@@ -40,8 +40,15 @@ public class TicketHandler {
             getAgeGroup();
         } while (ageGroup == null);
 
+        // Generate ticket object
+        ticket = new Ticket(generateTransactionID(showtimeID));
+
         // Query price
         ticket.setPrice(getPrice());
+        System.out.println("Ticket costs $" + ticket.getPrice());
+
+        System.out.println("Ticket purchase successful!");
+        System.out.println("Transaction ID: " + ticket.getTransactionID());
     }
 
     public Ticket buyTicket() {

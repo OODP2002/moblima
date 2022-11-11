@@ -3,11 +3,10 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class CinemaStore{
-    private HashMap<String, Cinema> cinemaHashMap;  // Key=cinemaID
+    private HashMap<String, Cinema> cinemaHashMap = new HashMap<>();  // Key=cinemaID
     private static CinemaStore single_instance = null;
 
     private CinemaStore() {
-        this.cinemaHashMap = new HashMap<>();
         loadCinemaHashMap();
     }
 

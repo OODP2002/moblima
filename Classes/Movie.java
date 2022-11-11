@@ -30,6 +30,7 @@ public class Movie {
         System.out.println("Number of reviews: " + overallReviews.getReviewCount());
         System.out.println("Showing status: " + showingStatus);
         System.out.println("Movie sales: " + movieSales);
+        System.out.println("Movie duration: " + movieDuration);
         printMoviePersonnel();
         System.out.println("=======================");
     }
