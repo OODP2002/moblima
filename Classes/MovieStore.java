@@ -84,7 +84,7 @@ public class MovieStore {
 
             line.add(movie.getMovieName());
             line.add(String.valueOf(key));
-            line.add(String.valueOf(movie.getMovieDuration()));
+            line.add(String.valueOf(movie.getMovieDuration().toMinutes()));
             line.add(String.valueOf(movie.getShowingStatus()));
             line.add(String.valueOf(movie.getSynopsis()));
             line.add(String.valueOf(movie.getShowingStatus()));
@@ -129,7 +129,7 @@ public class MovieStore {
     }
 
     public void ListTop5(int toggle) {
-        List<Movie> movies = (List<Movie>) movieHashMap.values();
+        List<Movie> movies = new ArrayList<>(movieHashMap.values());
 
         // Sort by movie sales
         if (toggle == 0) {

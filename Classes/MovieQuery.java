@@ -14,6 +14,7 @@ public interface MovieQuery {
         System.out.println("Enter choice: ");
 
         int choice = sc.nextInt();
+        sc.nextLine();
 
         switch(choice) {
             case 1:
@@ -40,23 +41,21 @@ public interface MovieQuery {
     default void searchMovie() {
         MovieStore movStore = MovieStore.getInstance();
 
-        int movieID = -1;
         System.out.println("-------Searching Movies-------");
         System.out.println("Enter MovieID (-1 to return): ");
-        movieID = sc.nextInt();
-        sc.nextLine();
+        String movieID = sc.nextLine();
 
-        if (movieID == -1){
+        if (movieID.equals("-1")){
             return;
         }
 
-        Movie movie = movStore.searchMovie(String.valueOf(movieID));
+        Movie movie = movStore.searchMovie(movieID);
         if (movie == null){
             System.out.println("No such movie found. \n");
         }
         else {
             System.out.println("-------Movie Details-------");
-            printMovieInfo(String.valueOf(movieID));
+            printMovieInfo(movieID);
         }
 
     }

@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public interface SysPriceHandler {
@@ -12,18 +13,26 @@ public interface SysPriceHandler {
             cinemaLevel = CinemaClass.STANDARD;
         }
 
-        System.out.print("Enter View Type (2D/3D): ");
+        System.out.print("Enter View Type (2D / 3D): ");
         View view;
         try {
-            view = View.valueOf("_".concat(sc.nextLine().toUpperCase()));
+            view = View.valueOf("_".concat(sc.nextLine().toUpperCase()).trim());
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println("Invalid view type! Default value of 2D chosen");
             view = View._2D;
         }
 
         System.out.print("Enter Age Group (CHILD / ADULT / SENIOR): ");
-//        ageGroup = sc.next();
+        AgeGroup ageGroup;
+        try {
+            ageGroup = AgeGroup.valueOf(sc.nextLine().toUpperCase().trim());
+        } catch (IllegalArgumentException | NullPointerException e) {
+            System.out.println("Invalid view type! Default value of ADULT chosen");
+            ageGroup = AgeGroup.ADULT;
+        }
+
         System.out.print("Enter Start Time (hh:mm): ");
+
 //        startTime = sc.next();
         System.out.print("Enter End Time (hh:mm): ");
 //        endTime = sc.next();
