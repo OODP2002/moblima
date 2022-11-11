@@ -1,9 +1,8 @@
 movieName|movieID|movieDuration|showingStatus|synopsis|viewingMode|movieHype|movieSales|ageRating|overallReviews|moviePersonnelList
-Black Panther|69|420|Coming Soon|bad|2D|Regular|5|PG13|4bad show|Marcus
-Free Willy|360|420|Preview|this show is astronomically bad|3D|Blockbuster|999|R21|2bad movie|jackson
-Avengers|3|123|Coming Soon|Temporary synopsis|3D|Blockbuster|33|NC16|4Pretty decent movie|James Bond
-Summertime Sadness|33|77|End Of Showing|Good Song|2D|Regular|6000|M18|5Beautiful show~2I hated it|Obama~Michelle
-Air Force|44|546|Preview|very nice|3D|Blockbuster|4|G|1Bad show~9Loved it|Elmo~Cookie Monster
-The Muppets|123|500|Now Showing|Sesame Street|3D|Blockbuster|6969|PG|9Great show~9Loved this show|Kermit~Miss Piggy
-Big Time Rush|999|55|Now Showing|Rush Rush|2D|Regular|44|PG13|2Bad Show~1Hated it|Jackie Chan~Winston Churchill
-Free Willy|360|420|Preview|this show is astronomically bad|3D|Blockbuster|9999|NC16|2bad movie~5good movie|jackson~Wang
+Black Panther:Wakanda Forever|01|161|Preview|Queen Ramonda, Shuri, M'Baku, Okoye and the Dora Milaje fight to protect their nation from intervening world powers in the wake of King T'Challa's death.|2D|BLOCKBUSTER|0|PG13|5Greatly enjoyed it~3Found it boring|Ryan Coogler~Chadwick Boseman~Tenoch Huerta
+Black Adam|02|125|Now Showing|In ancient Kahndaq, Teth Adam was bestowed the almighty powers of the gods. After using these powers for vengeance, he was imprisoned, becoming Black Adam.|3D|BLOCKBUSTER|0|PG13|2Poorly executed movie~1Did not enjoy it|Jaume Collet-Serra~Dwayne Johnson~Sarah Shahi
+Ajoomma|03|90|Coming Soon|Ajoomma is a Singaporean-Korean drama film directed by He Shuming. It stars Hong Hui Fang, Kang Hyung-seok and Jung Dong-hwan|2D|Regular|0|NC16|5Greatly enjoyed it~3Found it boring|Shuming He~Hong Huifang~Yeo Jin-goo
+Miss Americana|04|85|End Of Showing|Pop singer Taylor Swift reveals intimate details of her life while showcasing backstage and onstage concert footage.|2D|BLOCKBUSTER|0|PG|5WOW~4Amazing show|Lana Wilson~Taylor Swift~Kanye West
+The Muppet Movie|05|97|Now Showing|Kermit the Frog sets out to pursue a career in Hollywood along with his muppet friends. However, he must evade the owner of a frog-leg restaurant who wishes to kill him.|3D|Regular|0|G|3Great show~4Quite amazing|James Frawley~Jim Henson~Dave Goelz
+Harry Potter and the Philosopher's Stone|06|152|End Of Showing|Harry Potter, an eleven-year-old orphan, discovers that he is a wizard and is invited to study at Hogwarts. Even as he escapes a dreary life and enters a world of magic, he finds trouble awaiting him.|2D|BLOCKBUSTER|0|PG13|5Best show~4Amazing show|Chris Columbus~Daniel Radcliffe~Emma Watson
+Transformers|07|144|Preview|The noble Autobots and Decepticons, two intergalactic races of robots, crash land on Earth. They battle for Allspark, the ultimate power source, whose location is held by Sam.|3D|BLOCKBUSTER|0|R21|3Explosions~2Boom|Micheal Bay~Megan Fox~Shia LeBeouf

@@ -1,3 +1,3 @@
 public enum AdminRole {
-    CINEMASTAFF
+    CINEMA_STAFF
 }

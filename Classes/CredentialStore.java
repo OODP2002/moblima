@@ -1,10 +1,4 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -52,8 +46,8 @@ public class CredentialStore {
     private void loadCredentialHashMap(ArrayList<String[]> credentialRawStore) {
         for (String[] line : credentialRawStore) {
             AdminRole admRole = switch (line[2]) {
-                case "CinemaStaff" -> AdminRole.CINEMASTAFF;
-                default -> AdminRole.CINEMASTAFF; // lowest priority
+                case "CinemaStaff" -> AdminRole.CINEMA_STAFF;
+                default -> AdminRole.CINEMA_STAFF; // lowest priority
             };
             Credential credential = new Credential(line[0], line[1], admRole);
             credentialHashMap.put(line[0], credential);
