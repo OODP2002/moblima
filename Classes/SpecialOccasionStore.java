@@ -9,7 +9,7 @@ public class SpecialOccasionStore {
     //Attributes
     private String specialOccasionHeader;
     private ArrayList<SpecialOccasion> specialOccasions = new ArrayList<SpecialOccasion>(); 
-    private String path = System.getProperty("user.dir") + ("/src/specialOccasions.txt");
+    private String path = ("Classes/src/specialOccasions.txt");
     private static SpecialOccasionStore instance = new SpecialOccasionStore();
 
     //Contstuctor

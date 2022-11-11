@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
+// Update showtimes and movies
 interface Admin {
     Scanner sc = new Scanner(System.in);
     default void updateShowTime() {
@@ -111,6 +112,21 @@ interface Admin {
 
         System.out.println("Entry success!");
         showTimeHashMap.put(showtimeID, showTime);
+    }
+
+    default void removeShowTime() {
+        HashMap<String, ShowTime> showTimeHashMap = ShowTimeStore.getInstance().getShowTimeHashMap();
+        System.out.println("Enter showtime ID to remove: ");
+        String showtimeID = sc.nextLine();
+
+        if (showTimeHashMap.remove(showtimeID) == null)
+            System.out.println("Error removing showtime, showtime not removed");
+        else
+            System.out.println("Showtime successfully removed!");
+    }
+
+    default void printAllMovies() {
+        MovieStore.getInstance().printAllMovies(1);
     }
 
     private void setShowtime(ShowTime showTime) {

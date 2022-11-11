@@ -1,14 +1,13 @@
 import java.util.Scanner;
 
 public class LoginHandler {
+    Scanner sc = new Scanner(System.in);
+    CinemaStaff cinemaStaff;
     public CinemaStaff login(){
-        Scanner sc = new Scanner(System.in);
-        CinemaStaff cinemaStaff;
-        
         //user input
         int option;
 
-        while (true){
+        do {
             System.out.println("-----------------------------");
             System.out.println("Please select an option below");
             System.out.println("1 - Cinema staff login");
@@ -16,33 +15,29 @@ public class LoginHandler {
             System.out.println("-----------------------------\n");
             System.out.print("Option: ");
             option = sc.nextInt();
+            sc.nextLine();
 
-            
-            if (option == 1){
-                System.out.print("Enter Username: ");
-                String username = sc.nextLine();
-                cinemaStaff = new CinemaStaff(username);
-                System.out.print("Enter Password: ");
-                String password = sc.nextLine();
-                
-                if (!cinemaStaff.validate(password)){
-                    System.out.println("Error: Invalid Credential");
-                    return null;
-                } else {
-                    System.out.println("Logged in. Welcome " + username + ".");
-                    break;
+            switch (option) {
+                case 1 -> {
+                    System.out.print("Enter Username: ");
+                    String username = sc.nextLine();
+                    cinemaStaff = new CinemaStaff(username);
+                    System.out.print("Enter Password: ");
+                    String password = sc.nextLine();
+
+                    if (!cinemaStaff.validate(password)){
+                        System.out.println("Error: Invalid Credential");
+                        return null;
+                    } else {
+                        System.out.println("Logged in. Welcome " + username + ".");
+                        return cinemaStaff;
+                    }
                 }
+                case 2 -> {
+                    return null;
+                }
+                default -> System.out.println("Error: Incorrect option. Please try again.");
             }
-            
-            else if (option == 2) {
-                return null;
-            } 
-            
-            else {
-                System.out.println("Error: Incorrect option. Please try again.");
-            }
-        }
-        sc.close();
-        return cinemaStaff; // returns null object if login fails
+        } while (true);
     }
 }

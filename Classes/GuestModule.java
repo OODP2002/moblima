@@ -2,9 +2,7 @@ import java.util.Scanner;
 
 public class GuestModule {
     Scanner sc = new Scanner(System.in);
-    private static GuestModule single_instance = null;
-
-    private GuestModule() {
+    public void run() {
         Guest guest = new Guest();
         int choice;
         do {
@@ -27,12 +25,5 @@ public class GuestModule {
                 default -> System.out.println("Invalid choice!");
             }
         } while (choice != 4);
-    }
-
-    public static GuestModule getInstance() {
-        if (single_instance == null)
-            single_instance =  new GuestModule();
-
-        return single_instance;
     }
 }

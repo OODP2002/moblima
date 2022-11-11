@@ -2,9 +2,8 @@ import java.util.Scanner;
 
 public class MovieGoerModule {
     Scanner sc = new Scanner(System.in);
-    private static MovieGoerModule single_instance = null;
 
-    private MovieGoerModule() {
+    public void run() {
         MovieGoer movieGoer = new MovieGoer();
 
         int choice;
@@ -34,12 +33,5 @@ public class MovieGoerModule {
                 default -> System.out.println("Invalid choice.");
             }
         } while (choice != 7);
-    }
-
-    public static MovieGoerModule getInstance() {
-        if (single_instance == null)
-            single_instance =  new MovieGoerModule();
-
-        return single_instance;
     }
 }

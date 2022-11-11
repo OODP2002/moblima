@@ -23,7 +23,7 @@ public class PricingStore {
     private HashMap<LocalTime, Float> fridayRuleAdd = new HashMap<LocalTime, Float>();
     private HashMap<View, Float> viewAdd = new HashMap<View, Float>();
     
-    private String path = System.getProperty("user.dir") + ("/src/pricings.txt");
+    private String path = ("Classes/src/pricings.txt");
     private static PricingStore instance = new PricingStore();
 
     //Constructor

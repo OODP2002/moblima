@@ -1,10 +1,9 @@
 import java.util.Scanner;
 
 public class AdminModule {
-    private static AdminModule single_instance = null;
     Scanner sc = new Scanner(System.in);
 
-    private AdminModule() {
+    public void run() {
         LoginHandler loginHandler = new LoginHandler();
         CinemaStaff cinemaStaff = loginHandler.login();
 
@@ -56,7 +55,7 @@ public class AdminModule {
 
                 case 6:
                     // Remove a particular showtime timing
-
+                    cinemaStaff.removeShowTime();
                     break;
                 case 7:
                     // Edit system settings
@@ -69,21 +68,15 @@ public class AdminModule {
                     break;
                 case 9:
                     // Show all movies, including those which are end of showing
+                    cinemaStaff.printAllMovies();
                     break;
                 case 0:
                     // Quit
+                    System.out.println("Exiting admin module...");
                     break;
                 default:
                     System.out.println("Invalid choice.");
             }
         }
-    }
-
-
-    public static AdminModule getInstance() {
-        if (single_instance == null)
-            single_instance = new AdminModule();
-
-        return single_instance;
     }
 }

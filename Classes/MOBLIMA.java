@@ -1,13 +1,17 @@
 import java.util.Scanner;
 
-public class Main {
-    static Scanner sc = new Scanner(System.in);
+public class MOBLIMA {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
          // Create vendor
         Vendor vendor = new Vendor();
 
+        AdminModule adminModule= new AdminModule();
+        MovieGoerModule movieGoerModule = new MovieGoerModule();
+        GuestModule guestModule = new GuestModule();
+
         System.out.println("Starting app...");
-        System.out.println("Welcome to " + vendor.getVendorName() + "Movie Booking System");
+        System.out.println("Welcome to " + vendor.getVendorName() + " Movie Booking System");
         int loginChoice = 0;
 
         while(loginChoice != 4){
@@ -23,12 +27,13 @@ public class Main {
             sc.nextLine();
 
             switch (loginChoice) {
-                case 1 -> AdminModule.getInstance();
-                case 2 -> MovieGoerModule.getInstance();
-                case 3 -> GuestModule.getInstance();
+                case 1 -> adminModule.run();
+                case 2 -> movieGoerModule.run();
+                case 3 -> guestModule.run();
                 case 4 -> System.out.println("Exiting system...");
                 default -> System.out.println("Invalid Choice.");
             }
         }
+        StoreManager.closeAllStores();
     }
 }
