@@ -28,6 +28,12 @@ public class ShowTimeStore {
         return showTimeHashMap;
     }
 
+    // Returns null if showtimeID does not exist
+    public ShowTime getShowTime(String showTimeID) {
+        return showTimeHashMap.get(showTimeID);
+    }
+
+
     private void loadShowTimeHashMap(ArrayList<String[]> showtimeRawStore) {
         for (String[] line: showtimeRawStore) {
             ShowTime showTime = new ShowTime(line[0]);
@@ -36,10 +42,6 @@ public class ShowTimeStore {
             showTime.setMovieID(Integer.parseInt(line[1]));
             showTimeHashMap.put(line[0], showTime);
         }
-    }
-
-    public ShowTime getShowTime(String showTimeID) {
-        return showTimeHashMap.get(showTimeID);
     }
 
     // parseHashMap to ArrayList<String[]>

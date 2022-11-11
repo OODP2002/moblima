@@ -37,36 +37,51 @@ public interface MovieQuery {
     default void searchMovie() {
         MovieStore movStore = MovieStore.getInstance();
 
-        int MovieID = -1;
+        int movieID = -1;
         System.out.println("-------Searching Movies-------");
         System.out.println("Enter MovieID (-1 to return): ");
-        if (sc.hasNextInt()){
-            MovieID = sc.nextInt();
-            sc.nextLine();
-        }
-        if (MovieID == -1){
+        movieID = sc.nextInt();
+        sc.nextLine();
+
+        if (movieID == -1){
             return;
         }
-        Movie movie = movStore.searchMovie(MovieID);
+
+        Movie movie = movStore.searchMovie(String.valueOf(movieID));
         if (movie == null){
             System.out.println("No such movie found. \n");
         }
         else {
             System.out.println("-------Movie Details-------");
-            movie.printInfo(1);
+            printMovieInfo(String.valueOf(movieID), 1);
         }
 
     }
 
-    default void searchMovie(int MovieID) {
+    default void searchMovie(String movieID) {
         MovieStore movStore = MovieStore.getInstance();
-        Movie movie = movStore.searchMovie(MovieID);
+        Movie movie = movStore.searchMovie(movieID);
         if (movie == null){
             System.out.println("No such movie found. \n");
         }
         else {
             System.out.println("-------Movie Details-------");
-            movie.printInfo(1);
+            printMovieInfo(movieID, 1);
         }
+    }
+
+    private void printMovieInfo(String movieID, int toggle) {
+        Movie movie = MovieStore.getInstance().getMovie(movieID);
+        System.out.println("Movie Name: " + movie.getMovieName());
+        System.out.println("Movie ID: " + movie.getMovieID());
+        System.out.println("Movie Duration: " + movie.getMovieDuration());
+        System.out.println("Showing Status: " + movie.getShowingStatus());
+        System.out.println("Age Rating: " + movie.getAgeRating());
+        System.out.println("Synopsis: " + movie.getSynopsis());
+        System.out.println("Viewing Mode: " + movie.getViewingMode());
+        System.out.println("Movie Hype: " + movie.getMovieHype());
+        if (toggle==0) System.out.println("Movie Sales: " + movie.getMovieSales());
+        System.out.println("Average rating: " + movie.getOverallReviews().getAvgRating());
+        movie.printMoviePersonnel();
     }
 }

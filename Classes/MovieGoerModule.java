@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
-public class CustomerModule {
+public class MovieGoerModule {
     Scanner sc = new Scanner(System.in);
-    private static CustomerModule single_instance = null;
+    private static MovieGoerModule single_instance = null;
 
-    private CustomerModule() {
+    private MovieGoerModule() {
         MovieGoer movieGoer = new MovieGoer();
 
         int choice;
@@ -29,16 +29,16 @@ public class CustomerModule {
                 case 3 -> movieGoer.searchMovie();
                 case 4 -> movieGoer.writeReview();
                 case 5 -> movieGoer.buyTicket();
-                case 6 -> movieGoer.showHistory();
+                case 6 -> movieGoer.showHistory(movieGoer.getTickets());
                 case 7 -> System.out.println("Exiting customer module...");
                 default -> System.out.println("Invalid choice.");
             }
         } while (choice != 7);
     }
 
-    public static CustomerModule getInstance() {
+    public static MovieGoerModule getInstance() {
         if (single_instance == null)
-            single_instance =  new CustomerModule();
+            single_instance =  new MovieGoerModule();
 
         return single_instance;
     }
