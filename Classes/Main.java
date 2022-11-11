@@ -24,7 +24,7 @@ public class Main {
 
             switch (loginChoice) {
                 case 1 -> AdminModule.getInstance();
-                case 2 -> CustomerModule.getInstance();
+                case 2 -> MovieGoerModule.getInstance();
                 case 3 -> GuestModule.getInstance();
                 case 4 -> System.out.println("Exiting system...");
                 default -> System.out.println("Invalid Choice.");

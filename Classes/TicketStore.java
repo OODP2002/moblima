@@ -1,31 +1,23 @@
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
 
 public class TicketStore {
 
     //Attributes
-    private ArrayList<Ticket> tickets = new ArrayList<Ticket>();
-    private String path = System.getProperty("user.dir") + ("/src/tickets.txt");
+    private HashMap<String, Ticket> ticketHashMap = new HashMap<>();    // key=TRANSACTION_ID
+    private String path = ("Classes/src/tickets.txt");
     private static TicketStore instance = new TicketStore();
+    private TxtReaderWriter ticketReaderWriter = new TxtReaderWriter(path);
     
     //Constructor
     private TicketStore(){
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(this.path));
-            String header = reader.readLine(); //Header row
-            String line = reader.readLine();
-            while (line != null){
-                tickets.add(createTicketObj(line)); //Add pricing object to special occasion array list
-                line = reader.readLine(); // Reading next line in txt file
-            }
-            reader.close();
-        } catch (IOException err){
-            err.printStackTrace();
-            System.out.println("Error: Ticket list not found");
-        }
+        loadTicketHashMap(ticketReaderWriter.getRawStringFromFile());
+    }
+
+    // Destructor
+    public void closeTicketStore() {
+        ticketReaderWriter.setRawStringFromFile(parseHashMap());
     }
 
     //Operations
@@ -34,64 +26,37 @@ public class TicketStore {
         return instance;
     }
 
-    //Creates Ticket obj based on a line in the tickets txt file
-    private Ticket createTicketObj(String info){
-        String[] infoArr = info.split("\\|");
-        
-        String transactionID = infoArr[0]; //SeatID + YYYYMMDDhhmm
-        String username = infoArr[1];
-        String email = infoArr[2];
-        Integer mobile = Integer.parseInt(infoArr[3]);
-        String seatID = infoArr[4];
-        AgeGroup ageGroup;
-        float price = Float.parseFloat(infoArr[6]);
 
-        switch(infoArr[5]){
-            case "CHILD":
-                ageGroup = AgeGroup.CHILD;
-                break;
-            case "ADULT":
-                ageGroup = AgeGroup.ADULT;
-                break;
-            case "SENIOR":
-                ageGroup = AgeGroup.SENIOR;
-                break;
-            default:
-                ageGroup = AgeGroup.ADULT;
-            
-        }
-        
-        return new Ticket(transactionID, username, email, mobile, seatID, ageGroup, price);
+    public void addTicketToStore(Ticket ticket) {
+        ticketHashMap.put(ticket.getTransactionID(), ticket);
     }
 
-    public void newTicket(Ticket ticket){
-        this.tickets.add(ticket);
-        return;
+    public Ticket getTicketFromStore(String transactionID) {
+        return ticketHashMap.get(transactionID);
+    }
+    private void loadTicketHashMap(ArrayList<String []> ticketRawStore) {
+        for (String[] line: ticketRawStore) {
+            Ticket ticket = new Ticket(line[0]);
+            ticket.setShowTimeID(line[1]);
+            ticket.setSeatID(line[2]);
+            ticketHashMap.put(line[0], ticket);
+        }
     }
 
-    public void listPastPurchases(String username, String email, Integer mobile){
-        
-        for (int i = 0; i < this.tickets.size(); i++){
-            if (this.tickets.get(i).isUser(username, email, mobile)){
-                System.out.println(this.tickets.get(i).toString());
-            }
-        }
-    }   
+    private ArrayList<String[]> parseHashMap() {
+        ArrayList<String[]> arrayListOut = new ArrayList<>();
+        Collection<Ticket> ticketCollection = ticketHashMap.values();
 
-    public void writeToTicketsFile(){
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(this.path));
-            String header = reader.readLine(); //Header row
-            
-            FileWriter writer = new FileWriter(path);
-            writer.write(header);
-            for (int i = 0; i < this.tickets.size(); i++){
-                writer.write("\n" + this.tickets.get(i).toString());
-            }
-            writer.close();
-            reader.close();
-        } catch (IOException err){
-            err.printStackTrace();
+        for (Ticket ticket: ticketCollection) {
+            ArrayList<String> line = new ArrayList<>();
+
+            line.add(ticket.getTransactionID());
+            line.add(ticket.getShowTimeID());
+            line.add(ticket.getSeatID());
+
+            String[] strArr = new String[line.size()];
+            arrayListOut.add(line.toArray(strArr));
         }
+        return arrayListOut;
     }
 }

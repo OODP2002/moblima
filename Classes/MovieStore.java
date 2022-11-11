@@ -1,3 +1,4 @@
+import java.time.Duration;
 import java.util.*;
 
 public class MovieStore {
@@ -5,14 +6,15 @@ public class MovieStore {
     // Attributes
     private final String path = ("Classes/src/movies.txt");
     private static MovieStore instance = new MovieStore();
-    private HashMap<Integer, Movie> movieHashMap = new HashMap<>();     // key=MOVIE_ID
+    private HashMap<String, Movie> movieHashMap = new HashMap<>();     // key=MOVIE_ID
     private TxtReaderWriter movieReaderWriter = new TxtReaderWriter(path);
 
 
     // Get Movie object given movie_ID
-    public Movie getMovie(int movieID) {
+    public Movie getMovie(String movieID) {
         return movieHashMap.get(movieID);
     }
+
     // Constructor
     private MovieStore() {
         loadMovieHashMap(movieReaderWriter.getRawStringFromFile());
@@ -25,15 +27,15 @@ public class MovieStore {
 
     private void loadMovieHashMap(ArrayList<String[]> movieRawStore) {
         for (String[] line: movieRawStore) {
-            Movie movie = new Movie(Integer.parseInt(line[1]));
+            Movie movie = new Movie(line[1]);
             movie.setMovieName(line[0]);
-            movie.setMovieDuration(new MovieDuration(Integer.parseInt(line[2])));
+            movie.setMovieDuration(Duration.ofMinutes(Long.parseLong(line[2])));
             movie.setShowingStatus(Status.valueOf(line[3]));
-            movie.setSynopsis(new Synopsis(line[4]));
-            movie.setViewingMode(new ViewingMode(View.valueOf(line[5])));
-            movie.setMovieHype(new MovieHype(Hype.valueOf(line[6])));
+            movie.setSynopsis(line[4]);
+            movie.setViewingMode(View.valueOf(line[5]));
+            movie.setMovieHype(Hype.valueOf(line[6]));
             movie.setMovieSales(Integer.parseInt(line[7]));
-            movie.setAgeRating(new AgeRating(AgeEnum.valueOf(line[8])));
+            movie.setAgeRating(AgeEnum.valueOf(line[8]));
 
             // Get overall reviews
             String[] reviewArr = line[9].split("~");
@@ -62,13 +64,13 @@ public class MovieStore {
         movieHashMap.put(movie.getMovieID(), movie);
     }
 
-    // parse HashMap to ArrayList<String[]>\
+    // parse HashMap to ArrayList<String[]>
     private ArrayList<String[]> parseHashMap() {
         ArrayList<String[]> arrayListOut = new ArrayList<>();
-        Set<Integer> keys = movieHashMap.keySet();
+        Set<String> keys = movieHashMap.keySet();
 
         // Iterate over each Movie object
-        for (Integer key: keys) {
+        for (String key: keys) {
             Movie movie = movieHashMap.get(key);
             ArrayList<String> line = new ArrayList<>();
 
@@ -119,7 +121,7 @@ public class MovieStore {
     }
 
     // Returns null if movie does not exist
-    public Movie searchMovie(int id){
+    public Movie searchMovie(String id){
         return movieHashMap.get(id);
     }
 
