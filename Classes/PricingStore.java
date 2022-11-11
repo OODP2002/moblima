@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 
 
@@ -15,13 +16,13 @@ public class PricingStore {
     private String pricingHeader;
 
     private Float base;
-    private HashMap<AgeGroup, Float> ageGroupChange =  new HashMap<AgeGroup, Float>();
-    private HashMap<Hype, Float> hypeAdd = new HashMap<Hype, Float>();
-    private HashMap<CinemaClass,  Float> cinemaClassAdd = new HashMap<CinemaClass, Float>();
-    private HashMap<Integer, Float> dayOfWeekAdd = new HashMap<Integer, Float>();
+    private Map<AgeGroup, Float> ageGroupChange =  new HashMap<AgeGroup, Float>();
+    private Map<Hype, Float> hypeAdd = new HashMap<Hype, Float>();
+    private Map<CinemaClass,  Float> cinemaClassAdd = new HashMap<CinemaClass, Float>();
+    private Map<Integer, Float> dayOfWeekAdd = new HashMap<Integer, Float>();
     private LocalTime cutOff;
-    private HashMap<LocalTime, Float> fridayRuleAdd = new HashMap<LocalTime, Float>();
-    private HashMap<View, Float> viewAdd = new HashMap<View, Float>();
+    private Map<LocalTime, Float> fridayRuleAdd = new HashMap<LocalTime, Float>();
+    private Map<View, Float> viewAdd = new HashMap<View, Float>();
     
     private String path = ("Classes/src/pricings.txt");
     private static PricingStore instance = new PricingStore();
@@ -56,6 +57,10 @@ public class PricingStore {
             case "base":
                 this.base = Float.parseFloat(infoArr[2]);
                 break;
+                
+            case "ageGroup":
+                this.ageGroupChange.put(AgeGroup.valueOf(infoArr[1]), Float.parseFloat(infoArr[2]));  
+                break;
 
             case "hype":
                 this.hypeAdd.put(Hype.valueOf(infoArr[1]), Float.parseFloat(infoArr[2]));
@@ -82,9 +87,6 @@ public class PricingStore {
                 this.viewAdd.put(View.valueOf(infoArr[1]), Float.parseFloat(infoArr[2]));
                 break;
 
-            case "ageGroup":
-                this.ageGroupChange.put(AgeGroup.valueOf(infoArr[1]), Float.parseFloat(infoArr[2]));  
-                break;
         }
     }
 
@@ -118,6 +120,8 @@ public class PricingStore {
         return price;
     }
 
+
+    //Operations to update pricing store 
     public boolean changeHype(Hype hype, Float newVal){
         if (this.hypeAdd.containsKey(hype)){
             hypeAdd.replace(hype, newVal);
@@ -162,6 +166,51 @@ public class PricingStore {
             viewAdd.replace(view, newVal);
             return true;
         } else return false;
+    }
+
+    //Save all changes made
+    public void closePricingStore(){
+        try(FileWriter writer = new FileWriter(path)){
+            
+            writer.write(this.pricingHeader);
+            
+            //Write Rules
+            writer.write("\nbase|base|" + String.valueOf(this.base)); 
+
+            //Age group rule
+            for (Map.Entry<AgeGroup, Float> entry : ageGroupChange.entrySet()){
+               writer.write("ageGroup|" + entry.getKey().name() + "|" + String.valueOf(entry.getValue()));
+            }
+            //Movie Hype rule
+            for (Map.Entry<Hype, Float> entry : hypeAdd.entrySet()){
+               writer.write("hype|" + entry.getKey().name() + "|" + String.valueOf(entry.getValue()));
+            }
+            //Cinema class rule
+            for (Map.Entry<CinemaClass,  Float> entry : cinemaClassAdd.entrySet()){
+               writer.write("cinemaClass|" + entry.getKey().name() + "|" + String.valueOf(entry.getValue()));
+            }
+            //Day of week rule
+            for (Map.Entry<Integer, Float> entry : dayOfWeekAdd.entrySet()){
+               writer.write("dayOfWeek|" + String.valueOf(entry.getKey()) + "|" + String.valueOf(entry.getValue()));/
+            }
+            //Friday rules (Matches weekend pricing after a certain cutoff timing)
+            for (Map.Entry<LocalTime, Float> entry : fridayRuleAdd.entrySet()){
+               LocalTime time = entry.getKey();
+               int hour = time.getHour();
+               String hourStr = hour < 10 ? "0" : "" + String.valueOf(hour);
+               int minute  = time.getMinute();
+               String minuteStr = minute < 10 ? "0" : "" + String.valueOf(minute);
+               writer.write("fridayRule|" + hourStr + minuteStr + "|" + String.valueOf(entry.getValue()));
+            }
+            //View rules
+            for (Map.Entry<View, Float> entry : viewAdd.entrySet()){
+               writer.write("view|" + entry.getKey().name() + "|" + String.valueOf(entry.getValue()));
+            }
+            writer.close();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
    
 }   
