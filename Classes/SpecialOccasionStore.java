@@ -60,7 +60,8 @@ public class SpecialOccasionStore {
     public boolean remove(SpecialOccasion targetSpecialOccasion){
         for (int i = 0; i < specialOccasions.size(); i++){
             if(specialOccasions.get(i).isSameOccasion(targetSpecialOccasion)){
-                this.specialOccasions.remove(targetSpecialOccasion);      
+                this.specialOccasions.remove(i);     
+                System.out.println("\nSpecial Occasion successfully removed"); 
                 return true;
             }
         } 
@@ -73,11 +74,12 @@ public class SpecialOccasionStore {
         System.out.println("\n-------All Special Occassions-------");
         for (SpecialOccasion occasion : specialOccasions) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd - MM");
-
+            
             System.out.println("Public holiday: " + occasion.getName().toUpperCase());
             System.out.println("Date (DD - MM): " + occasion.getDate().format(formatter));
             System.out.println("\n");
         }
+        System.out.println("------------------------------------");
     }
 
     //query if date provided is a special occasion or eve of special occasion 
@@ -96,7 +98,7 @@ public class SpecialOccasionStore {
 
             for (SpecialOccasion occasion: specialOccasions) {
                 ArrayList<String> line = new ArrayList<>();
-                line.add(occasion.getName());
+                line.add(occasion.getName().toLowerCase());
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM");
                 line.add(occasion.getDate().format(formatter));
                 writer.write("\n" + String.join("|", line));

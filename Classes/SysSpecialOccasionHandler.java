@@ -31,9 +31,9 @@ interface SysSpecialOccasionHandler {
         SpecialOccasionStore specialOccasionStore = SpecialOccasionStore.getInstance();
 
         System.out.print("Enter occasion name: ");
-        String name = sc.next();
+        String name = sc.nextLine().toLowerCase();
         System.out.print("Enter date (DD-MM): ");
-        String date = sc.next();
+        String date = sc.nextLine();
 
         return specialOccasionStore.remove(new SpecialOccasion(date, name));
     }

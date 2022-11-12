@@ -75,7 +75,7 @@ public class SeatStore {
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_SOURCE));
             writer.write(HEADER);
             for (Map.Entry<String, ArrayList<String>> entry : seatHashMap.entrySet()) {
-                writer.write(entry.getKey() + "|" + String.join("~", entry.getValue()) + "\n");
+                writer.write( "\n" + entry.getKey() + "|" + String.join("~", entry.getValue()));
             }
             writer.flush();
             writer.close();
