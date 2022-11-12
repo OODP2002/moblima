@@ -15,12 +15,33 @@ public class MovieStore {
         return movieHashMap.get(movieID);
     }
 
-    public Movie removeMovie(String movieID) {
-        return movieHashMap.remove(movieID);
-    }
-
     public HashMap<String, Movie> getMovieHashMap() {
         return movieHashMap;
+    }
+
+    public void ListTop5(int toggle) {
+        List<Movie> movies = new ArrayList<>(movieHashMap.values());
+
+        // Sort by movie sales
+        if (toggle == 0) {
+            movies.sort(Comparator.comparing(Movie::getMovieSales).reversed());
+        } else {
+            movies.sort(Comparator.comparing(Movie::getAvgRating).reversed());
+        }
+
+        // List the movies
+        int num = Math.min(movies.size(), 5);
+        System.out.println("Top " + num + " movies by Movie Sales:");
+        for (int i = 1; i <= num; i++) {
+            System.out.printf("%d: %s\n", i, movies.get(i).getMovieName());
+            System.out.println("Sales: " + movies.get(i).getMovieSales());
+            System.out.println("Average rating: " + movies.get(i).getAvgRating());
+        }
+    }
+
+    // Add movie to HashMap given Movie object
+    public void addMovie(Movie movie) {
+        movieHashMap.put(movie.getMovieID(), movie);
     }
 
     // Constructor
@@ -67,10 +88,7 @@ public class MovieStore {
     }
 
 
-    // Add movie to HashMap given Movie object
-    public void addMovie(Movie movie) {
-        movieHashMap.put(movie.getMovieID(), movie);
-    }
+
 
     // parse HashMap to ArrayList<String[]>
     private ArrayList<String[]> parseHashMap() {
@@ -128,23 +146,5 @@ public class MovieStore {
         }
     }
 
-    public void ListTop5(int toggle) {
-        List<Movie> movies = new ArrayList<>(movieHashMap.values());
 
-        // Sort by movie sales
-        if (toggle == 0) {
-            movies.sort(Comparator.comparing(Movie::getMovieSales).reversed());
-        } else {
-            movies.sort(Comparator.comparing(Movie::getAvgRating).reversed());
-        }
-
-        // List the movies
-        int num = Math.min(movies.size(), 5);
-        System.out.println("Top " + num + " movies by Movie Sales:");
-        for (int i = 1; i <= num; i++) {
-            System.out.printf("%d: %s\n", i, movies.get(i).getMovieName());
-            System.out.println("Sales: " + movies.get(i).getMovieSales());
-            System.out.println("Average rating: " + movies.get(i).getAvgRating());
-        }
-    }
 }
