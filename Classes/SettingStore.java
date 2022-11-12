@@ -10,8 +10,23 @@ public class SettingStore {
     Scanner sc = new Scanner(System.in);
     private TxtReaderWriter settingReaderWriter = new TxtReaderWriter(FILE_SOURCE);
 
+    // Retrieve relevant settings from setting store
+    public String getSetting(String setting) {
+        return settings.get(setting);
+    }
+
+    // Set relevant setting into setting store
+    public void setSetting(String setting, String option) {
+        settings.put(setting, option);
+    }
+
     private SettingStore() {
         loadSettings(settingReaderWriter.getRawStringFromFile());
+    }
+
+    // Destructor
+    public void closeSettingStore() {
+        settingReaderWriter.setRawStringFromFile(parseHashMap());
     }
 
     public static SettingStore getInstance(){
@@ -29,11 +44,12 @@ public class SettingStore {
 
     private ArrayList<String[]> parseHashMap() {
         ArrayList<String[]> arrayListOut = new ArrayList<>();
-        for (String line: settings.values()) {
-            System.out.println(line); // for debugging
-            ArrayList<String> line1 = new ArrayList<>();
-            String[] out = new String[line1.size()];
-            arrayListOut.add(line1.toArray(out));
+        for (String key: settings.keySet()) {
+            ArrayList<String> line = new ArrayList<>();
+            line.add(key);
+            line.add(settings.get(key));
+            String[] out = new String[line.size()];
+            arrayListOut.add(line.toArray(out));
         }
         return arrayListOut;
     }
