@@ -1,32 +1,18 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
-public interface MovieQuery {
+public interface MovieQuery extends SysSettings{
     Scanner sc = new Scanner(System.in);
 
     default void listBy() {
         // CORRECTION: IT IS LIST ALL MOVIES SO THEY KNOW WHAT EXISTS
         MovieStore movStore = MovieStore.getInstance();
+        String listing_option = getListBy();
 
-        System.out.println("List movies by: ");
-        System.out.println("(1) Sales ");
-        System.out.println("(2) Reviews ");
-        System.out.println("Enter choice: ");
-
-        int choice = sc.nextInt();
-        sc.nextLine();
-
-        switch(choice) {
-            case 1:
-                // call movieStore listBySales method...?
-                movStore.ListTop5(0);
-                break;
-            case 2:
-                // call movieStore listByReviews method...?
-                movStore.ListTop5(1);
-                break;
-            default:
-                System.out.println("Invalid Choice");
+        switch (listing_option) {
+            case "NIL" -> listByOptions();
+            case "SALES" -> movStore.ListTop5(0);
+            case "AVG_RTG" -> movStore.ListTop5(1);
         }
     }
 
@@ -75,5 +61,28 @@ public interface MovieQuery {
     private void printMovieInfo(String movieID) {
         Movie movie = MovieStore.getInstance().searchMovie(movieID);
         movie.printMovie();
+    }
+
+    private void listByOptions() {
+        MovieStore movStore = MovieStore.getInstance();
+
+        System.out.println("List movies by: ");
+        System.out.println("(1) Sales ");
+        System.out.println("(2) Average Rating ");
+        System.out.println("Enter choice: ");
+
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        switch(choice) {
+            case 1:
+                movStore.ListTop5(0);
+                break;
+            case 2:
+                movStore.ListTop5(1);
+                break;
+            default:
+                System.out.println("Invalid Choice");
+        }
     }
 }
