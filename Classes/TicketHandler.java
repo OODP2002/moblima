@@ -15,14 +15,16 @@ public class TicketHandler {
     Scanner sc = new Scanner(System.in);
 
     public TicketHandler(ShowTime showtime) {
+        
+        // Setting Showtime
         this.showTime = showtime;
-        System.out.println(showtime.getShowtimeID() + " selected. Choose your seats ");
-        getMovie();
-
+        
         // Print showtime layout
         ShowTimeLayout showTimeLayout = showTime.getShowTimeLayout();
         showTimeLayout.printLayout();
-
+        
+        System.out.println(showtime.getShowtimeID() + " selected. Choose your seats (A1,B15...) ");
+        getMovie();
         // Get seat and check if seat is available
         do {
             System.out.print("Seat choice: ");
@@ -31,23 +33,23 @@ public class TicketHandler {
 
             if (seat == null || !seat.getAvail())
                 System.out.println("Seat is not available, please try again!");
-
         } while (seat == null || !seat.getAvail());
+        
 
         // Get age group
         do {
             getAgeGroup();
         } while (ageGroup == null);
-
+        
         // Generate ticket object
         ticket = new Ticket(generateTransactionID(showtime.getShowtimeID()));
-
-        // Set Seat
+        
+        // Set seat and AgeGroup
         ticket.setSeatID(seatID);
+        ticket.setAgeGroup(ageGroup);
         showTimeLayout.getSeat(seatID).setAvail(false);
         SeatStore.getInstance().occupySeat(showtime.getShowtimeID(), seatID);
-
-
+        
 
         // Query price
         ticket.setPrice(getPrice());
