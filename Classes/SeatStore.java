@@ -3,12 +3,13 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
+import java.util.Map;
 
 /* Done by Mingyang
 *  Handle seats.txt
 * */
 public class SeatStore {
-    private HashMap<String, ArrayList<String>> seatHashMap = new HashMap<>();    // key=SHOWTIME_ID
+    private Map<String, ArrayList<String>> seatHashMap = new HashMap<>();    // key=SHOWTIME_ID
     private static SeatStore single_instance = null;
     private ArrayList<String[]> seatRawStore = new ArrayList<>();
     private final String FILE_SOURCE = "Classes/src/seats.txt";
@@ -58,7 +59,13 @@ public class SeatStore {
     }
 
     public void occupySeat(String showTimeID, String seatID){
-        seatHashMap.get(showTimeID).add(seatID);
+        if(seatHashMap.get(showTimeID) == null){
+            ArrayList<String> occupied = new ArrayList<>(); 
+            occupied.add(seatID);
+            seatHashMap.put(showTimeID, occupied);
+        } else {
+            seatHashMap.get(showTimeID).add(seatID);
+        }
     }
 
     // Write from SeatStore into .txt
@@ -67,8 +74,8 @@ public class SeatStore {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_SOURCE));
             writer.write(HEADER);
-            for (String[] line : seatRawStore) {
-                writer.write("\n" + String.join("|", line));
+            for (Map.Entry<String, ArrayList<String>> entry : seatHashMap.entrySet()) {
+                writer.write(entry.getKey() + "|" + String.join("~", entry.getValue()) + "\n");
             }
             writer.flush();
             writer.close();

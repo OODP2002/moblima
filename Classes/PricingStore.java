@@ -422,19 +422,19 @@ public class PricingStore {
 
             //Age group rule
             for (Map.Entry<AgeGroup, Float> entry : ageGroupChange.entrySet()){
-               writer.write("ageGroup|" + entry.getKey().name() + "|" + String.valueOf(entry.getValue()));
+               writer.write("\nageGroup|" + entry.getKey().name() + "|" + String.valueOf(entry.getValue()));
             }
             //Movie Hype rule
             for (Map.Entry<Hype, Float> entry : hypeAdd.entrySet()){
-               writer.write("hype|" + entry.getKey().name() + "|" + String.valueOf(entry.getValue()));
+               writer.write("\nhype|" + entry.getKey().name() + "|" + String.valueOf(entry.getValue()));
             }
             //Cinema class rule
             for (Map.Entry<CinemaClass,  Float> entry : cinemaClassAdd.entrySet()){
-               writer.write("cinemaClass|" + entry.getKey().name() + "|" + String.valueOf(entry.getValue()));
+               writer.write("\ncinemaClass|" + entry.getKey().name() + "|" + String.valueOf(entry.getValue()));
             }
             //Day of week rule
             for (Map.Entry<Integer, Float> entry : dayOfWeekAdd.entrySet()){
-               writer.write("dayOfWeek|" + String.valueOf(entry.getKey()) + "|" + String.valueOf(entry.getValue()));
+               writer.write("\ndayOfWeek|" + String.valueOf(entry.getKey()) + "|" + String.valueOf(entry.getValue()));
             }
             //Friday rules (Matches weekend pricing after a certain cutoff timing)
             for (Map.Entry<LocalTime, Float> entry : fridayRuleAdd.entrySet()){
@@ -443,11 +443,11 @@ public class PricingStore {
                String hourStr = hour < 10 ? "0" : "" + String.valueOf(hour);
                int minute  = time.getMinute();
                String minuteStr = minute < 10 ? "0" : "" + String.valueOf(minute);
-               writer.write("fridayRule|" + hourStr + minuteStr + "|" + String.valueOf(entry.getValue()));
+               writer.write("\nfridayRule|" + hourStr + minuteStr + "|" + String.valueOf(entry.getValue()));
             }
             //View rules
             for (Map.Entry<View, Float> entry : viewAdd.entrySet()){
-               writer.write("view|" + entry.getKey().name() + "|" + String.valueOf(entry.getValue()));
+               writer.write("\nview|" + entry.getKey().name() + "|" + String.valueOf(entry.getValue()));
             }
             writer.close();
 
