@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
@@ -5,8 +6,8 @@ import java.util.Set;
 public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInterface {
     private String name;
     private String email;
-    private Integer mobile;
-    private HashMap<String, Ticket> tickets = new HashMap<>();  // key=TRANSACTION_ID
+    private String mobile;
+    private ArrayList<Ticket> tickets; // key=TRANSACTION_ID
     Scanner sc = new Scanner(System.in);
 
 
@@ -17,11 +18,11 @@ public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInter
         this.name = sc.nextLine();
 
         System.out.print("Enter mobile number: ");
-        this.mobile = sc.nextInt();
-        sc.nextLine();
+        this.mobile = sc.nextLine();
 
         System.out.print("Enter email address: ");
         this.email = sc.nextLine();
+        setTickets();
     }
     
     public String getName() {
@@ -40,15 +41,19 @@ public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInter
         this.email = email;
     }
 
-    public HashMap<String, Ticket> getTickets() {
+    public ArrayList<Ticket> getTickets() {
         return tickets;
     }
 
-    public String getMobile() {
-        return String.valueOf(this.mobile);
+    public void setTickets(){
+        this.tickets = TicketStore.getInstance().getTicketWithUserDetails(name, email, mobile);
     }
 
-    public void setMobile(Integer mobile) {
+    public String getMobile() {
+        return this.mobile;
+    }
+
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 
@@ -91,6 +96,7 @@ public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInter
         ticketHandler.getMovieGoerDetails(this);
 
         Ticket newTicket = ticketHandler.buyTicket();
-        tickets.put(newTicket.getTransactionID(), newTicket);
+        TicketStore.getInstance().addTicketToStore(newTicket);
+        tickets.add(newTicket);
     }
 }

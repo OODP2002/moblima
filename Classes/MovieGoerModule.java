@@ -8,7 +8,7 @@ public class MovieGoerModule {
         int choice;
 
         do {
-            System.out.println("----Customer Panel---");
+            System.out.println("\n----Customer Panel---");
             System.out.println("(1) List all movies");
             System.out.println("(2) List top 5 movies"); // This one depends on admin setting to determine which is top 5
             System.out.println("(3) Search for movie to view details"); // including showtimes, reviews and ratings

@@ -1,13 +1,14 @@
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
 
 public class TicketStore {
 
     //Attributes
     private HashMap<String, Ticket> ticketHashMap = new HashMap<>();    // key=TRANSACTION_ID
     private String path = ("Classes/src/tickets.txt");
-    private static TicketStore instance = new TicketStore();
+    private static TicketStore single_instance = null;
     private TxtReaderWriter ticketReaderWriter = new TxtReaderWriter(path);
     
     //Constructor
@@ -23,9 +24,11 @@ public class TicketStore {
     //Operations
     //Return single instance of store 
     public static TicketStore getInstance(){
-        return instance;
+        if (single_instance == null){
+            single_instance = new TicketStore();
+        }
+        return single_instance;
     }
-
 
     public void addTicketToStore(Ticket ticket) {
         ticketHashMap.put(ticket.getTransactionID(), ticket);
@@ -34,6 +37,18 @@ public class TicketStore {
     public Ticket getTicketFromStore(String transactionID) {
         return ticketHashMap.get(transactionID);
     }
+
+    public ArrayList<Ticket> getTicketWithUserDetails(String name, String email, String mobile){
+        Set<String> keys = ticketHashMap.keySet();
+        ArrayList<Ticket> correctTickets = new ArrayList<>();
+        for (String key:keys){
+            if (ticketHashMap.get(key).getUsername().equals(name) && ticketHashMap.get(key).getEmail().equals(email) && ticketHashMap.get(key).getMobile().equals(mobile)){
+                correctTickets.add(ticketHashMap.get(key));
+            }
+        }
+        return correctTickets;
+    }
+
     private void loadTicketHashMap(ArrayList<String []> ticketRawStore) {
         if (ticketRawStore.size() == 0)
             return;
@@ -45,7 +60,7 @@ public class TicketStore {
             ticket.setMobile(line[3]);
             ticket.setSeatID(line[4]);
             ticket.setAgeGroup(AgeGroup.valueOf(line[5]));
-            ticket.setPrice(Long.getLong(line[6]));
+            ticket.setPrice(Double.parseDouble(line[6]));
             ticketHashMap.put(line[0], ticket);
         }
     }
