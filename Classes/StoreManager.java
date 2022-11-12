@@ -9,7 +9,7 @@ public class StoreManager {
         ShowTimeStore.getInstance().closeShowTimeStore();
 //        // To-do: write file for pricing store (DZ)
         ShowTimeStore.getInstance().closeShowTimeStore();
-        SpecialOccasionStore.getInstance().writeToSpecialOccasionFile();
-        TicketStore.getInstance().closeTicketStore();   // working
+        SpecialOccasionStore.getInstance().writeToSpecialOccasionFile(); //working
+        TicketStore.getInstance().closeTicketStore();
     }
 }
