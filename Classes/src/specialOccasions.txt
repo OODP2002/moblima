@@ -1,3 +1,4 @@
-occasion|date
+OCCASION|DATE
 xmas day|25-12
-new year|1-1
+new year|01-01
+valentines day|14-02
