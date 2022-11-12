@@ -1,16 +1,18 @@
 import java.util.Scanner;
 
 public class MOBLIMA {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-         // Create vendor
+        // Create vendor
         Vendor vendor = new Vendor();
 
         AdminModule adminModule= new AdminModule();
         MovieGoerModule movieGoerModule = new MovieGoerModule();
         GuestModule guestModule = new GuestModule();
 
+
         System.out.println("\nStarting app...");
+
         System.out.println("Welcome to " + vendor.getVendorName() + " Movie Booking System");
         int loginChoice = 0;
 

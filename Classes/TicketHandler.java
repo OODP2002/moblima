@@ -14,12 +14,11 @@ public class TicketHandler {
     private Seat seat;
     Scanner sc = new Scanner(System.in);
 
-    public TicketHandler(String showtimeID) {
-        Ticket ticket = new Ticket(generateTransactionID(showtimeID));
-        showTime = ShowTimeStore.getInstance().getShowTime(showtimeID);
+    public TicketHandler(ShowTime showtime) {
+        this.showTime = showtime;
         getMovie();
 
-        System.out.println(showtimeID + " selected. Choose your seats ");
+        System.out.println(showtime.getShowtimeID() + " selected. Choose your seats ");
 
         // Print showtime layout
         ShowTimeLayout showTimeLayout = showTime.getShowTimeLayout();
@@ -40,8 +39,15 @@ public class TicketHandler {
             getAgeGroup();
         } while (ageGroup == null);
 
+        // Generate ticket object
+        ticket = new Ticket(generateTransactionID(showtime.getShowtimeID()));
+
         // Query price
         ticket.setPrice(getPrice());
+        System.out.println("Ticket costs $" + ticket.getPrice());
+
+        System.out.println("Ticket purchase successful!");
+        System.out.println("Transaction ID: " + ticket.getTransactionID());
     }
 
     public Ticket buyTicket() {
@@ -83,7 +89,8 @@ public class TicketHandler {
 
     // Get movie infg
     private void getMovie() {
-        String movieID = this.showTime.getMovieID();
+        String movieID = showTime.getMovieID();
+        System.out.println(movieID);
         this.movie = MovieStore.getInstance().searchMovie(movieID);
     }
 

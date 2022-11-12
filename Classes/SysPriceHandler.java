@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public interface SysPriceHandler {
@@ -22,6 +23,7 @@ public interface SysPriceHandler {
         System.out.print("Enter value of new rule:");
         Float value = sc.nextFloat();
         pStore.addPricingRule(ruleClass, type, value);
+
     }
 
     default void removePricingRule() {

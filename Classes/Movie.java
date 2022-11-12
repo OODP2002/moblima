@@ -26,10 +26,22 @@ public class Movie {
         System.out.printf("Movie details: %s, %s\n", movieHype, viewingMode);
         System.out.println("Movie is rated: " + ageRating);
         System.out.println("Sypnosis: " + synopsis);
-        System.out.println("Movie avg rating: " + overallReviews.getAvgRating());
         System.out.println("Number of reviews: " + overallReviews.getReviewCount());
+        if (overallReviews.getReviewCount() < 2){
+            System.out.println("Movie avg rating: NIL");
+        }
+        else{
+            System.out.println("Movie avg rating: " + overallReviews.getAvgRating());
+            System.out.println("Reviews:\n");
+            for (int i=0;i<overallReviews.getReviewCount();i++){
+                System.out.println("Rating:" + overallReviews.getReview(i).getReviewRating());
+                System.out.println("Description:");
+                System.out.println(overallReviews.getReview(i).getReviewDescription() + "\n");
+            }
+        }
         System.out.println("Showing status: " + showingStatus);
         System.out.println("Movie sales: " + movieSales);
+        System.out.println("Movie duration: " + movieDuration.toMinutes() + " minutes");
         printMoviePersonnel();
         System.out.println("=======================");
     }

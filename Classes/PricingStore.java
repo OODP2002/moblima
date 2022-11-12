@@ -9,9 +9,6 @@ import java.lang.ProcessBuilder.Redirect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
-
 public class PricingStore {
     //Attributes
     private String pricingHeader;
@@ -376,7 +373,7 @@ public class PricingStore {
             }
             //Day of week rule
             for (Map.Entry<Integer, Float> entry : dayOfWeekAdd.entrySet()){
-               writer.write("dayOfWeek|" + String.valueOf(entry.getKey()) + "|" + String.valueOf(entry.getValue()));/
+               writer.write("dayOfWeek|" + String.valueOf(entry.getKey()) + "|" + String.valueOf(entry.getValue()));
             }
             //Friday rules (Matches weekend pricing after a certain cutoff timing)
             for (Map.Entry<LocalTime, Float> entry : fridayRuleAdd.entrySet()){

@@ -2,14 +2,14 @@ public class StoreManager {
     static void closeAllStores() {
         CineplexesReaderWriter.getInstance().writeFile();
         CredentialStore.getInstance().closeShowTimeStore();
-        // To-do: write file for layout store (MY)
+//        // To-do: write file for layout store (MY)
         MovieStore.getInstance().closeMovieStore();
         SeatStore.getInstance().writeFile();
-        // To-do: write file for setting store (MY)
+        SettingStore.getInstance().closeSettingStore();
         ShowTimeStore.getInstance().closeShowTimeStore();
-        // To-do: write file for pricing store (DZ)
+//        // To-do: write file for pricing store (DZ)
         ShowTimeStore.getInstance().closeShowTimeStore();
-        SpecialOccasionStore.getInstance().writeToSpecialOccasionFile();
+        SpecialOccasionStore.getInstance().writeToSpecialOccasionFile(); //working
         TicketStore.getInstance().closeTicketStore();
     }
 }

@@ -16,7 +16,7 @@ public class ShowTime {
     public ShowTime(String showtimeID) {
         this.showtimeID = showtimeID;
         this.showTimeLayout = new ShowTimeLayout(showtimeID.substring(0,4));
-        this.cinema = CinemaStore.getInstance().getCinema(showtimeID.substring(2,4));
+        this.cinema = CinemaStore.getInstance().getCinema(showtimeID.substring(0,4));
     }
 
     public ShowTimeLayout getShowTimeLayout() {

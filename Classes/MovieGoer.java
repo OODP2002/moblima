@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInterface {
     private String name;
-    private MovieStore movStore = MovieStore.getInstance();
     private String email;
     private Integer mobile;
     private HashMap<String, Ticket> tickets = new HashMap<>();  // key=TRANSACTION_ID
@@ -65,7 +64,7 @@ public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInter
             return;
         }
 
-        TicketHandler ticketHandler = new TicketHandler(showtimeID);
+        TicketHandler ticketHandler = new TicketHandler(showTime);
         ticketHandler.getMovieGoerDetails(this);
 
         Ticket newTicket = ticketHandler.buyTicket();

@@ -18,7 +18,7 @@ public class AdminModule {
         SpecialOccasionModule specialOccasionModule = new SpecialOccasionModule(cinemaStaff);
         SysMovieModule sysMovieModule = new SysMovieModule(cinemaStaff);
         SysShowtimeModule sysShowtimeModule = new SysShowtimeModule(cinemaStaff);
-        SysListingOptionsModule sysListingOptionsModule = new SysListingOptionsModule(cinemaStaff);
+        SysListingOptionsModule sysListingOptionsModule = new SysListingOptionsModule();
 
         // Menu of choices the customer can choose from
         int choice = -1;

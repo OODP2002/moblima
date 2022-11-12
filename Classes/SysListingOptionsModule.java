@@ -1,14 +1,12 @@
 import java.util.Scanner;
 
 public class SysListingOptionsModule {
-    private CinemaStaff cinemaStaff;
     Scanner sc = new Scanner(System.in);
 
-    public SysListingOptionsModule(CinemaStaff cinemaStaff) {
-        this.cinemaStaff = cinemaStaff;
-    }
-
     public void run() {
+        SettingStore settingStore = SettingStore.getInstance();
+        String setting = "list-by";
+
         System.out.println("Welcome to System Listing options Module");
         System.out.println("Select an option below (1-4):");
         System.out.println("1 - Allow both listing options");
@@ -22,11 +20,23 @@ public class SysListingOptionsModule {
         sc.nextLine();
 
         switch (choice) {
-//            case 1 -> cinemaStaff.newPricingRule();
-//            case 2 -> cinemaStaff.removePricingRule();
-//            case 3 -> cinemaStaff.printAllPricingRules();
-            case 4-> System.out.println("Exiting system listing options Module");
-            default -> System.out.println("Invalid choice, exiting system listing options module");
+            case 1 -> {
+                settingStore.setSetting(setting, "NIL");
+                System.out.println("Setting success! New setting: NIL");
+            }
+            case 2 -> {
+                settingStore.setSetting(setting, "SALES");
+                System.out.println("Setting success! New setting: SALES");
+            }
+            case 3 -> {
+                settingStore.setSetting(setting, "AVG_RTG");
+                System.out.println("Setting success! New setting: AVERAGE RATING");
+            }
+            case 4 -> System.out.println("Exiting system listing options Module");
+            default -> {
+                System.out.println("Invalid option, default setting of NIL chosen");
+                settingStore.setSetting(setting, "NIL");
+            }
         }
     }
 }
