@@ -1,8 +1,21 @@
 import java.util.Scanner;
-
+/**
+ * A boundary object.
+ * 
+ * The menu which the user will see upon login
+ * 
+ * @author Marc
+ * @version 1.0.0 Nov 12, 2022
+ */
 public class MovieGoerModule {
+    /**
+     * Scanner to receive input
+     */
     Scanner sc = new Scanner(System.in);
 
+    /**
+     * Displays the menu and redirects user
+     */
     public void run() {
         MovieGoer movieGoer = new MovieGoer();
         int choice;
