@@ -107,14 +107,15 @@ public class MovieStore {
 
             // Add movie personnel
             ArrayList<MoviePersonnel> moviePersonnelList = movie.getMoviePersonnelList();
+            String director = null;
             ArrayList<String> out = new ArrayList<>();
             for (MoviePersonnel moviePersonnel : moviePersonnelList) {
                 if (moviePersonnel.getRole() == Role.DIRECTOR)
-                    out.add(0, moviePersonnel.getName());
+                    director = moviePersonnel.getName();
                 else
                     out.add(moviePersonnel.getName());
             }
-            line.add(String.join("~", out));
+            line.add(director.concat("~".concat(String.join("~", out))));
 
             String[] strArr = new String[line.size()];
             arrayListOut.add(line.toArray(strArr));
