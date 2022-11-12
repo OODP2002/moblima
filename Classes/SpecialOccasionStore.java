@@ -1,3 +1,4 @@
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -69,9 +70,13 @@ public class SpecialOccasionStore {
 
     //List all special occasions
     public void printAll(){
+        System.out.println("--------------------");
         System.out.println(this.specialOccasionHeader);
-        for (int i = 0; i < this.specialOccasions.size(); i++){
-            System.out.println(this.specialOccasions.get(i).toString());
+        for (SpecialOccasion occasion : specialOccasions) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM");
+
+            System.out.println("Public holiday: " + occasion.getName().toUpperCase());
+            System.out.println("Date: " + occasion.getDate().format(formatter));
         }
     }
 
@@ -88,8 +93,13 @@ public class SpecialOccasionStore {
         try{
             FileWriter writer = new FileWriter(path);
             writer.write(this.specialOccasionHeader);
-            for (int i = 0; i < this.specialOccasions.size(); i++){
-                writer.write("\n" + this.specialOccasions.get(i).toString());
+
+            for (SpecialOccasion occasion: specialOccasions) {
+                ArrayList<String> line = new ArrayList<>();
+                line.add(occasion.getName());
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM");
+                line.add(occasion.getDate().format(formatter));
+                writer.write("\n" + String.join("|", line));
             }
             writer.close();
         } catch (IOException err){
