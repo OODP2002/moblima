@@ -42,7 +42,6 @@ public class MOBLIMA {
                 case 4 -> System.out.println("Exiting system...");
                 default -> System.out.println("Invalid Choice.");
             }
-           
         }
         StoreManager.closeAllStores();
     }
