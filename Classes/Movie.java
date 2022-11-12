@@ -10,7 +10,7 @@ public class Movie {
     private View viewingMode;
     private Hype movieHype;
     private int movieSales;
-    private OverallReviews  overallReviews;
+    private OverallReviews overallReviews;
     private ArrayList<MoviePersonnel> moviePersonnelList = new ArrayList<>();
     private AgeEnum ageRating;
 

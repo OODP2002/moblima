@@ -18,6 +18,7 @@ public class CinemaStore{
         return single_instance;
     }
 
+
     private void loadCinemaHashMap() {
         ArrayList<String[]> temp = CineplexesReaderWriter.getInstance().getCineplexRawStore();
         for (String[] line: temp) {
