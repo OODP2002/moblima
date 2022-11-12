@@ -1,6 +1,12 @@
 import java.time.Duration;
 import java.util.*;
 
+/**
+ * The MovieStore class stores all the information about the movies with a HashMap data structure.
+ * It also interacts with the movie.txt file to read and write the data.
+ * @author Zhe Kai
+ * @version 1.0
+ */
 public class MovieStore {
     
     // Attributes
@@ -10,15 +16,30 @@ public class MovieStore {
     private TxtReaderWriter movieReaderWriter = new TxtReaderWriter(path);
 
 
+    /**
+     * This method searches for a Movie with the Movie ID and returns null if it does not exist.
+     * @param movieID This is the unique Movie ID.
+     * @return Movie This returns the Movie object with the inputted Movie ID.
+     */
     // Get Movie object given movie_ID, returns null if movie does not exist
     public Movie searchMovie(String movieID) {
         return movieHashMap.get(movieID);
     }
 
+    /**
+     * This method returns the hashmap of the Movie Store
+     * The key-value pair is the Movie ID and the Movie object respectively.
+     * @return HashMap<String, Movie>
+     */
     public HashMap<String, Movie> getMovieHashMap() {
         return movieHashMap;
     }
 
+    /**
+     * The ListTop5 method compares the movies in the MovieStore and lists the top 5 movies by movie sales or rating.
+     * The listing format (sales or rating) can be controlled by the toggle parameter.
+     * @param toggle This switches the listing method. When toggle is 0, the method lists the top 5 by movie sales. Else, it lists the top 5 by rating.
+     */
     public void ListTop5(int toggle) {
         List<Movie> movies = new ArrayList<>(movieHashMap.values());
 
@@ -39,16 +60,26 @@ public class MovieStore {
         }
     }
 
+    /**
+     * This method adds a movie to the MovieSotre.
+     * @param movie This is the Movie object to be added.
+     */
     // Add movie to HashMap given Movie object
     public void addMovie(Movie movie) {
         movieHashMap.put(movie.getMovieID(), movie);
     }
 
-    // Constructor
+    /**
+     * Constructor for the movie store.
+     */
     private MovieStore() {
         loadMovieHashMap(movieReaderWriter.getRawStringFromFile());
     }
 
+    /**
+     * This method is ran when the application is closed.
+     * It writes all the data in the movie store into the movie.txt file
+     */
     // Destructor
     public void closeMovieStore() {
         movieReaderWriter.setRawStringFromFile(parseHashMap());
@@ -84,6 +115,10 @@ public class MovieStore {
         }
     }
 
+    /**
+     * This method returns the MovieStore object and utilises the 
+     * @return This method returns the MovieStore object. 
+     */
     // Return instance of store
     public static MovieStore getInstance() {
         return instance;
