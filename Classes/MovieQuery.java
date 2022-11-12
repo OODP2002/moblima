@@ -18,9 +18,13 @@ public interface MovieQuery extends SysSettings{
 
     default void listAllMovies() {
         HashMap<String, Movie> movies = MovieStore.getInstance().getMovieHashMap();
-        for (Movie movie: movies.values()) {
-            if (movie.getShowingStatus() != Status.ENDOFSHOWING)
-                movie.printMovie();
+        for (String key: movies.keySet()) {
+            if (movies.get(key).getShowingStatus() == Status.NOWSHOWING || movies.get(key).getShowingStatus() == Status.PREVIEW){
+                movies.get(key).printMovie();
+            }
+            // if (movie.getShowingStatus() != Status.ENDOFSHOWING || movie.getShowingStatus() != Status.COMINGSOON){
+            //     movie.printMovie();
+            // }
         }
     }
 
@@ -36,7 +40,7 @@ public interface MovieQuery extends SysSettings{
         }
 
         Movie movie = movStore.searchMovie(movieID);
-        if (movie == null){
+        if (movie == null || movie.getShowingStatus() == Status.COMINGSOON || movie.getShowingStatus() == Status.ENDOFSHOWING ){
             System.out.println("No such movie found. \n");
         }
         else {
