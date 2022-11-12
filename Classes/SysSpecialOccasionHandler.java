@@ -1,3 +1,6 @@
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Scanner;
 
 interface SysSpecialOccasionHandler {
@@ -9,7 +12,17 @@ interface SysSpecialOccasionHandler {
         String name = sc.nextLine();
         System.out.print("Enter date (DD-MM): ");
         String newDate = sc.nextLine();
-        SpecialOccasion specialOccasion = new SpecialOccasion(newDate, name);
+
+        // Check if date is of valid format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM").withResolverStyle(ResolverStyle.STRICT);
+        SpecialOccasion specialOccasion;
+        try {
+            formatter.parse(newDate);
+            specialOccasion = new SpecialOccasion(newDate, name);
+        } catch (Exception e) {
+            System.out.println("Invalid date format, returning...");
+            return false;
+        }
 
         return specialOccasionStore.add(specialOccasion);
     }

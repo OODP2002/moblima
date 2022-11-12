@@ -33,8 +33,16 @@ public interface SysPriceHandler {
         System.out.print("Enter Type (Refer to pricing rule classes list): ");
         String type = sc.next();
         System.out.print("Enter value of new rule: ");
-        
-        Float value = sc.nextFloat();
+
+        Float value = null;
+        try {
+            value = sc.nextFloat();
+            sc.nextLine();
+        } catch (Exception e) {
+            System.out.println("Invalid value! Exiting module");
+            sc.nextLine();
+            return;
+        }
         pStore.addPricingRule(ruleClass, type, value);
 
     }
@@ -66,7 +74,15 @@ public interface SysPriceHandler {
         System.out.print("Enter Type (Refer to pricing rule classes list): ");
         String type = sc.next();
         System.out.print("Enter new value for existing rule: ");
-        Float value = sc.nextFloat();
+        Float value = null;
+        try {
+            value = sc.nextFloat();
+            sc.nextLine();
+        } catch (Exception e) {
+            System.out.println("Invalid value! Exiting module");
+            sc.nextLine();
+            return;
+        }
         pStore.updatePricingRule(ruleClass, type, value);
 
     }
@@ -83,7 +99,15 @@ public interface SysPriceHandler {
         System.out.println("(7) Quit");
         System.out.println("--------------------------------------------\n");
         System.out.print("Enter choice: ");
-        Integer ruleClass = sc.nextInt();
+
+        Integer ruleClass;
+        try {
+            ruleClass = sc.nextInt();
+        } catch (Exception e) {
+            System.out.println("Invalid input! Exiting module");
+            sc.nextLine();
+            return;
+        }
         System.out.print("Enter Type (Refer to pricing rule classes list): ");
         String type = sc.next();
         pStore.removePricingRule(ruleClass, type);
