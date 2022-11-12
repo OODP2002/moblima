@@ -11,20 +11,28 @@ public class MOBLIMA {
         GuestModule guestModule = new GuestModule();
 
 
-        System.out.println("Starting app...");
+        System.out.println("\nStarting app...");
+
         System.out.println("Welcome to " + vendor.getVendorName() + " Movie Booking System");
         int loginChoice = 0;
 
         while(loginChoice != 4){
-            System.out.println("-----Login Panel-----");
+            System.out.println("\n----------Login Panel----------");
             System.out.println("(1) Admin");
             System.out.println("(2) Customer (Sign in required)");
             System.out.println("(3) Guest");
             System.out.println("(4) Quit ");
-            System.out.println("---------------------");
-            System.out.print("Choice: ");
+            System.out.println("-------------------------------");
+            System.out.print("\nChoice: ");
 
-            loginChoice = sc.nextInt();
+            
+            try{
+                loginChoice = sc.nextInt();
+            } catch (Exception err){
+                System.out.println("Error: Please input a valid number (1 - 4).\n");
+                sc.nextLine();
+                continue;
+            }
             sc.nextLine();
 
             switch (loginChoice) {
@@ -34,6 +42,7 @@ public class MOBLIMA {
                 case 4 -> System.out.println("Exiting system...");
                 default -> System.out.println("Invalid Choice.");
             }
+           
         }
         StoreManager.closeAllStores();
     }
