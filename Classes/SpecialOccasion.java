@@ -21,5 +21,13 @@ public class SpecialOccasion {
 
     public boolean isSpecialOccasion(LocalDate date){
         return this.date.equals(date) || this.date.equals(date.plusDays(1)); //checks if its a special occasion or eve of a special occasion
-    } 
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
