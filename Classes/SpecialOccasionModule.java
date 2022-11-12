@@ -9,16 +9,16 @@ public class SpecialOccasionModule {
     }
 
     public void run() {
-        System.out.println("\n---Special Occasion Module---");
+      
         int choice = -1;
         while (choice != 4) {
+            System.out.println("\n----Special Occasion Module----");
             System.out.println("Select an option below (1-4):");
-
             System.out.println("1 - Add new special occasion ");
             System.out.println("2 - Remove special occasion ");
             System.out.println("3 - Print all special occasions");
             System.out.println("4 - Quit");
-            System.out.println("-----------------------------");
+            System.out.println("-------------------------------\n");
             System.out.print("Select an option: ");
 
             try {
