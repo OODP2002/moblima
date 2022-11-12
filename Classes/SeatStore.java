@@ -8,7 +8,7 @@ import java.util.HashMap;
 *  Handle seats.txt
 * */
 public class SeatStore {
-    private HashMap<String, List<String>> seatHashMap = new HashMap<>();    // key=SHOWTIME_ID
+    private HashMap<String, ArrayList<String>> seatHashMap = new HashMap<>();    // key=SHOWTIME_ID
     private static SeatStore single_instance = null;
     private ArrayList<String[]> seatRawStore = new ArrayList<>();
     private final String FILE_SOURCE = "Classes/src/seats.txt";
@@ -28,7 +28,8 @@ public class SeatStore {
 
     private void loadSeatStoreHashMap() {
         for (String[] line: seatRawStore) {
-            List<String> occupied = Arrays.asList(line[1].split("~"));
+            ArrayList<String> occupied = new ArrayList<>();
+            occupied.addAll(Arrays.asList(line[1].split("~")));
             seatHashMap.put(line[0], occupied);
         }
     }
@@ -52,8 +53,12 @@ public class SeatStore {
         }
     }
 
-    public List<String> getSeatsForShowTime(String showtimeID){
-        return seatHashMap.get(showtimeID);
+    public List<String> getSeatsForShowTime(String showTimeID){
+        return seatHashMap.get(showTimeID);
+    }
+
+    public void occupySeat(String showTimeID, String seatID){
+        seatHashMap.get(showTimeID).add(seatID);
     }
 
     // Write from SeatStore into .txt

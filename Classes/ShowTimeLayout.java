@@ -11,9 +11,10 @@ public class ShowTimeLayout {
     private final int aisle;
     private final int mainStairway;
     private final Layout layout;
+    
+
 
     public ShowTimeLayout(String showtimeID) {
-
         //Generating Cinema layout from cineplexes.txt
         this.layout = LayoutStore.getInstance().getLayout(showtimeID.substring(0,4));
         this.seatHashMap = layout.createSeats();

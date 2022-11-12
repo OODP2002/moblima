@@ -45,6 +45,9 @@ public class TicketHandler {
         // Set Seat
         ticket.setSeatID(seatID);
         showTimeLayout.getSeat(seatID).setAvail(false);
+        SeatStore.getInstance().occupySeat(showtime.getShowtimeID(), seatID);
+
+
 
         // Query price
         ticket.setPrice(getPrice());
