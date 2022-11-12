@@ -70,13 +70,13 @@ public class SpecialOccasionStore {
 
     //List all special occasions
     public void printAll(){
-        System.out.println("--------------------");
-        System.out.println(this.specialOccasionHeader);
+        System.out.println("\n-------All Special Occassions-------");
         for (SpecialOccasion occasion : specialOccasions) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd - MM");
 
             System.out.println("Public holiday: " + occasion.getName().toUpperCase());
-            System.out.println("Date: " + occasion.getDate().format(formatter));
+            System.out.println("Date (DD - MM): " + occasion.getDate().format(formatter));
+            System.out.println("\n");
         }
     }
 

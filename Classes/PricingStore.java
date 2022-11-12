@@ -5,7 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.ProcessBuilder.Redirect.Type;
+import java.lang.IllegalArgumentException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -123,52 +123,93 @@ public class PricingStore {
     //Add pricing rule 
     public void addPricingRule(Integer ruleClass, String type, Float val){
         switch(ruleClass){
-            case 0: //base
-                System.out.println("Cannot add base price! Update base price rule instead.");
-                break;
-                
             case 1: //ageGroup
-                if(ageGroupChange.put(AgeGroup.valueOf(type), val) == null){
-                    System.out.println("Failed to add rule. Please enter a valid rule type.");
+                try{
+                    AgeGroup.valueOf(type);
+                } catch (IllegalArgumentException err) {
+                    System.out.println("Error: Invalid rule type entered");
+                    break;
                 }
-                System.out.println("Rule successfully added.");
+                if(ageGroupChange.put(AgeGroup.valueOf(type), val) == null){
+                    System.out.println("Rule successfully added.");
+                } else {
+                    System.out.println("Successfully overwrote exisiting rule..");
+                }
+                
                 break;
 
             case 2: //hype
-                if(hypeAdd.put(Hype.valueOf(type), val) == null){
-                    System.out.println("Failed to add rule. Please enter a valid rule type.");
+                try{
+                    Hype.valueOf(type);
+                } catch (IllegalArgumentException err) {
+                    System.out.println("Error: Invalid rule type entered");
+                    break;
                 }
-                System.out.println("Rule successfully added.");
+                if(hypeAdd.put(Hype.valueOf(type), val) == null){
+                    System.out.println("Rule successfully added.");
+                } else {
+                    System.out.println("Successfully overwrote exisiting rule..");
+                }
+                
                 break;
 
             case 3: //cinemaClass
-                if(cinemaClassAdd.put(CinemaClass.valueOf(type), val) == null){
-                    System.out.println("Failed to add rule. Please enter a valid rule type.");
+                try{
+                    CinemaClass.valueOf(type);
+                } catch (IllegalArgumentException err) {
+                    System.out.println("Error: Invalid rule type entered");
+                    break;
                 }
-                System.out.println("Rule successfully added.");
+                if(cinemaClassAdd.put(CinemaClass.valueOf(type), val) == null){
+                    System.out.println("Rule successfully added.");
+                } else {
+                    System.out.println("Successfully overwrote exisiting rule..");
+                }
+                
                 break;
 
             case 4: //dayOfWeek
-                if(dayOfWeekAdd.put(Integer.parseInt(type), val) == null){
-                    System.out.println("Failed to add rule. Please enter a valid rule type.");
+                try{
+                    Integer.parseInt(type);
+                } catch (IllegalArgumentException err) {
+                    System.out.println("Error: Invalid rule type entered");
+                    break;
                 }
-                System.out.println("Rule successfully added.");
+                if(dayOfWeekAdd.put(Integer.parseInt(type), val) == null){
+                    System.out.println("Rule successfully added.");
+                } else {
+                    System.out.println("Successfully overwrote exisiting rule..");
+                }
+                
                 break;
 
             case 5: //fridayRule
                 Integer hour = Integer.parseInt(type.substring(0,2));
                 Integer minute = Integer.parseInt(type.substring(2,4));
-                if(fridayRuleAdd.put(LocalTime.of(hour,minute), val) == null){
-                    System.out.println("Failed to add rule. Please enter a valid rule type.");
+                if (hour < 0 || hour > 23 || minute < 0 || minute > 59){
+                    System.out.println("Error: Invalid rule type entered");
+                    break;
+                } else if (fridayRuleAdd.put(LocalTime.of(hour,minute), val) == null){
+                    System.out.println("Rule successfully added.");                               
+                } else {
+                    System.out.println("Successfully overwrote exisiting rule..");
                 }
-                System.out.println("Rule successfully added.");                               
+                
                 break;
 
             case 6: //view
-                if(viewAdd.put(View.valueOf(type), val) == null){
-                    System.out.println("Failed to add rule. Please enter a valid rule type.");
+                try{
+                    View.valueOf(type);
+                } catch (IllegalArgumentException err) {
+                    System.out.println("Error: Invalid rule type entered");
+                    break;
                 }
-                System.out.println("Rule successfully added.");
+                if(viewAdd.put(View.valueOf(type), val) == null){
+                    System.out.println("Rule successfully added.");
+                } else {
+                    System.out.println("Successfully overwrote exisiting rule..");
+                }
+                
                 break;
 
             case 7: //quit
@@ -179,60 +220,81 @@ public class PricingStore {
                 System.out.println("Invalid choice, exiting pricing rule removal menu");
         }
     }
+    //Update pricing rule
+    public void updatePricingRule(Integer ruleClass, String type, Float val){
+        switch(ruleClass){
+            case 1: //ageGroup
+                if (this.ageGroupChange.containsKey(AgeGroup.valueOf(type))){
+                    hypeAdd.replace(Hype.valueOf(type), val);
+                    System.out.println("\nRule successfully added.");
+                }
+                else{
+                    System.out.println("\nFailed to replace rule. Please enter a exisiting rule type.");
+                }
+                break;
 
-    //Operations to update pricing store 
-    public boolean changeHype(Hype hype, Float newVal){
-        if (this.hypeAdd.containsKey(hype)){
-            hypeAdd.replace(hype, newVal);
-            return true;
-        } else return false;
-    }
+            case 2: //hype
+                if (this.hypeAdd.containsKey(Hype.valueOf(type))){
+                    hypeAdd.replace(Hype.valueOf(type), val);
+                    System.out.println("\nRule successfully added.");
+                }
+                else{
+                    System.out.println("\nFailed to replace rule. Please enter a exisiting rule type.");
+                }
+                break;
 
-    public boolean changCinemaClass(CinemaClass cinemaClass, Float newVal){
-        if (this.cinemaClassAdd.containsKey(cinemaClass)){
-            cinemaClassAdd.replace(cinemaClass, newVal);
-            return true;
-        } else return false;
+            case 3: //cinemaClass
+                if (this.cinemaClassAdd.containsKey(CinemaClass.valueOf(type))){
+                    cinemaClassAdd.replace(CinemaClass.valueOf(type), val);
+                    System.out.println("\nRule successfully added.");
+                } else {
+                    System.out.println("\nFailed to replace rule. Please enter a exisiting rule type.");
+                }
+                break;
 
-    }
+            case 4: //dayOfWeek
+                if (this.dayOfWeekAdd.containsKey(Integer.parseInt(type))){
+                    dayOfWeekAdd.replace(Integer.parseInt(type), val);
+                    System.out.println("\nRule successfully added.");
+                } else {
+                    System.out.println("\nFailed to replace rule. Please enter a exisiting rule type.");
+                }
+                break;
 
-    public boolean changeDayOfWeek(Integer dayOfWeek, Float newVal){
-        if (this.dayOfWeekAdd.containsKey(dayOfWeek)){
-            dayOfWeekAdd.replace(dayOfWeek, newVal);
-            return true;
-        } else return false;
-    }
+            case 5: //fridayRule
+                Integer hour = Integer.parseInt(type.substring(0,2));
+                Integer minute = Integer.parseInt(type.substring(2,4));
+                if (fridayRuleAdd.containsKey(LocalTime.of(hour,minute))){
+                    fridayRuleAdd.replace(LocalTime.of(hour,minute), val);
+                    System.out.println("\nRule successfully added.");
+                } else {
+                    System.out.println("\nFailed to replace rule. Please enter a exisiting rule type.");
+                }
+                break;
 
-    public boolean changeCutOff(LocalTime oldCutOff, LocalTime newCutoff){
-        if(fridayRuleAdd.containsKey(oldCutOff) && cutOff != null){
-            Float val = fridayRuleAdd.get(oldCutOff);
-            fridayRuleAdd.remove(oldCutOff);
-            fridayRuleAdd.put(newCutoff, val);
-            return true;
-        } else return false;
-    }
+            case 6: //view
+                if (viewAdd.containsKey(View.valueOf(type))){
+                    viewAdd.replace(View.valueOf(type), val);
+                    System.out.println("\nRule successfully added.");
+                } else {
+                    System.out.println("\nFailed to replace rule. Please enter a exisiting rule type.");
+                }
+                break;
 
-    public boolean changeFridayRule(LocalTime cutOff, Float newVal){
-        if (fridayRuleAdd.containsKey(cutOff)){
-            fridayRuleAdd.replace(cutOff, newVal);
-            return true;
+            case 7: //quit
+                System.out.println("\nExiting pricing rule removal menu");
+                break;
+
+            default:
+                System.out.println("\nInvalid choice, exiting pricing rule removal menu");
         }
-        else return false;
     }
 
-    public boolean changeView(View view, Float newVal){
-        if (viewAdd.containsKey(view)){
-            viewAdd.replace(view, newVal);
-            return true;
-        } else return false;
-    }
+
     
     //Remove Pricing Rule 
     public void removePricingRule(Integer ruleClass, String type){
         switch(ruleClass){
-            case 0: //base
-                System.out.println("Cannot remove base price! Update base price rule instead.");
-                break;
                 
             case 1: //ageGroup
                 if(ageGroupChange.remove(AgeGroup.valueOf(type)) == null){
@@ -347,7 +409,6 @@ public class PricingStore {
             System.out.println("Price added to total price: $" + String.valueOf(entry.getValue()));
             System.out.println("---------------------------------------------------");
         }
-        System.out.println("----------------End of Pricing Rule----------------");
     }
 
     //Save all changes made
