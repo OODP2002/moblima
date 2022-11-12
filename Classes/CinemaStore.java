@@ -3,10 +3,11 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class CinemaStore{
-    private HashMap<String, Cinema> cinemaHashMap = new HashMap<>();  // Key=cinemaID
+    private HashMap<String, Cinema> cinemaHashMap;  // Key=cinemaID
     private static CinemaStore single_instance = null;
 
     private CinemaStore() {
+        this.cinemaHashMap = new HashMap<String, Cinema>();
         loadCinemaHashMap();
     }
 
@@ -44,6 +45,9 @@ public class CinemaStore{
         return tempHashMap;
     }
 
+    public HashMap<String, Cinema> getCinemaHMap(){
+        return cinemaHashMap;
+    }
 
     public Cinema getCinema(String cinemaID) {
         return cinemaHashMap.get(cinemaID);

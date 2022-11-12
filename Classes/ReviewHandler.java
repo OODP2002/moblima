@@ -9,7 +9,7 @@ public interface ReviewHandler {
         // Getting review information
         System.out.print("Enter movieID to write a review for (-1 to return): ");
         String movieID = sc.nextLine();
-        if (movieID == "-1"){
+        if (movieID.equals("-1")){
             return;
         }
 
