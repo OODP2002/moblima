@@ -1,4 +1,4 @@
-Type|value|AddPrice
+Rule Class|Type|AddPrice
 base|base|8.50
 hype|BLOCKBUSTER|1
 cinemaClass|PLATINUM|3

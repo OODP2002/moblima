@@ -22,7 +22,7 @@ public class TicketPricingModule {
         sc.nextLine();
 
         switch (choice) {
-            case 1 -> cinemaStaff.newPricingRule();
+            case 1 -> cinemaStaff.addPricingRule();
             case 2 -> cinemaStaff.removePricingRule();
             case 3 -> cinemaStaff.printAllPricingRules();
             case 4-> System.out.println("Exiting Ticket Pricing Module");

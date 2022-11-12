@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,6 +51,7 @@ public class PricingStore {
         return instance;
     }
 
+    //For reading pricing rule form txt
     private void createPricingRule(String info){
         String[] infoArr = info.split("\\|");
 
@@ -121,6 +123,66 @@ public class PricingStore {
     }
 
 
+    //Add pricing rule 
+    public void addPricingRule(Integer ruleClass, String type, Float val){
+        switch(ruleClass){
+            case 0: //base
+                System.out.println("Cannot add base price! Update base price rule instead.");
+                break;
+                
+            case 1: //ageGroup
+                if(ageGroupChange.put(AgeGroup.valueOf(type), val) == null){
+                    System.out.println("Failed to add rule. Please enter a valid rule type.");
+                }
+                System.out.println("Rule successfully added.");
+                break;
+
+            case 2: //hype
+                if(hypeAdd.put(Hype.valueOf(type), val) == null){
+                    System.out.println("Failed to add rule. Please enter a valid rule type.");
+                }
+                System.out.println("Rule successfully added.");
+                break;
+
+            case 3: //cinemaClass
+                if(cinemaClassAdd.put(CinemaClass.valueOf(type), val) == null){
+                    System.out.println("Failed to add rule. Please enter a valid rule type.");
+                }
+                System.out.println("Rule successfully added.");
+                break;
+
+            case 4: //dayOfWeek
+                if(dayOfWeekAdd.put(Integer.parseInt(type), val) == null){
+                    System.out.println("Failed to add rule. Please enter a valid rule type.");
+                }
+                System.out.println("Rule successfully added.");
+                break;
+
+            case 5: //fridayRule
+                Integer hour = Integer.parseInt(type.substring(0,2));
+                Integer minute = Integer.parseInt(type.substring(2,4));
+                if(fridayRuleAdd.put(LocalTime.of(hour,minute), val) == null){
+                    System.out.println("Failed to add rule. Please enter a valid rule type.");
+                }
+                System.out.println("Rule successfully added.");                               
+                break;
+
+            case 6: //view
+                if(viewAdd.put(View.valueOf(type), val) == null){
+                    System.out.println("Failed to add rule. Please enter a valid rule type.");
+                }
+                System.out.println("Rule successfully added.");
+                break;
+
+            case 7: //quit
+                System.out.println("Exiting pricing rule removal menu");
+                break;
+
+            default:
+                System.out.println("Invalid choice, exiting pricing rule removal menu");
+        }
+    }
+
     //Operations to update pricing store 
     public boolean changeHype(Hype hype, Float newVal){
         if (this.hypeAdd.containsKey(hype)){
@@ -167,6 +229,129 @@ public class PricingStore {
             return true;
         } else return false;
     }
+    
+    //Remove Pricing Rule 
+    public void removePricingRule(Integer ruleClass, String type){
+        switch(ruleClass){
+            case 0: //base
+                System.out.println("Cannot remove base price! Update base price rule instead.");
+                break;
+                
+            case 1: //ageGroup
+                if(ageGroupChange.remove(AgeGroup.valueOf(type)) == null){
+                    System.out.println("Failed to remove rule. Please enter a valid rule type.");
+                }
+                System.out.println("Rule successfully removed.");
+                break;
+
+            case 2: //hype
+                if(hypeAdd.remove(Hype.valueOf(type)) == null){
+                    System.out.println("Failed to remove rule. Please enter a valid rule type.");
+                }
+                System.out.println("Rule successfully removed.");
+                break;
+
+            case 3: //cinemaClass
+                if(cinemaClassAdd.remove(CinemaClass.valueOf(type)) == null){
+                    System.out.println("Failed to remove rule. Please enter a valid rule type.");
+                }
+                System.out.println("Rule successfully removed.");
+                break;
+
+            case 4: //dayOfWeek
+                if(dayOfWeekAdd.remove(Integer.parseInt(type)) == null){
+                    System.out.println("Failed to remove rule. Please enter a valid rule type.");
+                }
+                System.out.println("Rule successfully removed.");
+                break;
+
+            case 5: //fridayRule
+                Integer hour = Integer.parseInt(type.substring(0,2));
+                Integer minute = Integer.parseInt(type.substring(2,4));
+                if(fridayRuleAdd.remove(LocalTime.of(hour,minute)) == null){
+                    System.out.println("Failed to remove rule. Please enter a valid rule type.");
+                }
+                System.out.println("Rule successfully removed.");                               
+                break;
+
+            case 6: //view
+                if(viewAdd.remove(View.valueOf(type)) == null){
+                    System.out.println("Failed to remove rule. Please enter a valid rule type.");
+                }
+                System.out.println("Rule successfully removed.");
+                break;
+
+            case 7: //quit
+                System.out.println("Exiting pricing rule removal menu");
+                break;
+
+            default:
+                System.out.println("Invalid choice, exiting pricing rule removal menu");
+        }
+    }
+
+    //Print all pricing rules 
+    public void printAllPricings(){
+
+        System.out.println("\n-------------------Pricing Rules-------------------");
+        
+        //Base
+        System.out.println("Rule Class: Base");
+        System.out.println("Type: Base");
+        System.out.println("Base price for tickets: $" + String.valueOf(this.base));
+        System.out.println("---------------------------------------------------");
+        
+        
+        //Age group rule
+        for (Map.Entry<AgeGroup, Float> entry : ageGroupChange.entrySet()){
+            System.out.println("Rule Class: Age Group");
+            System.out.println("Type: "+ entry.getKey().name());
+            System.out.println("Discounted base price: $" + String.valueOf(entry.getValue()));
+            System.out.println("---------------------------------------------------");
+        }
+        //Movie Hype rule
+        for (Map.Entry<Hype, Float> entry : hypeAdd.entrySet()){
+            System.out.println("Rule Class: Hype");
+            System.out.println("Type: "+ entry.getKey().name());
+            System.out.println("Price added to total price: $" + String.valueOf(entry.getValue()));
+            System.out.println("---------------------------------------------------");
+        }
+        //Cinema class rule
+        for (Map.Entry<CinemaClass,  Float> entry : cinemaClassAdd.entrySet()){
+            System.out.println("Rule Class: Cinema Class");
+            System.out.println("Type: "+ entry.getKey().name());
+            System.out.println("Price added to total price: $" + String.valueOf(entry.getValue()));
+            System.out.println("---------------------------------------------------");
+        }
+        //Day of week rule
+        for (Map.Entry<Integer, Float> entry : dayOfWeekAdd.entrySet()){
+            System.out.println("Rule Class: Day of Week");
+            System.out.println("Type: "+ String.valueOf(entry.getKey()));
+            System.out.println("Price added to total price: $" + String.valueOf(entry.getValue()));
+            System.out.println("---------------------------------------------------");
+        }
+        //Friday rules (Matches weekend pricing after a certain cutoff timing)
+        for (Map.Entry<LocalTime, Float> entry : fridayRuleAdd.entrySet()){
+            LocalTime time = entry.getKey();
+            int hour = time.getHour();
+            String hourStr = hour < 10 ? "0" : "" + String.valueOf(hour);
+            int minute  = time.getMinute();
+            String minuteStr = minute < 10 ? "0" : "" + String.valueOf(minute);
+
+            System.out.println("Rule Class: Friday evening surcharges");
+            System.out.println("Type : "+ hourStr + minuteStr + "h");
+            System.out.println("Price added to total price: $" + String.valueOf(entry.getValue()));
+            System.out.println("---------------------------------------------------");
+        }
+        //View rules
+        for (Map.Entry<View, Float> entry : viewAdd.entrySet()){
+            System.out.println("Rule Class: View");
+            System.out.println("Type: "+ entry.getKey().name());
+            System.out.println("Price added to total price: $" + String.valueOf(entry.getValue()));
+            System.out.println("---------------------------------------------------");
+        }
+        System.out.println("----------------End of Pricing Rule----------------");
+    }
 
     //Save all changes made
     public void closePricingStore(){
@@ -212,5 +397,4 @@ public class PricingStore {
             System.out.println(e.getMessage());
         }
     }
-   
 }   

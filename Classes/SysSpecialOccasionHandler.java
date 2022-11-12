@@ -14,10 +14,6 @@ interface SysSpecialOccasionHandler {
         return specialOccasionStore.add(specialOccasion);
     }
 
-    default void updateSpecialOccasion() {
-        System.out.println("Update special occasion");
-    }
-
     default boolean removeSpecialOccasion() {
         SpecialOccasionStore specialOccasionStore = SpecialOccasionStore.getInstance();
 
