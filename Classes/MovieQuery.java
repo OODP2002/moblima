@@ -1,21 +1,29 @@
 import java.util.HashMap;
 import java.util.Scanner;
-
+/**
+ * MovieQuery Interface which extends the SysSettings Interface
+ * Used for all forms of Movie related listing and searching which the Movie-Goer will utilise
+ * @author Marc
+ * @version 1.0.0 Nov 12, 2022
+ */
 public interface MovieQuery extends SysSettings{
     Scanner sc = new Scanner(System.in);
-
+    /**
+     * Lists the top 5 movies based on either rating or sales
+     * Options will change depending on the Admin settings
+     */
     default void listBy() {
-        // CORRECTION: IT IS LIST ALL MOVIES SO THEY KNOW WHAT EXISTS
         MovieStore movStore = MovieStore.getInstance();
         String listing_option = getListBy();
-
         switch (listing_option) {
             case "NIL" -> listByOptions();
             case "SALES" -> movStore.ListTop5(0);
             case "AVG_RTG" -> movStore.ListTop5(1);
         }
     }
-
+    /**
+     * Lists all movies, while not showing those which should not be shown to the Movie-Goer, such as ENDOFSHOWING and COMINGSOON
+     */
     default void listAllMovies() {
         HashMap<String, Movie> movies = MovieStore.getInstance().getMovieHashMap();
         for (String key: movies.keySet()) {
@@ -25,6 +33,10 @@ public interface MovieQuery extends SysSettings{
         }
     }
 
+    /**
+     * Default searchMovie method
+     * Used to ask for the movie requested and output the details
+     */
     default void searchMovie() {
         MovieStore movStore = MovieStore.getInstance();
 
@@ -46,7 +58,11 @@ public interface MovieQuery extends SysSettings{
         }
 
     }
-
+    /**
+     * Overloaded searchMovie method
+     * Used during the buying ticket process
+     * @param movieID - takes in the movieID which the Movie-Goer selects, and directly displays the movie details 
+     */
     default void searchMovie(String movieID) {
         MovieStore movStore = MovieStore.getInstance();
         Movie movie = movStore.searchMovie(movieID);
@@ -58,12 +74,17 @@ public interface MovieQuery extends SysSettings{
             printMovieInfo(movieID);
         }
     }
-
+    /**
+     * Private method used to display movie details 
+     * @param movieID - takes in movieID to know which movie to output
+     */
     private void printMovieInfo(String movieID) {
         Movie movie = MovieStore.getInstance().searchMovie(movieID);
         movie.printMovie();
     }
-
+    /**
+     * Private method to display menu to prompt Movie-Goer to select which type of ranking they would like to see
+     */
     private void listByOptions() {
         MovieStore movStore = MovieStore.getInstance();
 

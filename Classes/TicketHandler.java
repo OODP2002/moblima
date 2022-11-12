@@ -4,8 +4,16 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-
+/**
+ * Ticket Handler class to handle purchasing of the ticket
+ * This class will be used to organise all the necessary attributes required to create a ticket
+ * @author Marc
+ * @version 1.0.0 Nov 12, 2022
+ */
 public class TicketHandler {
+    /**
+     * Attributes which are required to create a new Ticket object
+     */
     private String seatID;
     private Ticket ticket;
     private AgeGroup ageGroup;
@@ -13,7 +21,10 @@ public class TicketHandler {
     private Movie movie;
     private Seat seat;
     Scanner sc = new Scanner(System.in);
-
+    /**
+     * Default constructor for the TicketHandler Class
+     * @param showtime - The ShowTime object is used to construct the TicketHandler class
+     */
     public TicketHandler(ShowTime showtime) {
         
         // Setting Showtime
@@ -58,11 +69,17 @@ public class TicketHandler {
         System.out.println("Ticket purchase successful!");
         System.out.println("Transaction ID: " + ticket.getTransactionID());
     }
-
+    /**
+     * Called when the Movie-Goer finalises the ticket purchase
+     * @return ticket - The new ticket which will be stored in the TicketStore
+     */
     public Ticket buyTicket() {
         return ticket;
     }
-
+    /**
+     * Used to set the Movie-Goer details from the MovieGoer class into the ticket class
+     * @param movieGoer - the Movie-Goer class has these attributes
+     */
     public void getMovieGoerDetails(MovieGoer movieGoer) {
         // Get movie goer details
         this.ticket.setMobile(movieGoer.getMobile());
@@ -70,14 +87,20 @@ public class TicketHandler {
         this.ticket.setUsername(movieGoer.getName());
     }
 
-    // Generate transactionID in format CCCCSSSSSSyyyyMMddHHmm
+    /**
+     * Generate transactionID in format CCCCSSSSSSyyyyMMddHHmm
+     * @param showtimeID - used in the generation of the transactionID
+     * @return String - the TransactionID which will be stored in the TicketStore
+     */
     private String generateTransactionID(String showtimeID) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
         return showtimeID.concat(seatID).concat(LocalDateTime.now().format(formatter));
     }
 
 
-    // Get age group from user
+    /**
+     * Get age group for ticket from Movie-Goer through system input
+     */
     private void getAgeGroup() {
         System.out.println("Enter type of ticket you wish to buy: ");
         System.out.println("(1) Child ticket");
@@ -96,12 +119,17 @@ public class TicketHandler {
         }
     }
 
-    // Get movie infg
+    /**
+     * Get movie info for the ticket
+     */
     private void getMovie() {
         String movieID = showTime.getMovieID();
         this.movie = MovieStore.getInstance().getMovieHashMap().get(movieID);
     }
-
+    /**
+     * Get the price of the ticket through the PricingStore queryPrice method
+     * @return double - Price in double data type
+     */
     private double getPrice() {
         Hype hype = movie.getMovieHype();
         CinemaClass cinemaClass = showTime.getCinemaClass();

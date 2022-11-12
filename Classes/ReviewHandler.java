@@ -1,10 +1,22 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-
+/**
+ * Revie handler Interface
+ * Used to allow the Movie-Goer to write a new review
+ * 
+ * @author Marc
+ * @version 1.0.0 Nov 12, 2022
+ */
 public interface ReviewHandler {
+    /**
+     * Scanner to receive input
+     */
     Scanner sc = new Scanner(System.in);
-
+    /**
+     * Method to write a new review
+     * Will not return anything but will write the review into the OverallReviews
+     */
     default void writeReview() {
         // Getting review information
         System.out.print("Enter movieID to write a review for (-1 to return): ");
