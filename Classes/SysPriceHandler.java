@@ -19,6 +19,7 @@ public interface SysPriceHandler {
         System.out.println("(7) Quit");
         System.out.println("------------------------------------------------\n");
         System.out.print("Enter choice: ");
+        
         try{
             ruleClass = sc.nextInt();
         } catch (Exception err) {

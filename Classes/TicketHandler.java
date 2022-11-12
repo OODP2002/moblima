@@ -25,13 +25,14 @@ public class TicketHandler {
 
         // Get seat and check if seat is available
         do {
+            System.out.print("Seat choice: ");
             this.seatID = sc.nextLine();
             this.seat = showTimeLayout.getSeat(seatID);
 
-            if (seat == null)
+            if (seat == null || !seat.getAvail())
                 System.out.println("Seat is not available, please try again!");
 
-        } while (seat == null);
+        } while (seat == null || !seat.getAvail());
 
         // Get age group
         do {

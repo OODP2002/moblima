@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.List;
 
 /* Created by Mingyang
 *  Purpose of class: know which seats are taken and which are not
@@ -12,6 +13,8 @@ public class ShowTimeLayout {
     private final Layout layout;
 
     public ShowTimeLayout(String showtimeID) {
+
+        //Generating Cinema layout from cineplexes.txt
         this.layout = LayoutStore.getInstance().getLayout(showtimeID.substring(0,4));
         this.seatHashMap = layout.createSeats();
 
@@ -19,6 +22,15 @@ public class ShowTimeLayout {
         this.columns = layout.getColumns();
         this.aisle = layout.getAisle();
         this.mainStairway = layout.getMainStairway();
+
+        //Get occupied seats from seats.txt
+        List<String> occupiedSeats = SeatStore.getInstance().getSeatsForShowTime(showtimeID);
+        if (occupiedSeats != null){
+            for(int i = 0; i < occupiedSeats.size(); i++){
+                seatHashMap.get(occupiedSeats.get(i)).setAvail(false); //Marking seats as unavailable
+            }
+        }
+
     }
 
     public HashMap<String, Seat> getSeatHashMap() {

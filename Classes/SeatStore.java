@@ -1,12 +1,14 @@
 import java.io.*;
+import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 
 /* Done by Mingyang
 *  Handle seats.txt
 * */
 public class SeatStore {
-    private HashMap<String, Seat> seatHashMap = new HashMap<>();    // key=SHOWTIME_ID
+    private HashMap<String, List<String>> seatHashMap = new HashMap<>();    // key=SHOWTIME_ID
     private static SeatStore single_instance = null;
     private ArrayList<String[]> seatRawStore = new ArrayList<>();
     private final String FILE_SOURCE = "Classes/src/seats.txt";
@@ -24,15 +26,10 @@ public class SeatStore {
         return single_instance;
     }
 
-    public HashMap<String, Seat> getSeatHashMap() {
-        return seatHashMap;
-    }
-
     private void loadSeatStoreHashMap() {
         for (String[] line: seatRawStore) {
-            Seat seat = new Seat(line[1]);
-            seat.setAvail(Boolean.parseBoolean(line[2]));
-            seatHashMap.put(line[0], seat);
+            List<String> occupied = Arrays.asList(line[1].split("~"));
+            seatHashMap.put(line[0], occupied);
         }
     }
 
@@ -53,6 +50,10 @@ public class SeatStore {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public List<String> getSeatsForShowTime(String showtimeID){
+        return seatHashMap.get(showtimeID);
     }
 
     // Write from SeatStore into .txt
