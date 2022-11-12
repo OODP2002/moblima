@@ -38,12 +38,14 @@ interface SysShowtimeHandler {
                     """);
 
             int input = sc.nextInt();
+            sc.nextLine();
 
             switch (input){
                 case 1 -> {
                     showtimeIDChanged = true;
                     System.out.println("Enter new Cineplex ID: ");
                     int cineplexID = sc.nextInt();
+                    sc.nextLine();
                     newShowtimeID = showtimeID.replace(showtimeID.substring(0,2), Integer.toString(cineplexID));
                     if (!CinemaStore.getInstance().isValidCinema(newShowtimeID)) {
                         System.out.println("Cineplex does not exist, create cinema in add cinema module first!");
@@ -56,6 +58,7 @@ interface SysShowtimeHandler {
                     showtimeIDChanged = true;
                     System.out.println("Enter new cinema ID: ");
                     int cinemaID = sc.nextInt();
+                    sc.nextLine();
                     newShowtimeID = showtimeID.replace(showtimeID.substring(2,4), Integer.toString(cinemaID));
                     if (!CinemaStore.getInstance().isValidCinema(newShowtimeID)) {
                         System.out.println("Cinema does not exist, create cinema in add cinema module first!");

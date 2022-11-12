@@ -1,4 +1,7 @@
 transactionID|username|email|mobile|seatID|ageGroup|price
+0002ft2J6202211130044|zhekai|zhekai@gmail.com|99993333|J6|SENIOR|7.0
 0305ALPN18202211021704|zhekai|zhekai@gmail.com|99993333|0305ALPN18|ADULT|18.0
 0106HTYD08202210152230|Marcus Yeo|yeos@gmail.com|92929292|0106HTYD08|ADULT|18.0
+0002ft2A15202211130042|zhekai|zhekai@gmail.com|99993333|A15|ADULT|16.5
 0002aabA1202211122034|zhekai|zhekai@gmail.com|99993333|A1|SENIOR|4.0
+00019wuD3202211130111|zhekai|zhekai@gmail.com|99993333|D3|ADULT|8.5
