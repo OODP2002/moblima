@@ -32,6 +32,9 @@ public class Layout {
             for (int c = 1; c <= columns; c++) {
                 String seatID = generateSeatID(r,c);
                 Seat seat = new Seat(seatID);
+                // if (!SeatStore.getInstance().getSeatHashMap().get(seatID).getAvail()){
+                //     seat.setAvail(false);
+                // }
                 seats.put(seatID, seat);
             }
         }

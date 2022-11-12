@@ -31,8 +31,8 @@ public class Movie {
             System.out.println("Movie avg rating: NIL");
         }
         else{
-            System.out.println("Movie avg rating: " + overallReviews.getAvgRating());
-            System.out.println("Reviews:\n");
+            System.out.printf("Movie avg rating: %.2f\n", overallReviews.getAvgRating());
+            System.out.println("Reviews:");
             for (int i=0;i<overallReviews.getReviewCount();i++){
                 System.out.println("Rating:" + overallReviews.getReview(i).getReviewRating());
                 System.out.println("Description:");
@@ -131,7 +131,7 @@ public class Movie {
 
     private void printMoviePersonnel() {
         for (MoviePersonnel moviePersonnel : this.moviePersonnelList) {
-            System.out.println("Name: " + moviePersonnel.getName() + "\t Role: " + moviePersonnel.getRole());
+            System.out.printf("Name: %-20s Role: %-10s\n" ,moviePersonnel.getName(),moviePersonnel.getRole());
         }
     }
 

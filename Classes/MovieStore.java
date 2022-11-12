@@ -76,7 +76,7 @@ public class MovieStore {
             // Get movie ppl
             String[] personnelArr = line[10].split("~");
             for (int i = 0; i < personnelArr.length; i++) {
-                movie.addMoviePersonnel(personnelArr[i], (i == 1) ? Role.DIRECTOR : Role.CAST);
+                movie.addMoviePersonnel(personnelArr[i], (i == 0) ? Role.DIRECTOR : Role.CAST);
             }
             movieHashMap.put(movie.getMovieID(), movie);
         }

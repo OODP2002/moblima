@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInterface {
     private String name;
@@ -53,18 +54,40 @@ public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInter
 
     public void buyTicket() {
         System.out.println("---Welcome to buy ticket module---");
-        System.out.print("Enter showtime ID of movie you want to purchase: ");
+        System.out.print("Enter MovieID (-1 to return): ");
+        String movieID = sc.nextLine();
+        if (movieID.equals("-1")){
+            System.out.println("---Exiting buy ticket module---");
+            return;
+        }
+        searchMovie(movieID);
+        
+        Set<String> keys = ShowTimeStore.getInstance().getShowTimeHashMap().keySet();
+        System.out.println("-----------ShowTimes----------");
+        for (String key : keys){
+            // Get one showTime
+            ShowTime showTime = ShowTimeStore.getInstance().getShowTime(key);
+            if (Integer.valueOf(movieID) == Integer.valueOf(showTime.getMovieID())){
+                System.out.println("ShowTimeID: "+ showTime.getShowtimeID());
+                showTime.printShowTime();
+                System.out.println("----------------------");
+            }
+        
+        }
+        
+        System.out.print("Enter ShowTimeID of movie to purchase: ");
         String showtimeID = sc.nextLine();
-        ShowTime showTime = ShowTimeStore.getInstance().getShowTime(showtimeID);
+
+        ShowTime curShowTime = ShowTimeStore.getInstance().getShowTime(showtimeID);
 
         // Check if showtime ID exists
-        if (showTime == null) {
+        if (curShowTime == null) {
             System.out.println("Error: showtime does not exist!");
             System.out.println("---Exiting showtime module---");
             return;
         }
 
-        TicketHandler ticketHandler = new TicketHandler(showTime);
+        TicketHandler ticketHandler = new TicketHandler(curShowTime);
         ticketHandler.getMovieGoerDetails(this);
 
         Ticket newTicket = ticketHandler.buyTicket();

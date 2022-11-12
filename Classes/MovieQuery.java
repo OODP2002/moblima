@@ -22,9 +22,6 @@ public interface MovieQuery extends SysSettings{
             if (movies.get(key).getShowingStatus() == Status.NOWSHOWING || movies.get(key).getShowingStatus() == Status.PREVIEW){
                 movies.get(key).printMovie();
             }
-            // if (movie.getShowingStatus() != Status.ENDOFSHOWING || movie.getShowingStatus() != Status.COMINGSOON){
-            //     movie.printMovie();
-            // }
         }
     }
 
@@ -53,7 +50,7 @@ public interface MovieQuery extends SysSettings{
     default void searchMovie(String movieID) {
         MovieStore movStore = MovieStore.getInstance();
         Movie movie = movStore.searchMovie(movieID);
-        if (movie == null){
+        if (movie == null || movie.getShowingStatus() == Status.COMINGSOON || movie.getShowingStatus() == Status.ENDOFSHOWING){
             System.out.println("No such movie found. \n");
         }
         else {

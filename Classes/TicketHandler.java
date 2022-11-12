@@ -16,9 +16,8 @@ public class TicketHandler {
 
     public TicketHandler(ShowTime showtime) {
         this.showTime = showtime;
-        getMovie();
-
         System.out.println(showtime.getShowtimeID() + " selected. Choose your seats ");
+        getMovie();
 
         // Print showtime layout
         ShowTimeLayout showTimeLayout = showTime.getShowTimeLayout();
@@ -41,6 +40,10 @@ public class TicketHandler {
 
         // Generate ticket object
         ticket = new Ticket(generateTransactionID(showtime.getShowtimeID()));
+
+        // Set Seat
+        ticket.setSeatID(seatID);
+        showTimeLayout.getSeat(seatID).setAvail(false);
 
         // Query price
         ticket.setPrice(getPrice());
@@ -90,8 +93,7 @@ public class TicketHandler {
     // Get movie infg
     private void getMovie() {
         String movieID = showTime.getMovieID();
-        System.out.println(movieID);
-        this.movie = MovieStore.getInstance().searchMovie(movieID);
+        this.movie = MovieStore.getInstance().getMovieHashMap().get(movieID);
     }
 
     private double getPrice() {
