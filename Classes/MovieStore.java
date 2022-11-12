@@ -68,9 +68,11 @@ public class MovieStore {
 
             // Get overall reviews
             String[] reviewArr = line[9].split("~");
-            for (String review: reviewArr) {
-                int rating = Integer.parseInt(review.substring(0,1));
-                movie.getOverallReviews().addReview(rating, review.substring(1));
+            if (!reviewArr[0].isBlank()) {
+                for (String review: reviewArr) {
+                    int rating = Integer.parseInt(review.substring(0,1));
+                    movie.getOverallReviews().addReview(rating, review.substring(1));
+                }
             }
 
             // Get movie ppl
@@ -112,15 +114,20 @@ public class MovieStore {
 
             // Add overall reviews
             OverallReviews overallReviews = movie.getOverallReviews();
-            ArrayList<String> overallReviewsArr = new ArrayList<>();
-            for (int i = 0; i < overallReviews.getReviewCount(); i++) {
-                IndividualReview individualReview = overallReviews.getReview(i);
-                // Join rating with review
-                String rating = String.valueOf(individualReview.getReviewRating());
-                String temp = rating.concat(individualReview.getReviewDescription());
-                overallReviewsArr.add(temp);
+            // Account for no reviews
+            if (overallReviews.getReviewCount() == 0) {
+                line.add("");
+            } else {
+                ArrayList<String> overallReviewsArr = new ArrayList<>();
+                for (int i = 0; i < overallReviews.getReviewCount(); i++) {
+                    IndividualReview individualReview = overallReviews.getReview(i);
+                    // Join rating with review
+                    String rating = String.valueOf(individualReview.getReviewRating());
+                    String temp = rating.concat(individualReview.getReviewDescription());
+                    overallReviewsArr.add(temp);
+                }
+                line.add(String.join("~", overallReviewsArr));
             }
-            line.add(String.join("~", overallReviewsArr));
 
             // Add movie personnel
             ArrayList<MoviePersonnel> moviePersonnelList = movie.getMoviePersonnelList();
