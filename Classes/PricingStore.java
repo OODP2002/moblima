@@ -188,7 +188,7 @@ public class PricingStore {
             }
             //Day of week rule
             for (Map.Entry<Integer, Float> entry : dayOfWeekAdd.entrySet()){
-               writer.write("dayOfWeek|" + String.valueOf(entry.getKey()) + "|" + String.valueOf(entry.getValue()));/
+               writer.write("dayOfWeek|" + String.valueOf(entry.getKey()) + "|" + String.valueOf(entry.getValue()));
             }
             //Friday rules (Matches weekend pricing after a certain cutoff timing)
             for (Map.Entry<LocalTime, Float> entry : fridayRuleAdd.entrySet()){

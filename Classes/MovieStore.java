@@ -87,7 +87,6 @@ public class MovieStore {
             line.add(String.valueOf(movie.getMovieDuration().toMinutes()));
             line.add(String.valueOf(movie.getShowingStatus()));
             line.add(String.valueOf(movie.getSynopsis()));
-            line.add(String.valueOf(movie.getShowingStatus()));
             line.add(String.valueOf(movie.getViewingMode()));
             line.add(String.valueOf(movie.getMovieHype()));
             line.add(String.valueOf(movie.getMovieSales()));
