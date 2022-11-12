@@ -1,15 +1,371 @@
 import java.util.HashMap;
 import java.util.Scanner;
+import java.time.Duration;
 
 public interface SysMovieHandler {
     Scanner sc = new Scanner(System.in);
 
     default void createNewMovie() {
+        MovieStore movieStore = MovieStore.getInstance();
 
+        System.out.println("=".repeat(29));
+        System.out.println("\tCREATE MOVIE MODULE\t");
+        System.out.println("=".repeat(29));
+
+        System.out.println("Enter movie ID of the new movie:");
+        String movieID = sc.nextLine();
+        while (movieStore.getMovieHashMap().containsKey(movieID)) {
+            System.out.println("Movie ID is already in use. Please enter a different value:");
+            movieID = sc.nextLine();
+        }
+
+        Movie movie = new Movie(movieID);
+
+        System.out.println("Enter the movie name:");
+        String temp = sc.nextLine();
+        movie.setMovieName(temp);
+
+        System.out.println("Enter the movie duration:");
+        temp = sc.nextLine();
+        movie.setMovieDuration(Duration.ofMinutes(Long.parseLong(temp)));
+
+        System.out.println("Enter the movie showing status:");
+        System.out.println("1 - Coming Soon");
+        System.out.println("2 - Preview");
+        System.out.println("3 - Now Showing");
+        System.out.println("4 - End of Showing");
+        temp = sc.nextLine();
+        switch(temp){
+            case "1":
+                movie.setShowingStatus(Status.COMINGSOON);
+                break;
+            case "2":
+                movie.setShowingStatus(Status.PREVIEW);
+                break;
+            case "3":
+                movie.setShowingStatus(Status.NOWSHOWING);
+                break;
+            case "4":
+                movie.setShowingStatus(Status.ENDOFSHOWING);
+                break;
+            default:
+                movie.setShowingStatus(Status.COMINGSOON);
+        }
+
+        System.out.println("Enter the movie synopsis:");
+        temp = sc.nextLine();
+        movie.setSynopsis(temp);
+
+        System.out.println("Enter the viewing mode:");
+        System.out.println("1 - 2D");
+        System.out.println("2 - 3D");
+        temp = sc.nextLine();
+        switch(temp) {
+            case "1":
+                movie.setViewingMode(View._2D);
+                break;
+            case "2":
+                movie.setViewingMode(View._3D);
+                break;
+            default:
+                movie.setViewingMode(View._2D);
+        }
+
+        System.out.println("Enter the movie status:");
+        System.out.println("1 - Regular");
+        System.out.println("2 - Blockbuster");
+        temp = sc.nextLine();
+        switch(temp) {
+            case "1":
+                movie.setMovieHype(Hype.REGULAR);
+                break;
+            case "2":
+                movie.setMovieHype(Hype.BLOCKBUSTER);
+                break;
+            default:
+                movie.setMovieHype(Hype.REGULAR);
+        }
+
+        movie.setMovieSales(0);
+        
+        System.out.println("Enter the age rating:");
+        System.out.println("1 - G");
+        System.out.println("2 - PG");
+        System.out.println("3 - PG13");
+        System.out.println("4 - NC16");
+        System.out.println("5 - M18");
+        System.out.println("6 - R21");
+        temp = sc.nextLine();
+        switch(temp) {
+            case "1":
+                movie.setAgeRating(AgeEnum.G);
+                break;
+            case "2":
+                movie.setAgeRating(AgeEnum.PG);
+                break;
+            case "3":
+                movie.setAgeRating(AgeEnum.PG13);
+                break;
+            case "4":
+                movie.setAgeRating(AgeEnum.NC16);
+                break;
+            case "5":
+                movie.setAgeRating(AgeEnum.M18);
+                break;
+            case "6":
+                movie.setAgeRating(AgeEnum.R21);
+                break;
+            default:
+                movie.setAgeRating(AgeEnum.G);
+        }
+
+        System.out.println("Enter the Director's name:");
+        temp = sc.nextLine();
+        movie.addMoviePersonnel(temp, Role.DIRECTOR);
+        System.out.println("Do you want to add a cast member?");
+        System.out.println("1 - No");
+        System.out.println("2 - Yes");
+        int toggle = sc.nextInt();
+        while (toggle != 1) {
+            System.out.println("Enter the cast's name:");
+            sc.nextLine();
+            temp = sc.nextLine();
+            movie.addMoviePersonnel(temp, Role.CAST);
+            System.out.println("Do you want to add another cast member?");
+            System.out.println("1 - No");
+            System.out.println("2 - Yes");
+            toggle = sc.nextInt();
+        }
+
+        movieStore.addMovie(movie);
+        movie.printMovie();
+        System.out.println("Movie has been added.");
     }
 
     default void updateMovie() {
+        MovieStore movieStore = MovieStore.getInstance();
 
+        System.out.println("=".repeat(29));
+        System.out.println("\tUPDATE MOVIE MODULE\t");
+        System.out.println("=".repeat(29));
+
+        // Display all movie name, movie status and showing status
+        for (Movie movie: movieStore.getMovieHashMap().values()) {
+            System.out.println("-".repeat(29));
+            System.out.println(movie.getMovieName());
+            System.out.printf("Movie ID: %s\t Status: %s\n", movie.getMovieID(), movie.getShowingStatus().toString());
+        }
+
+        System.out.print("Enter movie ID you wish to update: ");
+        String movieID = sc.nextLine();
+        while (!movieStore.getMovieHashMap().containsKey(movieID)) {
+            System.out.println("Movie ID does not exist, please key in a valid Movie ID:");
+            movieID = sc.nextLine();
+        }
+        Movie movie = movieStore.searchMovie(movieID);
+        movie.printMovie();
+
+        int choice, length;
+        String temp;
+        System.out.println("What do you want to update:");
+        System.out.println("1 - Movie name");
+        System.out.println("2 - Movie duration");
+        System.out.println("3 - Showing status");
+        System.out.println("4 - Movie synopsis");
+        System.out.println("5 - Viewing mode");
+        System.out.println("6 - Movie status");
+        System.out.println("7 - Age rating");
+        System.out.println("8 - Movie personnel");
+        System.out.println("0 - Quit");
+        choice = sc.nextInt();
+        while (choice != 0) {
+            sc.nextLine();
+            switch(choice) {
+                case 1:
+                    System.out.printf("Current movie name: %s\n", movie.getMovieName());
+                    System.out.println("Enter the new movie name:");
+                    temp = sc.nextLine();
+                    movie.setMovieName(temp);
+                    System.out.printf("New movie name: %s\n", movie.getMovieName());
+                    break;
+                case 2:
+                    System.out.println("Current movie duration: " + movie.getMovieDuration().toMinutes() + " minutes");
+                    System.out.println("Enter the new movie duration:");
+                    temp = sc.nextLine();
+                    movie.setMovieDuration(Duration.ofMinutes(Long.parseLong(temp)));
+                    System.out.println("New movie duration: " + movie.getMovieDuration().toMinutes() + " minutes");
+                    break;
+                case 3:
+                    System.out.println("Current showing status: " + movie.getShowingStatus());
+                    System.out.println("Enter the new showing status:");
+                    System.out.println("1 - Coming Soon");
+                    System.out.println("2 - Preview");
+                    System.out.println("3 - Now Showing");
+                    System.out.println("4 - End of Showing");
+                    temp = sc.nextLine();
+                    switch(temp){
+                        case "1":
+                            movie.setShowingStatus(Status.COMINGSOON);
+                            break;
+                        case "2":
+                            movie.setShowingStatus(Status.PREVIEW);
+                            break;
+                        case "3":
+                            movie.setShowingStatus(Status.NOWSHOWING);
+                            break;
+                        case "4":
+                            movie.setShowingStatus(Status.ENDOFSHOWING);
+                            break;
+                        default:
+                            movie.setShowingStatus(Status.COMINGSOON);
+                    }
+                    System.out.println("New showing status: " + movie.getShowingStatus());
+                    break;
+                case 4:
+                    System.out.println("Current sypnosis: " + movie.getSynopsis());
+                    System.out.println("Enter the new synopsis:");
+                    temp = sc.nextLine();
+                    movie.setSynopsis(temp);
+                    System.out.println("New sypnosis: " + movie.getSynopsis());
+                    break;
+                case 5:
+                    System.out.println("Current viewing mode: " + movie.getViewingMode());
+                    System.out.println("Enter the new viewing mode:");
+                    System.out.println("1 - 2D");
+                    System.out.println("2 - 3D");
+                    temp = sc.nextLine();
+                    switch(temp) {
+                        case "1":
+                            movie.setViewingMode(View._2D);
+                            break;
+                        case "2":
+                            movie.setViewingMode(View._3D);
+                            break;
+                        default:
+                            movie.setViewingMode(View._2D);
+                    }
+                    System.out.println("New viewing mode: " + movie.getViewingMode());
+                    break;
+                case 6:
+                    System.out.println("Current movie status: " + movie.getMovieHype());
+                    System.out.println("Enter the new movie status:");
+                    System.out.println("1 - Regular");
+                    System.out.println("2 - Blockbuster");
+                    temp = sc.nextLine();
+                    switch(temp) {
+                        case "1":
+                            movie.setMovieHype(Hype.REGULAR);
+                            break;
+                        case "2":
+                            movie.setMovieHype(Hype.BLOCKBUSTER);
+                            break;
+                        default:
+                            movie.setMovieHype(Hype.REGULAR);
+                    }
+                    System.out.println("New movie status: " + movie.getMovieHype());
+                    break;
+                case 7:
+                    System.out.println("Current age rating: " + movie.getAgeRating());
+                    System.out.println("Enter the new age rating:");
+                    System.out.println("1 - G");
+                    System.out.println("2 - PG");
+                    System.out.println("3 - PG13");
+                    System.out.println("4 - NC16");
+                    System.out.println("5 - M18");
+                    System.out.println("6 - R21");
+                    temp = sc.nextLine();
+                    switch(temp) {
+                        case "1":
+                            movie.setAgeRating(AgeEnum.G);
+                            break;
+                        case "2":
+                            movie.setAgeRating(AgeEnum.PG);
+                            break;
+                        case "3":
+                            movie.setAgeRating(AgeEnum.PG13);
+                            break;
+                        case "4":
+                            movie.setAgeRating(AgeEnum.NC16);
+                            break;
+                        case "5":
+                            movie.setAgeRating(AgeEnum.M18);
+                            break;
+                        case "6":
+                            movie.setAgeRating(AgeEnum.R21);
+                            break;
+                        default:
+                            movie.setAgeRating(AgeEnum.G);
+                    }
+                    System.out.println("New age rating: " + movie.getAgeRating());
+                    break;
+                case 8:
+                    System.out.println("Do you want to:");
+                    System.out.println("1 - Update director/cast name");
+                    System.out.println("2 - Remove cast member");
+                    System.out.println("3 - Add cast member");
+                    temp = sc.nextLine();
+                    switch(temp) {
+                        case "1":
+                            System.out.println("Select personnel to update");
+                            length = movie.printMoviePersonnelIndex();
+                            temp = sc.nextLine();
+                            choice = Integer.parseInt(temp) - 1;
+                            if (0<=choice && choice<length) {
+                                MoviePersonnel moviePersonnel = movie.getMoviePersonnel(choice);
+                                System.out.println("Current name: " + moviePersonnel.getName());
+                                System.out.println("Enter new name:");
+                                temp = sc.nextLine();
+                                moviePersonnel.setName(temp);
+                                System.out.println("New name: " + moviePersonnel.getName());
+                                break;
+                            }
+                            else {
+                                System.out.println("Invalid input.");
+                            }
+                        case "2":
+                            System.out.println("Select personnel to remove (Note: Director cannot be removed)");
+                            length = movie.printMoviePersonnelIndex();
+                            temp = sc.nextLine();
+                            choice = Integer.parseInt(temp) - 1;
+                            if (choice == 0) {
+                                System.out.println("Director cannot removed. Try updating the director's name instead.");
+                            }
+                            else if (0<choice && choice<length) {
+                                movie.removeMoviePersonnel(choice);
+                                System.out.println("Cast member has been removed.");
+                            }
+                            else {
+                                System.out.println("Invalid input.");
+                            }
+                            break;
+                        case "3":
+                            System.out.println("Enter new cast member's name:");
+                            temp = sc.nextLine();
+                            movie.addMoviePersonnel(temp, Role.CAST);
+                            System.out.println("Cast member has been added.");
+                            break;
+                        default:
+                            System.out.println("Invalid input.");
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid input. Try again.");
+            }
+            movie.printMovie();
+            System.out.println("What do you want to update:");
+            System.out.println("1 - Movie name");
+            System.out.println("2 - Movie duration");
+            System.out.println("3 - Showing status");
+            System.out.println("4 - Movie synopsis");
+            System.out.println("5 - Viewing mode");
+            System.out.println("6 - Movie status");
+            System.out.println("7 - Age rating");
+            System.out.println("8 - Movie personnel");
+            System.out.println("0 - Quit");
+            choice = sc.nextInt();
+        }
+        movie.printMovie();
+        System.out.println("Movie has been updated.");
     }
 
     default void removeMovie() {

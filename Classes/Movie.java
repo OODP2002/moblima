@@ -135,6 +135,23 @@ public class Movie {
         }
     }
 
+    public int printMoviePersonnelIndex() {
+        int i = 1;
+        for (MoviePersonnel moviePersonnel : this.moviePersonnelList) {
+            System.out.println(i + " - Name: " + moviePersonnel.getName() + "\t Role: " + moviePersonnel.getRole());
+            i++;
+        }
+        return (i-1);
+    }
+
+    public MoviePersonnel getMoviePersonnel(int index) {
+        return moviePersonnelList.get(index);
+    }
+    
+    public void removeMoviePersonnel(int index) {
+        moviePersonnelList.remove(index);
+    }
+
     public void addMoviePersonnel(String name, Role role) {
         moviePersonnelList.add(new MoviePersonnel(name, role));
     }
