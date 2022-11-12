@@ -23,7 +23,7 @@ public class AdminModule {
         // Menu of choices the customer can choose from
         int choice = -1;
         while (choice != 6) {
-            System.out.println("\n------Admin Panel------");
+            System.out.println("\n--------------Admin Panel--------------");
             System.out.println("Option Available: (1-6):");
             System.out.println("(1) Ticket pricing ");
             System.out.println("(2) Special occasion");
@@ -31,7 +31,7 @@ public class AdminModule {
             System.out.println("(4) Showtimes");
             System.out.println("(5) Listing Options (System settings)");
             System.out.println("(6) Quit Admin Module");
-            System.out.println("-----------------------");
+            System.out.println("---------------------------------------");
             System.out.print("\nChoice: ");
 
             
