@@ -35,7 +35,7 @@ public class TicketStore {
         return ticketHashMap.get(transactionID);
     }
     private void loadTicketHashMap(ArrayList<String []> ticketRawStore) {
-        if (ticketRawStore == null)
+        if (ticketRawStore.size() == 0)
             return;
 
         for (String[] line: ticketRawStore) {
