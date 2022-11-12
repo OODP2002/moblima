@@ -27,17 +27,15 @@ public class TicketHandler {
         getMovie();
         // Get seat and check if seat is available
         do {
+            System.out.print("Seat choice: ");
             this.seatID = sc.nextLine();
             this.seat = showTimeLayout.getSeat(seatID);
 
-            if (seat == null)
+            if (seat == null || !seat.getAvail())
                 System.out.println("Seat is not available, please try again!");
+        } while (seat == null || !seat.getAvail());
+        
 
-        } while (seat == null);
-        
-        // Set Seat
-        showTimeLayout.getSeat(seatID).setAvail(false);
-        
         // Get age group
         do {
             getAgeGroup();
@@ -49,6 +47,9 @@ public class TicketHandler {
         // Set seat and AgeGroup
         ticket.setSeatID(seatID);
         ticket.setAgeGroup(ageGroup);
+        showTimeLayout.getSeat(seatID).setAvail(false);
+        SeatStore.getInstance().occupySeat(showtime.getShowtimeID(), seatID);
+        
 
         // Query price
         ticket.setPrice(getPrice());

@@ -15,7 +15,7 @@ public class ShowTime {
 
     public ShowTime(String showtimeID) {
         this.showtimeID = showtimeID;
-        this.showTimeLayout = new ShowTimeLayout(showtimeID.substring(0,4));
+        this.showTimeLayout = new ShowTimeLayout(showtimeID);
         this.cinema = CineplexStore.getInstance().getCineplex(showtimeID.substring(0,2)).getCinemaHashMap().get(showtimeID.substring(0,4));
     }
 

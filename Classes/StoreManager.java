@@ -11,5 +11,6 @@ public class StoreManager {
         ShowTimeStore.getInstance().closeShowTimeStore();
         SpecialOccasionStore.getInstance().writeToSpecialOccasionFile(); //working
         TicketStore.getInstance().closeTicketStore();
+        PricingStore.getInstance().closePricingStore();
     }
 }
