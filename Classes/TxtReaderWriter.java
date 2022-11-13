@@ -37,7 +37,7 @@ public class TxtReaderWriter {
 
     /**
      * Gets Raw string from txt file
-     * @return
+     * @return an ArrayList with String Array elements containing attributes of the txt file
      */
     public ArrayList<String[]> getRawStringFromFile() {
         return rawStringFromFile;
