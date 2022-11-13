@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class AdminModule extends LoginHandler implements Module{
@@ -37,7 +38,7 @@ public class AdminModule extends LoginHandler implements Module{
             
             try{
                 choice = sc.nextInt();
-            } catch (Exception err){
+            } catch (InputMismatchException err){
                 System.out.println("Error: Please input a valid number (1 - 6).\n");
                 sc.nextLine();
                 continue;

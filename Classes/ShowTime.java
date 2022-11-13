@@ -54,7 +54,7 @@ public class ShowTime {
         System.out.println("Cineplex: "+ CineplexStore.getInstance().getCineplex(showtimeID.substring(0,2)).getCineplexName());
         System.out.println("Cinema: "+ showtimeID.substring(2, 4));
         System.out.println("Cinema Class: " + this.cinema.getCinemaClass());
-        // System.out.println("Cinema Class: " + CineplexStore.getInstance().getCineplex(showtimeID.substring(0,2)).getCinemaHashMap().get(showtimeID.substring(0,4)).getCinemaClass());
+        //System.out.println("Cinema Class: " + CineplexStore.getInstance().getCineplex(showtimeID.substring(0,2)).getCinemaHashMap().get(showtimeID.substring(0,4)).getCinemaClass());
         System.out.println("Date: " + getStartTime().format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
         System.out.println("Starting Time: " + getStartTime().format(DateTimeFormatter.ofPattern("HH:mm")));
     }

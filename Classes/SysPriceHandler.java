@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public interface SysPriceHandler {
@@ -52,23 +53,26 @@ public interface SysPriceHandler {
         Integer ruleClass;
         System.out.println("------Update pricing rule------");
         System.out.println("\n--------------Pricing Rule Classes--------------");
-        System.out.println("(1) Age group (CHILD / ADULT / SENIOR)");
-        System.out.println("(2) Hype (REGULAR / BLOCKBUSTER)");
-        System.out.println("(3) Cinema class (STANDARD / GOLD / PLATINUM)");
-        System.out.println("(4) Day of Week (1-7)");
-        System.out.println("(5) Friday evening surcharges (hhmm)");
-        System.out.println("(6) View (_2D / _3D)");
-        System.out.println("(7) Quit");
+        System.out.println("(1) Base Price (base)");
+        System.out.println("(2) Age group (CHILD / ADULT / SENIOR)");
+        System.out.println("(3) Hype (REGULAR / BLOCKBUSTER)");
+        System.out.println("(4) Cinema class (STANDARD / GOLD / PLATINUM)");
+        System.out.println("(5) Day of Week (1-7)");
+        System.out.println("(6) Friday evening surcharges (hhmm)");
+        System.out.println("(7) View (_2D / _3D)");
+        System.out.println("(8) Quit");
         System.out.println("------------------------------------------------\n");
         System.out.print("Select a pricing rule: ");
         try{
             ruleClass = sc.nextInt();
-        } catch (Exception err) {
+        } catch (InputMismatchException err) {
             System.out.println("Error: Invalid input, exiting ...");
             sc.nextLine();
             return;
         }
-        if (ruleClass < 0 || ruleClass > 7 ){
+        if (ruleClass == 8){
+            System.out.println("Exiting system...");
+        } else if (ruleClass < 0 || ruleClass > 7 ){
             System.out.println("Error: Invalid input, exiting...");
             return;
         }
