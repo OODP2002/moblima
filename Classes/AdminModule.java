@@ -46,7 +46,7 @@ public class AdminModule implements Module{
             
             try{
                 choice = sc.nextInt();
-            } catch (Exception err){
+            } catch (InputMismatchError err){
                 System.out.println("Error: Please input a valid number (1 - 6).\n");
                 sc.nextLine();
                 continue;
