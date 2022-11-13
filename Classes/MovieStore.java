@@ -41,7 +41,7 @@ public class MovieStore {
     /**
      * This method returns the hashmap of the Movie Store
      * The key-value pair is the Movie ID and the Movie object respectively.
-     * @return HashMap<String, Movie>
+     * @return HashMap\<String, Movie>
      */
     public HashMap<String, Movie> getMovieHashMap() {
         return movieHashMap;
