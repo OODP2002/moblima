@@ -5,6 +5,9 @@ import java.util.Scanner;
  * @version 1.0.0 Nov 13, 2022
  */
 public class MOBLIMA {
+    /**
+    * This is the entry point for the MOBLIMA program
+    */
     public static void main(String[] args){
         /**
          * Creates a new scanner to accept user input
