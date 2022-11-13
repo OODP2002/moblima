@@ -1,8 +1,8 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/*
-* ShowTime class created by Mingyang
+/**
+* @author mingyang
 * Purpose of ShowTime class: ShowTime obj that has-a ShowTime layout
 * ShowTime has no Seats
 * */
