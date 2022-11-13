@@ -1,5 +1,6 @@
-# moblima
+# MOBLIMA
 SC2002 - Movie Booking and Listing Management Application 
+
 
 # Running the application
 When running the application, the user directory has to be the source code directory.

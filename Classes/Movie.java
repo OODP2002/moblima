@@ -257,6 +257,7 @@ public class Movie {
     }
     /**
      * Prints the Name and Role of each MoviePersonnel object in the moviePersonnel ArrayList including the index, showcasing people involved in the movie and their roles in the movie. This will be used externally to edit the individual MoviePersonnel objects 
+     * @return returns the index of each MoviePersonnel
      */
     public int printMoviePersonnelIndex() {
         int i = 1;
@@ -267,7 +268,7 @@ public class Movie {
         return (i-1);
     }
     /**
-     * Prints out all hte details of the movie
+     * Prints out all the details of the movie
      * If number of reviews are fewer than 2, NIL is displayed instead of the average ratings
      */
     public void printMovie() {
@@ -283,7 +284,7 @@ public class Movie {
         }
         else{
             System.out.printf("Movie avg rating: %.1f\n" ,overallReviews.getAvgRating());
-            System.out.println("Reviews:");
+            System.out.println("Reviews:\n");
             for (int i=0;i<overallReviews.getReviewCount();i++){
                 System.out.println("Rating:" + overallReviews.getReview(i).getReviewRating());
                 System.out.println("Description:");

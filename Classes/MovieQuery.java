@@ -3,10 +3,13 @@ import java.util.Scanner;
 /**
  * MovieQuery Interface which extends the SysSettings Interface
  * Used for all forms of Movie related listing and searching which the Movie-Goer will utilise
- * @author Marc
+ * @author Marc Chern
  * @version 1.0.0 Nov 12, 2022
  */
 public interface MovieQuery extends SysSettings{
+    /**
+    * Creates a Scanner object which allows for user inputs
+    */
     Scanner sc = new Scanner(System.in);
     /**
      * Lists the top 5 movies based on either rating or sales
@@ -26,10 +29,9 @@ public interface MovieQuery extends SysSettings{
      */
     default void listAllMovies() {
         HashMap<String, Movie> movies = MovieStore.getInstance().getMovieHashMap();
-        System.out.println("MovieID|Showing Status|Title");
         for (String key: movies.keySet()) {
             if (movies.get(key).getShowingStatus() == Status.NOWSHOWING || movies.get(key).getShowingStatus() == Status.PREVIEW){
-                System.out.printf("  %-5s|  %-12s|%s\n",movies.get(key).getMovieID(),movies.get(key).getShowingStatus(),movies.get(key).getMovieName());
+                System.out.printf(" %-5s| %-12s|%s\n",movies.get(key).getMovieID(),movies.get(key).getShowingStatus(),movies.get(key).getMovieName());
             }
         }
     }
@@ -105,8 +107,9 @@ public interface MovieQuery extends SysSettings{
         System.out.println("(1) Sales ");
         System.out.println("(2) Average Rating ");
         System.out.println("Enter choice: ");
+
         int choice = -1;
-        
+
         try{
             choice = sc.nextInt();
         } catch (Exception err){

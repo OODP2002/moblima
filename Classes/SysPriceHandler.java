@@ -3,10 +3,24 @@ import java.time.LocalDateTime;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Handles the changing of Pricing Rules
+ * @author Chang Dao Zheng
+ * @version 1.0.0 Nov 13, 2022
+ */
 public interface SysPriceHandler {
+    /**
+     * Scanner object created to allow for user inputs
+     */
     public Scanner sc = new Scanner(System.in);
+    /**
+     * Singleton Class PricingStore variable introduced to facillitate the editing of the pricing rules
+     */
     static PricingStore pStore =  PricingStore.getInstance();
 
+    /**
+     * Adds a pricing rule
+     */
     default void addPricingRule(){
         Integer ruleClass;
         System.out.println("------Add pricing rule------");
@@ -57,6 +71,9 @@ public interface SysPriceHandler {
 
     }
 
+    /**
+     * Updates a pricing rule
+     */
     default void updatePricingRule(){
         Integer ruleClass;
         System.out.println("------Update pricing rule------");
@@ -71,7 +88,7 @@ public interface SysPriceHandler {
         System.out.println("(8) Quit");
         System.out.println("------------------------------------------------\n");
         System.out.print("Select a pricing rule: ");
-        
+
         //Option input handling
         try{
             ruleClass = sc.nextInt();
@@ -105,6 +122,9 @@ public interface SysPriceHandler {
 
     }
 
+    /**
+     * Removes a pricing rule
+     */
     default void removePricingRule() {
         System.out.println("------Remove pricing rule------");
         System.out.println("\n------------Pricing Rule Classes------------");
@@ -143,6 +163,9 @@ public interface SysPriceHandler {
 
     }
 
+    /**
+     * Prints all pricing rules
+     */
     default void printAllPricingRules() {
         pStore.printAllPricings();
     }

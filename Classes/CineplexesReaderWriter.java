@@ -4,13 +4,34 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a Singleton Class CineplexesReaderWriter, which reads and writes  from cineplexes.txt, converting the individual Cinemas and their attributes into Arrays to be used by other Store classes to be stored into HashMaps
+ * @author Koh Mingyang
+ * @version 1.0.0 Nov 13, 2022
+ */
 public class CineplexesReaderWriter {
+    /**
+     * ArrayList of String elements arrays which contains information of each Cinema
+     */
     private ArrayList<String[]> cineplexRawStore = new ArrayList<>();
+    /**
+     * Final String element which directs to file path of cineplexes.txt
+     */
     private final String FILE_SOURCE = "Classes/src/cineplexes.txt";
+    /**
+     * String given to Header of txt file. This String stores the header and prevents it from being read into the cineplexRawStore ArrayList
+     */
     private String HEADER;
+    /**
+     * Singleton instance of CineplexesReaderWriter
+     */
     private static CineplexesReaderWriter single_instance = null;
 
     // Implementation: during inialization, it immediately reads file into ArrayList
+    /**
+     * Creation of CineplexesReaderWriter
+     * During intialization, it immediately reads credentials.txt file into ArrayList and seperates each attribute as its own String element.
+     */
     private CineplexesReaderWriter() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(FILE_SOURCE));
@@ -31,6 +52,10 @@ public class CineplexesReaderWriter {
     }
 
     // Singleton
+    /**
+     * Initializes the CineplexesReaderWriter Singleton
+     * @return cineplexRawStore ArrayList is returned with each Cinema object in cineplexes.txt
+     */
     public static CineplexesReaderWriter getInstance() {
         if (single_instance == null)
             single_instance = new CineplexesReaderWriter();
@@ -39,6 +64,9 @@ public class CineplexesReaderWriter {
     }
 
     // Write from ArrayList into .txt
+    /**
+     * Writes each String array from cineplexRawStore back into cineplexes.txt
+     */
     public void writeFile() {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_SOURCE));
@@ -53,11 +81,18 @@ public class CineplexesReaderWriter {
         }
     }
 
+    /**
+     * Gets this CineplexesReaderWriter's cineplexRawStore attribute, which contains String Array elements of each Cinema and their attributes
+     * @return the ArrayList of String Array elements of each Cinema and their attributes stored in cineplexes.txt
+     */
     public ArrayList<String[]> getCineplexRawStore() {
         return cineplexRawStore;
     }
 
     // addCineplexData() should be called only from the admin module, and it will append the ArrayList
+    /**
+     * Add method to add a new Cinema into the cineplexRawStore, creating a new Cinema if desired by admin
+     */
     public void addCineplexData() {
         Scanner sc = new Scanner(System.in);
         ArrayList<String> out = new ArrayList<>();

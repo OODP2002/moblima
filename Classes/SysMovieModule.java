@@ -1,16 +1,35 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * SysMovieModuel works closely with SysMovieHandler to enable the user to update, create and remove Movies from MovieStore with ease
+ * @author Marcus Yeo, Low Zhe Kai
+ * @version 1.0.0 Nov 13, 2022
+ */
 public class SysMovieModule implements Module{
+    /**
+     * Cinemastaff user and their details
+     */
     private CinemaStaff cinemaStaff;
+    /**
+     * Allows for user input to be received
+     */
     Scanner sc = new Scanner(System.in);
 
+    /**
+     * Creates a new SysMovieModule object using a registered CinemaStaff user
+     * @param cinemaStaff validated account of Cinema Staff
+     */
     public SysMovieModule(CinemaStaff cinemaStaff) {
         this.cinemaStaff = cinemaStaff;
     }
 
+    /**
+     * Main functionality of SysMovieModule class, gives the user the choice of adding, updating or removing Movies from MovieStore, with functionalities from SysMovieHandler
+     */
     public void run() {
-        
+        System.out.println("-----System Movie Module-----");
+
         int choice = -1;
         while (choice != 5) {
             System.out.println("-----System Movie Module-----");

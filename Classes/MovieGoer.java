@@ -2,31 +2,43 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
 /**
- * A Movie-Goer object.
+ * Represents a Movie-Goer object.
  * The class will implement the interfaces Person, ReviewHandler, MovieQuery and TicketInterface
  * 
- * @author Marc
+ * @author Marc Chern
  * @version 1.0.0 Nov 12, 2022
  */
 public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInterface {
     /**
-     * Movie-Goer Details are stored as private attributes
-     * The Movie-Goer's tickets are stored within an ArrayList
+     * This movie goer's Name in String datatype
      */
     private String name;
+    /**
+     * This movie goer's email in String datatype
+     */
     private String email;
+    /**
+     * This movie goer's mobile in String datatype
+     */
     private String mobile;
+    /**
+     * This movie goer's tickets purchased in ArrayList containing Ticket objects
+     */
     private ArrayList<Ticket> tickets; // key=TRANSACTION_ID
+    /**
+     * Scanner object to accept user input
+     */
     Scanner sc = new Scanner(System.in);
 
     /**
-     * Default Movie-Goer Constructor
+     * Creates a new movie goer, accepting input for the user's Name, Email and Mobile number.
+     * This will later be tied to purchase history
      */
     public MovieGoer() {
         System.out.println("Welcome to Movie Goer registration module");
         System.out.print("Enter name: ");
         this.name = sc.nextLine();
-        
+
         int tempMobile = -1;
         do{
             System.out.print("Enter mobile number: ");
@@ -47,21 +59,21 @@ public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInter
     }
     
     /**
-     * Gets Movie-Goer's name
+     * Gets this Movie-Goer's name
      * @return the name of the Movie-Goer
      */
     public String getName() {
         return this.name;
     }
     /**
-     * Gets Movie-Goer's email
+     * Gets this Movie-Goer's email
      * @return the email of the Movie-Goer
      */
     public String getEmail() {
         return this.email;
     }
     /**
-     * Gets Movie-Goer's mobile number
+     * Gets this Movie-Goer's mobile number
      * @return the mobile number of the Movie-Goer
      */
     public String getMobile() {
@@ -75,22 +87,22 @@ public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInter
         return tickets;
     }
     /**
-     * Sets the name of the Movie-Goer
-     * @param  - name of the Movie-Goer to be set
+     * Changes the name of the Movie-Goer
+     * @param name new name of the Movie-Goer
      */
     public void setName(String name) {
         this.name = name;
     }
     /**
-     * Sets the email of the Movie-Goer
-     * @param email - email of the Movie-Goer to be set
+     * Changes the email of the Movie-Goer
+     * @param email new email of the Movie-Goer
      */
     public void setEmail(String email) {
         this.email = email;
     }
     /**
-     * Sets the mobile number of the Movie-Goer
-     * @param mobile - mobile number of the Movie-Goer
+     * Changes the mobile number of the Movie-Goer
+     * @param mobile new mobile number of the Movie-Goer
      */
     public void setMobile(String mobile) {
         this.mobile = mobile;
@@ -102,8 +114,7 @@ public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInter
         this.tickets = TicketStore.getInstance().getTicketWithUserDetails(name, email, mobile);
     }
     /**
-     * The buy ticket module
-     * Movie-Goer will be able to pick a movie and purchase a movie ticket for the movie
+     * buyTicket() method allows Movie-Goer to pick a movie and purchase a movie ticket for the movie
      */
     public void buyTicket() {
         System.out.println("---Welcome to buy ticket module---");
@@ -113,10 +124,12 @@ public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInter
             System.out.println("---Exiting buy ticket module---");
             return;
         }
+        
         Movie curMovie = searchMovie(movieID);
         if (curMovie == null){
             return;
         }
+        
         Set<String> keys = ShowTimeStore.getInstance().getShowTimeHashMap().keySet();
         System.out.println("-----------ShowTimes----------");
         for (String key : keys){
@@ -151,5 +164,5 @@ public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInter
         tickets.add(newTicket);
         // Increment movie sales
         curMovie.setMovieSales(curMovie.getMovieSales()+1);
-    }
+}
 }

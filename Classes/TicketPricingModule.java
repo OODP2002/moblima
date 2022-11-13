@@ -1,13 +1,31 @@
 import java.util.Scanner;
 
+/**
+ * Module allows for user to edit the ticket pricing
+ * @author Marc Chern
+ * @version 1.0.0 Nov 13, 2022
+ */
 public class TicketPricingModule implements Module{
+    /**
+     * Valid Cinema Staff account needed for editing capabilites
+     */
     private CinemaStaff cinemaStaff;
+    /**
+     * Allows for user input
+     */
     Scanner sc = new Scanner(System.in);
 
+    /**
+     * Creates a new TicketPricingModule
+     * @param cinemaStaff required parameter for editing ticket pricing information
+     */
     public TicketPricingModule(CinemaStaff cinemaStaff) {
         this.cinemaStaff = cinemaStaff;
     }
 
+    /**
+     * Main function for TicketPricingModule, allows for user to edit and change ticket pricing information
+     */
     public void run() {
         int choice = 0;
         while (choice != 5) {
