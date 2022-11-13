@@ -1,5 +1,4 @@
 movieName|movieID|movieDuration|showingStatus|synopsis|viewingMode|movieHype|movieSales|ageRating|overallReviews|moviePersonnelList
-Aquaman 3|11|120|NOWSHOWING|Aquaman fights the bad guys!|_2D|BLOCKBUSTER|0|M18||The Rock~The Pebble~The Stone
 Black Panther:Wakanda Forever|1|161|PREVIEW|Queen Ramonda, Shuri, M'Baku, Okoye and the Dora Milaje fight to protect their nation from intervening world powers in the wake of King T'Challa's death.|_2D|BLOCKBUSTER|15|PG13|5Greatly enjoyed it~3Found it boring~5It was a great movie, I would reccomend others to watch it!|Ryan Coogler~Chadwick Boseman~Tenoch Huerta
 Black Adam|2|125|NOWSHOWING|In ancient Kahndaq, Teth Adam was bestowed the almighty powers of the gods. After using these powers for vengeance, he was imprisoned, becoming Black Adam.|_3D|BLOCKBUSTER|4|PG13|2Poorly executed movie~1Did not enjoy it|Jaume Collet-Serra~Dwayne Johnson~Sarah Shahi
 Ajoomma|3|90|NOWSHOWING|Ajoomma is a Singaporean-Korean drama film directed by He Shuming. It stars Hong Hui Fang, Kang Hyung-seok and Jung Dong-hwan|_2D|REGULAR|0|NC16|5Greatly enjoyed it~3Found it boring|Shuming He~Hong Huifang~Yeo Jin-goo
