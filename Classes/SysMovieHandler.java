@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.time.Duration;
 
@@ -130,13 +131,14 @@ public interface SysMovieHandler {
                 movie.setAgeRating(AgeEnum.G);
         }
 
-        System.out.println("Enter the Director's name:");
+        System.out.print("\nEnter the Director's name: ");
         temp = sc.nextLine();
         movie.addMoviePersonnel(temp, Role.DIRECTOR);
         System.out.println("Do you want to add a cast member?");
         System.out.println("1 - No");
         System.out.println("2 - Yes");
         int toggle = sc.nextInt();
+        sc.nextLine();
         while (toggle != 1) {
             System.out.println("Enter the cast's name:");
             sc.nextLine();
@@ -145,7 +147,14 @@ public interface SysMovieHandler {
             System.out.println("Do you want to add another cast member?");
             System.out.println("1 - No");
             System.out.println("2 - Yes");
-            toggle = sc.nextInt();
+            System.out.print("Option: ");
+            try{
+                toggle = sc.nextInt();
+                sc.nextLine();
+            } catch (InputMismatchException err){
+                System.out.println("Invalid choice entered. Saving movie information....");
+                break;
+            }
         }
 
         movieStore.addMovie(movie);
@@ -192,8 +201,8 @@ public interface SysMovieHandler {
         System.out.println("8 - Movie personnel");
         System.out.println("0 - Quit");
         choice = sc.nextInt();
+        sc.nextLine();
         while (choice != 0) {
-            sc.nextLine();
             switch(choice) {
                 case 1:
                     System.out.printf("Current movie name: %s\n", movie.getMovieName());
@@ -377,6 +386,7 @@ public interface SysMovieHandler {
             System.out.println("8 - Movie personnel");
             System.out.println("0 - Quit");
             choice = sc.nextInt();
+            sc.nextLine();
         }
         movie.printMovie();
         System.out.println("Movie has been updated.");

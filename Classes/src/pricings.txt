@@ -8,5 +8,5 @@ cinemaClass|PLATINUM|3.0
 dayOfWeek|5|1.0
 dayOfWeek|6|2.5
 dayOfWeek|7|2.5
-fridayRule|180|1.5
-view|_3D|3.0
+fridayRule|1800|1.5
+view|_3D|5.0
