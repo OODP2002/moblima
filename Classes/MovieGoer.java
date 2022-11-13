@@ -76,7 +76,7 @@ public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInter
     }
     /**
      * Sets the name of the Movie-Goer
-     * @param n - name of the Movie-Goer to be set
+     * @param  - name of the Movie-Goer to be set
      */
     public void setName(String name) {
         this.name = name;
