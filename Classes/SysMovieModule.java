@@ -10,11 +10,11 @@ public class SysMovieModule {
     }
 
     public void run() {
-        System.out.println("-----System Movie Module-----");
-
+        
         int choice = -1;
         while (choice != 5) {
-            System.out.println("Select an option below (1-4):");
+            System.out.println("-----System Movie Module-----");
+            System.out.println("Select an option below (1-5):");
             System.out.println("1 - Create new movies");
             System.out.println("2 - Update movies");
             System.out.println("3 - Remove movies");

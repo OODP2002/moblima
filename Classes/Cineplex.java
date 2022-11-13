@@ -27,6 +27,10 @@ public class Cineplex{
         this.cinemaHashMap = cinemaStore.getCinemaHashMap(cineplexID);
     }
 
+    public Cinema isCinema(String cinemaID){
+        return cinemaHashMap.get(cinemaID);
+    }
+
     public HashMap<String, Cinema> getCinemaHashMap() {
         return cinemaHashMap;
     }
