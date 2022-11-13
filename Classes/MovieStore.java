@@ -69,8 +69,8 @@ public class MovieStore {
         }
 
         // List the movies
-        for (int i = 1; i <= num; i++) {
-            System.out.printf("%d: %s\n", i, movies.get(i).getMovieName());
+        for (int i = 0; i < num; i++) {
+            System.out.printf("%d: %s\n", i+1, movies.get(i).getMovieName());
             System.out.println("Sales: " + movies.get(i).getMovieSales());
             System.out.printf("Average rating: %.1f\n", movies.get(i).getAvgRating());
         }
