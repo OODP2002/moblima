@@ -27,8 +27,9 @@ public class CinemaStore{
 
     // Singleton
     /**
-     * Creates a CinemaStore instance if it had previously not existed, if it has, then it returns the static variable single_instance with the Hashmap with the Cinema objects inside
+     * Creates a CinemaStore instance if it had previously not existed, if it has, then it returns a static variable single_instance with a Hashmap with Cinema objects inside
      * This is the initialization point/calling point for the CinemaStore Singleton Class
+     * @return a static CinemaStore object
      */
     public static CinemaStore getInstance() {
         if (single_instance == null)
