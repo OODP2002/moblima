@@ -82,6 +82,7 @@ public class PricingStore {
 
     /**
      * Creates a Singleton Instance of PricingStore to be used throughout MOBLIMA.
+     * @return A PricingStore object which contains a HashMap with pricing rules and details
      */
     public static PricingStore getInstance(){
         return instance;
@@ -141,6 +142,7 @@ public class PricingStore {
      * @param dayOfWeek day of week of ticket chosen in Integer datatype
      * @param startTime start time of movie chosen in LocalTime datatype
      * @param view viewing format of movie chosen in View datatype
+     * @return a Float value that contains the price queried.
      */
     public Float queryPrice(AgeGroup ageGroup, Hype hype, CinemaClass cinemaClass, boolean isPH,  Integer dayOfWeek, LocalTime startTime, View view){
         Float price = base; 
