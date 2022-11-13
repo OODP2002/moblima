@@ -1,3 +1,3 @@
 public interface Module {
-    public void run();
+    void run();
 }
