@@ -30,8 +30,18 @@ public interface MovieQuery extends SysSettings{
         for (String key: movies.keySet()) {
             if (movies.get(key).getShowingStatus() == Status.NOWSHOWING || movies.get(key).getShowingStatus() == Status.PREVIEW){
                 System.out.printf("  %-5s|  %-12s|%s\n",movies.get(key).getMovieID(),movies.get(key).getShowingStatus(),movies.get(key).getMovieName());
-                // movies.get(key).printMovie();
             }
+        }
+    }
+    /**
+     * Overloaded listAllMovies
+     * Lists all movies including ENDOFSHOWING and COMINGSOON
+     */
+    default void listAllMovies(int toggle) {
+        HashMap<String, Movie> movies = MovieStore.getInstance().getMovieHashMap();
+        System.out.println("MovieID|Showing Status|Title");
+        for (String key: movies.keySet()) {
+            System.out.printf("  %-5s|  %-12s|%s\n",movies.get(key).getMovieID(),movies.get(key).getShowingStatus(),movies.get(key).getMovieName());
         }
     }
 

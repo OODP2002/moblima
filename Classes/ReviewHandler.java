@@ -20,7 +20,7 @@ public interface ReviewHandler {
     default void writeReview() {
         // Getting moviesStore
         MovieStore movieStore = MovieStore.getInstance();
-
+        
         // Getting review information
         System.out.print("Enter movieID to write a review for (-1 to return): ");
         String movieID = sc.nextLine();
