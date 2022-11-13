@@ -1,2 +1,2 @@
 SETTING|OPTION
-list-by|NIL
+list-by|SALES

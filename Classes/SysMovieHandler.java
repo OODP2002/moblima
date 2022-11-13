@@ -129,7 +129,7 @@ public interface SysMovieHandler {
                 movie.setAgeRating(AgeEnum.G);
         }
 
-        System.out.print("\nEnter the Director's name:");
+        System.out.print("\nEnter the Director's name: ");
         temp = sc.nextLine();
         movie.addMoviePersonnel(temp, Role.DIRECTOR);
         int castCount = 0;
@@ -147,6 +147,7 @@ public interface SysMovieHandler {
         System.out.println("2 - Yes");
         System.out.print("Option: ");
         int toggle = sc.nextInt();
+        sc.nextLine();
         while (toggle != 1) {
             castCount++;
             System.out.print(String.format("\nEnter cast member %d name: ", castCount));
@@ -159,6 +160,7 @@ public interface SysMovieHandler {
             System.out.print("Option: ");
             try{
                 toggle = sc.nextInt();
+                sc.nextLine();
             } catch (InputMismatchException err){
                 System.out.println("Invalid choice entered. Saving movie information....");
                 break;
@@ -207,8 +209,8 @@ public interface SysMovieHandler {
         System.out.println("0 - Quit");
         System.out.print("\nChoice: ");
         choice = sc.nextInt();
+        sc.nextLine();
         while (choice != 0) {
-            sc.nextLine();
             switch(choice) {
                 case 1:
                     System.out.printf("Current movie name: %s\n", movie.getMovieName());
@@ -392,6 +394,7 @@ public interface SysMovieHandler {
             System.out.println("8 - Movie personnel");
             System.out.println("0 - Quit");
             choice = sc.nextInt();
+            sc.nextLine();
         }
         movie.printMovie();
         System.out.println("Movie has been updated.");
