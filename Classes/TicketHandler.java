@@ -110,7 +110,7 @@ public class TicketHandler {
             System.out.println("(2) Adult ticket");
             System.out.println("(3) Senior ticket");
             System.out.print("Enter choice: ");
-    
+
             try{
                 choice = sc.nextInt();
                 flag = false;
@@ -121,7 +121,7 @@ public class TicketHandler {
                 continue;
             }
             sc.nextLine();
-    
+
             switch (choice) {
                     case 1: 
                         this.ageGroup = AgeGroup.CHILD;

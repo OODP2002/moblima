@@ -9,23 +9,60 @@ import java.lang.IllegalArgumentException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents a Store of Singleton class containing the pricing conventions of a ticket
+ * @author Chang Dao Zheng
+ * @version 1.0.0 Nov 13, 2022
+ */
 public class PricingStore {
-    //Attributes
+    /**
+     * String variable to store the header of pricings,txt
+     */
     private String pricingHeader;
-
+    /**
+     * The base price of a ticket
+     */
     private Float base;
+    /**
+     * HashMap storing the price charged according to age group (Child, Adult, Senior)
+     */
     private Map<AgeGroup, Float> ageGroupChange =  new HashMap<AgeGroup, Float>();
+    /**
+     * HashMap storing the price charged according to movie category (Blockbuster, Regular)
+     */
     private Map<Hype, Float> hypeAdd = new HashMap<Hype, Float>();
+    /**
+     * HashMap storing the price charged according to age group
+     */
     private Map<CinemaClass,  Float> cinemaClassAdd = new HashMap<CinemaClass, Float>();
+    /**
+     * HashMap storing the price charged according to day
+     */
     private Map<Integer, Float> dayOfWeekAdd = new HashMap<Integer, Float>();
+    /**
+     * Cutoff time on Fridays where pricing changes
+     */
     private LocalTime cutOff;
+    /**
+     * HashMap storing the price charged according to Friday Rule
+     */
     private Map<LocalTime, Float> fridayRuleAdd = new HashMap<LocalTime, Float>();
+    /**
+     * HashMap storing the price charged according to Viewing Mode (2D, 3D)
+     */
     private Map<View, Float> viewAdd = new HashMap<View, Float>();
-    
+    /**
+     * File path of pricings.txt
+     */
     private String path = ("Classes/src/pricings.txt");
+    /**
+     * Singleton instance of PricingStore
+     */
     private static PricingStore instance = new PricingStore();
 
-    //Constructor
+    /**
+     * Creates a new PricingStore object if not already available
+     */
     private PricingStore(){
         // Reads a file line by line
         try{
@@ -43,12 +80,18 @@ public class PricingStore {
         }
     }
 
-    //operations
+    /**
+     * Creates a Singleton Instance of PricingStore to be used throughout MOBLIMA.
+     * @return A PricingStore object which contains a HashMap with pricing rules and details
+     */
     public static PricingStore getInstance(){
         return instance;
     }
 
-    //For reading pricing rule form txt
+    /**
+     * Reads the princing info from pricing.txt
+     * @param info the string of pricing information from pricing.txt
+     */
     private void createPricingRule(String info){
         String[] infoArr = info.split("\\|");
 
@@ -90,6 +133,17 @@ public class PricingStore {
     }
 
     //Checks for price based on pricing rules set 
+    /**
+     * Checks for pricing based on pricing rules set
+     * @param ageGroup age group of ticket chosen in AgeGroup datatype
+     * @param hype movie category of ticket chosen in Hype datatype
+     * @param cinemaClass class of cinema chosen in CinemaClass datatype
+     * @param isPH boolean datatype where true if the date chosen is a public holiday, else false
+     * @param dayOfWeek day of week of ticket chosen in Integer datatype
+     * @param startTime start time of movie chosen in LocalTime datatype
+     * @param view viewing format of movie chosen in View datatype
+     * @return a Float value that contains the price queried.
+     */
     public Float queryPrice(AgeGroup ageGroup, Hype hype, CinemaClass cinemaClass, boolean isPH,  Integer dayOfWeek, LocalTime startTime, View view){
         Float price = base; 
 
@@ -121,6 +175,12 @@ public class PricingStore {
 
 
     //Add pricing rule 
+    /**
+     * Adds a particular pricing rule if desired by the admin user
+     * @param ruleClass denotes which rule type is to have a rule added in Integer datatype
+     * @param type the new value of rule to be added in String datatype
+     * @param val how much would the new ticket cost in Float datatype
+     */
     public void addPricingRule(Integer ruleClass, String type, Float val){
         switch(ruleClass){
             case 1: //ageGroup
@@ -221,6 +281,12 @@ public class PricingStore {
         }
     }
     //Update pricing rule
+    /**
+     * Updating a pricing rule if desired by an Admin user
+     * @param ruleClass the rule class to be edited in Integer datatype
+     * @param type the type of rule to be edited (eg Child, Adult or Senior for AgeClass rule) in String datatype
+     * @param val the new ticket price in Float datatype
+     */
     public void updatePricingRule(Integer ruleClass, String type, Float val){
         switch(ruleClass){
             case 1: //base
@@ -292,6 +358,11 @@ public class PricingStore {
 
     
     //Remove Pricing Rule 
+    /**
+     * Removing a pricing rule if desired by Admin
+     * @param ruleClass the rule class desired to be accessed in Integer datatype
+     * @param type the type of rule to be removed (eg Child, Adult or Senior for AgeClass rule) in String datatype
+     */
     public void removePricingRule(Integer ruleClass, String type){
         switch(ruleClass){
                 
@@ -349,6 +420,9 @@ public class PricingStore {
     }
 
     //Print all pricing rules 
+    /**
+     * Prints out all currently established pricing rules
+     */
     public void printAllPricings(){
 
         System.out.println("\n-------------------Pricing Rules-------------------");
@@ -411,6 +485,9 @@ public class PricingStore {
     }
 
     //Save all changes made
+    /**
+     * Saves all changes made to pricing rules and writes to pricings.txt
+     */
     public void closePricingStore(){
         try(FileWriter writer = new FileWriter(path)){
             

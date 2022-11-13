@@ -1,8 +1,19 @@
 import java.util.Scanner;
 
+/**
+ * Allows user to change how the Top 5 is displayed
+ * @author Koh Mingyang
+ * @version 1.0.0 Nov 13, 2022
+ */
 public class SysListingOptionsModule implements Module{
+    /**
+     * Creates a new scanner object to accept user input
+     */
     Scanner sc = new Scanner(System.in);
 
+    /**
+     * Main functionality of the module is to display options available to user regarding the change of display for Top 5
+     */
     public void run() {
         SettingStore settingStore = SettingStore.getInstance();
         String setting = "list-by";

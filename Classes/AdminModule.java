@@ -1,9 +1,20 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
-
-public class AdminModule extends LoginHandler implements Module{
+import java.util.InputMismatchException;
+/**
+ * This represents the admin landing page after selecting the admin option in MOBLIMA Home Page
+ * User will be required to log in as part of the basic security features
+ * @author Koh Mingyang
+ * @version 1.0.0 Nov 13, 2022
+ */
+public class AdminModule implements Module{
+    /**
+    * Creates a Scanner object to allow for user inputs
+    */
     Scanner sc = new Scanner(System.in);
 
+    /**
+     * This method is the main functionality of the AdminModule, which activates login functionalities and gives further options for the admin to use once login is verified.
+     */
     public void run() {
         LoginHandler loginHandler = new LoginHandler();
         CinemaStaff cinemaStaff = loginHandler.login();

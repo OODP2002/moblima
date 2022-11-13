@@ -8,8 +8,19 @@ import java.util.Random;
 import java.util.Scanner;
 
 // Update showtimes and movies
+/**
+ * Handles the updating of showtimes and movies
+ * @author Koh Mingyang
+ * @version 1.0.0 Nov 13, 2022
+ */
 interface SysShowtimeHandler {
+    /**
+     * Allows for user input to be accessed
+     */
     Scanner sc = new Scanner(System.in);
+    /**
+     * Allows for showtimes to be updated
+     */
     default void updateShowTime() {
         HashMap<String, ShowTime> showTimeHashMap = ShowTimeStore.getInstance().getShowTimeHashMap();
 
@@ -31,7 +42,6 @@ interface SysShowtimeHandler {
         boolean loop = true;
 
         while (loop) {
-
             System.out.println("-----Detail Modification Menu-----");
             System.out.println("(1) Cineplex");
             System.out.println("(2) Cinema");
@@ -40,7 +50,7 @@ interface SysShowtimeHandler {
             System.out.println("(5) Quit");
             System.out.println("----------------------------------");
             System.out.print("\nChoice: ");
-            
+
             int input;
             try {
                 input = sc.nextInt();
@@ -109,7 +119,6 @@ interface SysShowtimeHandler {
                     continue;
                 }
             }
-
             if (showtimeIDChanged) {
                 showTimeHashMap.remove(showtimeID);
                 showTimeHashMap.put(newShowtimeID, showTime);
@@ -119,6 +128,9 @@ interface SysShowtimeHandler {
         }
     }
 
+    /**
+     * Allows for showtimes to be added
+     */
     default void addShowTime() {
         HashMap<String, ShowTime> showTimeHashMap = ShowTimeStore.getInstance().getShowTimeHashMap();
 
@@ -158,6 +170,9 @@ interface SysShowtimeHandler {
         showTimeHashMap.put(showtimeID, showTime);
     }
 
+    /**
+     * Allows for showtimes to be removed
+     */
     default void removeShowTime() {
         HashMap<String, ShowTime> showTimeHashMap = ShowTimeStore.getInstance().getShowTimeHashMap();
         System.out.println("Enter showtime ID to remove: ");
@@ -169,11 +184,11 @@ interface SysShowtimeHandler {
             System.out.println("Showtime successfully removed!");
     }
 
+    /**
+     * Print all showtimes 
+     */
+
     default void printShowTimes(){
-        // Map<String, ShowTime> showTimeHashMap = ShowTimeStore.getInstance().getShowTimeHashMap();
-        // for (Map.Entry<String,ShowTime> entry : showTimeHashMap.entrySet()){
-        //     entry.getValue().printShowTime();
-        // }
         Set<String> keys = ShowTimeStore.getInstance().getShowTimeHashMap().keySet();
         System.out.println("-----------ShowTimes----------");
         for (String key : keys){
@@ -185,7 +200,10 @@ interface SysShowtimeHandler {
         }
     }
 
-
+    /**
+     * Sets a showtime for a particular Showtime object 
+     * @param showTime Showtime parameter provided to set a showtime
+     */
     private void setShowtime(ShowTime showTime) {
         String timeRaw = sc.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -199,6 +217,11 @@ interface SysShowtimeHandler {
         }
     }
 
+    /**
+     * Generates a showtime ID based on Cinema ID provided
+     * @param cinemaID the Cinema ID provided to generate a showtimeID
+     * @return showtime ID in String format
+     */
     private String generateShowTimeID(String cinemaID) {
         HashMap<String, ShowTime> showTimeHashMap = ShowTimeStore.getInstance().getShowTimeHashMap();
 
