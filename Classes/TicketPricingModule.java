@@ -9,11 +9,10 @@ public class TicketPricingModule implements Module{
     }
 
     public void run() {
-        System.out.println("\nWelcome to Ticket Pricing Module");
-        System.out.println("-----------------------------");
-
         int choice = 0;
         while (choice != 5) {
+            System.out.println("\nWelcome to Ticket Pricing Module");
+            System.out.println("-----------------------------");
             System.out.println("Select an option below (1-4):");
             System.out.println("1 - Create new pricing rule");
             System.out.println("2 - Update new pricing rule");
