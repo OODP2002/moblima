@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 /**
 * @author mingyang
@@ -16,7 +17,8 @@ public class ShowTime {
     public ShowTime(String showtimeID) {
         this.showtimeID = showtimeID;
         this.showTimeLayout = new ShowTimeLayout(showtimeID);
-        this.cinema = CineplexStore.getInstance().getCineplex(showtimeID.substring(0,2)).getCinemaHashMap().get(showtimeID.substring(0,4));
+        HashMap <String, Cinema> cinemaHashMap = CineplexStore.getInstance().getCineplex(showtimeID.substring(0,2)).getCinemaHashMap();
+        this.cinema = cinemaHashMap.get(showtimeID.substring(0,4));
     }
 
     public ShowTimeLayout getShowTimeLayout() {
