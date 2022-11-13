@@ -66,13 +66,18 @@ public class CredentialStore {
 
     // Destructor
     /**
-     * Destructor for
+     * Destructor for ShowtTimeStore, writes all information in HashMap to the txt file to be saved
+     * To be called before closing of program
      */
     public void closeShowTimeStore() {
         credentialReaderWriter.setRawStringFromFile(parseHashMap());
     }
 
 
+    /**
+    * Loads Credential HashMap with Credential information from txt file
+    * @param credentialRawStore contains ArrayList of String Array elements to be loaded into the HashMap
+    */
     private void loadCredentialHashMap(ArrayList<String[]> credentialRawStore) {
         for (String[] line : credentialRawStore) {
             AdminRole admRole = switch (line[2]) {
@@ -85,6 +90,10 @@ public class CredentialStore {
     }
 
     //Return instance of store
+    /**
+    * Calls a Singleton Isntance of CredentialStore and initializes CredientialStore if it has not yet been done
+    * @return unique CredentialStore object is returned
+    */
     public static CredentialStore getInstance() {
             if (single_instance == null)
                 single_instance = new CredentialStore();
@@ -92,49 +101,18 @@ public class CredentialStore {
             return single_instance;
     }
 
-    // create new user
-    public void newUser(Credential newCredential){
-        this.credentials.add(newCredential);
-        return;
-    }
    
-    //search for index of user in array list 
-    private int getUserIndex(String username){
-        for (int i = 0; i < credentials.size(); i++){
-            if(credentials.get(i).getUsername().equals(username)){
-                return i;
-            }
-        }
-        System.out.println("Username not found.");
-        return -1;
-    }
-
     // Return password given String
+    /**
+    * Parses through HashMap to check if the input username matches any keys in the HashMap
+    * @param username input to be checked against the keys in the HashMap
+    * @return the password of the key if there is a match, returns NULL if no match
+    */
     public String getPassword(String username) {
         if (credentialHashMap.containsKey(username))
             return credentialHashMap.get(username).getPassword();
         else
             return null;
-    }
-
-    // changing username --> current admin doesnt have the right to change
-    public boolean changeUsername(String oldUsername, String newUsername, String password){
-        int index = getUserIndex(oldUsername);
-        if (index != -1){
-            return credentials.get(index).setUsername(newUsername, password); //username change successful or failed
-        } else {
-            return false; //User not found
-        }
-    }
-
-    //changing password --> current admin doesnt have the right to change
-    public boolean changePassword(String username, String oldPassword, String newPassword){
-        int index = getUserIndex(username);
-        if (index != -1){
-            return credentials.get(index).setPassword(oldPassword, newPassword); //password change successful of failed
-        } else {
-            return false; //User not found
-        }
     }
 
 }
