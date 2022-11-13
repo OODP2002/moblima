@@ -34,6 +34,7 @@ public interface SysPriceHandler {
         System.out.println("------------------------------------------------\n");
         System.out.print("Enter choice: ");
         
+        //Option input handling
         try{
             ruleClass = sc.nextInt();
         } catch (Exception err) {
@@ -41,10 +42,17 @@ public interface SysPriceHandler {
             sc.nextLine();
             return;
         }
-        if (ruleClass < 0 || ruleClass > 7 ){
+
+        if (ruleClass == 7){
+            System.out.println("Exiting system...");
+            return;
+        }
+        else if (ruleClass < 0 || ruleClass > 7 ){
             System.out.println("Error: Invalid input, exiting...");
             return;
         }
+
+
         System.out.print("Enter Type (Refer to pricing rule classes list): ");
         String type = sc.next();
         System.out.print("Enter value of new rule: ");
@@ -78,6 +86,8 @@ public interface SysPriceHandler {
         System.out.println("(7) Quit");
         System.out.println("------------------------------------------------\n");
         System.out.print("Select a pricing rule: ");
+        
+        //Option input handling
         try{
             ruleClass = sc.nextInt();
         } catch (Exception err) {
@@ -85,10 +95,16 @@ public interface SysPriceHandler {
             sc.nextLine();
             return;
         }
-        if (ruleClass < 0 || ruleClass > 7 ){
+
+        if (ruleClass == 8){
+            System.out.println("Exiting system...");
+            return;
+        } else if (ruleClass < 0 || ruleClass > 7 ){
             System.out.println("Error: Invalid input, exiting...");
             return;
         }
+
+        //Updated pricing rule values
         System.out.print("Enter Type (Refer to pricing rule classes list): ");
         String type = sc.next();
         System.out.print("Enter new value for existing rule: ");
@@ -121,6 +137,7 @@ public interface SysPriceHandler {
         System.out.println("--------------------------------------------\n");
         System.out.print("Enter choice: ");
 
+        //Option input handling
         Integer ruleClass;
         try {
             ruleClass = sc.nextInt();
@@ -129,6 +146,16 @@ public interface SysPriceHandler {
             sc.nextLine();
             return;
         }
+        if (ruleClass == 7){
+            System.out.println("Exiting system...");
+            return;
+        }
+        else if (ruleClass < 0 || ruleClass > 7 ){
+            System.out.println("Error: Invalid input, exiting...");
+            return;
+        }
+
+        //Pricing rule input 
         System.out.print("Enter Type (Refer to pricing rule classes list): ");
         String type = sc.next();
         pStore.removePricingRule(ruleClass, type);

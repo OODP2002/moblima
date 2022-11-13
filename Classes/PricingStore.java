@@ -145,14 +145,6 @@ public class PricingStore {
     public Float queryPrice(AgeGroup ageGroup, Hype hype, CinemaClass cinemaClass, boolean isPH,  Integer dayOfWeek, LocalTime startTime, View view){
         Float price = base; 
 
-        if (this.hypeAdd.containsKey(hype)){
-            price += hypeAdd.get(hype);
-        }
-
-        if (this.cinemaClassAdd.containsKey(cinemaClass)){
-            price += cinemaClassAdd.get(cinemaClass);
-        }
-
         if (this.dayOfWeekAdd.containsKey(dayOfWeek)){
             price += dayOfWeekAdd.get(dayOfWeek);
 
@@ -161,10 +153,18 @@ public class PricingStore {
             }
         }
 
-        if (this.ageGroupChange.containsKey(ageGroup) && !isPH && startTime.isBefore(cutOff)){
-            price = this.ageGroupChange.get(ageGroup); //resets price if ticket is a child of senior ticket for a show before cut off timing and not on a public holiday
+        if (this.ageGroupChange.containsKey(ageGroup) && !isPH && startTime.isBefore(cutOff) && (dayOfWeek != 6 ) && (dayOfWeek != 7)){
+            price = this.ageGroupChange.get(ageGroup); //resets price if ticket is a child of senior ticket for a show before cut off timing and not on a public holiday or weekend
         }
         
+        if (this.hypeAdd.containsKey(hype)){
+            price += hypeAdd.get(hype);
+        }
+
+        if (this.cinemaClassAdd.containsKey(cinemaClass)){
+            price += cinemaClassAdd.get(cinemaClass);
+        }
+
         if(this.viewAdd.containsKey(view)){
             price += this.viewAdd.get(view);
         }
