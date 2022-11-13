@@ -1,18 +1,17 @@
 import java.io.*;
 import java.util.ArrayList;
-
 /**
- * Purpose of this class:
-   1. Read from .txt into raw ArrayList<String[]> using readFile(String fileSource) --> taken care of automatically
-   2. Write from raw ArrayList<String[]> into .txt file using writeFile(String fileSource) --> taken care of automatically
+* Purpose of this class:
+* 1. Read from .txt into raw ArrayList<String[]> using readFile(String fileSource) --> taken care of automatically
+* 2. Write from raw ArrayList<String[]> into .txt file using writeFile(String fileSource) --> taken care of automatically
 
-   Notes:
-   ArrayList should only be read and written once by respective store class.
-   Updates to stores should update store class only and not ArrayList
-   Header file will be automatically taken care of by TxtReaderWriter
+* Notes:
+* ArrayList should only be read and written once by respective store class.
+* Updates to stores should update store class only and not ArrayList
+* Header file will be automatically taken care of by TxtReaderWriter
 * @author Koh Mingyang
 * @version 1.0.0 Nov 13, 2022
- */
+*/
 public class TxtReaderWriter {
     /**
      * Raw string for each element of txt file
