@@ -3,8 +3,20 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.Scanner;
 
+/**
+ * Handles Special Occasions changes such as adding, updating and removing of special occasions from SpecialOccasionStore
+ * @author Chang Dao Zheng
+ * @version 1.0.0 Nov 13, 2022
+ */
 interface SysSpecialOccasionHandler {
+    /** 
+     * Allows for user inputs
+     */
     Scanner sc = new Scanner(System.in);
+    /**
+     * Allows for adding of a special occasion
+     * @return True = Special Occasion has been added, False = Special Occasion has not been added
+     */
     default boolean addSpecialOccasion() {
         SpecialOccasionStore specialOccasionStore = SpecialOccasionStore.getInstance();
 
@@ -27,6 +39,10 @@ interface SysSpecialOccasionHandler {
         return specialOccasionStore.add(specialOccasion);
     }
 
+    /**
+     * Removes a special occasion
+     * @return True = successfully removed, False = failed to remove
+     */
     default boolean removeSpecialOccasion() {
         SpecialOccasionStore specialOccasionStore = SpecialOccasionStore.getInstance();
 
@@ -38,6 +54,9 @@ interface SysSpecialOccasionHandler {
         return specialOccasionStore.remove(new SpecialOccasion(date, name));
     }
 
+    /**
+     * Prints special occasions from SpecialOccasionStore
+     */
     default void printSpecialOccasions() {
         SpecialOccasionStore.getInstance().printAll();
     }

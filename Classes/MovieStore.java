@@ -2,34 +2,31 @@ import java.time.Duration;
 import java.util.*;
 
 /**
- * The MovieStore class stores all the information about the movies with a HashMap data structure.
+ * The MovieStore class uses a Singleton Isntance to create a unique object MovieStore which stores all the information about the movies with a HashMap data structure.
  * It also interacts with the movie.txt file to read and write the data.
- * @author Zhe Kai
- * @version 1.0
+ * @author Marcus Yeo, Low Zhe Kai
+ * @version 1.0.0 Nov 13, 2022
  */
 public class MovieStore {
     
     // Attributes
+    /**
+     * File path for movies.txt
+     */
     private final String path = ("Classes/src/movies.txt");
+    /**
+     * Singleton Instance variable for MovieStore
+     */
     private static MovieStore instance = new MovieStore();
+    /**
+     * HashMap containing all Movie objects created
+     */
     private HashMap<String, Movie> movieHashMap = new HashMap<>();     // key=MOVIE_ID
+    /**
+     * Reads movie.txt and returns a string for us to parse into the HashMap after.
+     */
     private TxtReaderWriter movieReaderWriter = new TxtReaderWriter(path);
-    
-    /**
-     * Constructor for the movie store.
-     */
-    private MovieStore() {
-        loadMovieHashMap(movieReaderWriter.getRawStringFromFile());
-    }
 
-    /**
-     * This method returns the MovieStore object and utilises the 
-     * @return This method returns the MovieStore object. 
-     */
-    // Return instance of store
-    public static MovieStore getInstance() {
-        return instance;
-    }
 
     /**
      * This method searches for a Movie with the Movie ID and returns null if it does not exist.
@@ -57,22 +54,21 @@ public class MovieStore {
      */
     public void ListTop5(int toggle) {
         List<Movie> movies = new ArrayList<>(movieHashMap.values());
-        int num = Math.min(movies.size(), 5);
 
         // Sort by movie sales
         if (toggle == 0) {
             movies.sort(Comparator.comparing(Movie::getMovieSales).reversed());
-            System.out.println("Top " + num + " movies by Movie Sales:");
         } else {
             movies.sort(Comparator.comparing(Movie::getAvgRating).reversed());
-            System.out.println("Top " + num + " movies by Average Rating:");
         }
 
         // List the movies
-        for (int i = 0; i < num; i++) {
-            System.out.printf("%d: %s\n", i+1, movies.get(i).getMovieName());
+        int num = Math.min(movies.size(), 5);
+        System.out.println("Top " + num + " movies by Movie Sales:");
+        for (int i = 1; i <= num; i++) {
+            System.out.printf("%d: %s\n", i, movies.get(i).getMovieName());
             System.out.println("Sales: " + movies.get(i).getMovieSales());
-            System.out.printf("Average rating: %.1f\n", movies.get(i).getAvgRating());
+            System.out.println("Average rating: " + movies.get(i).getAvgRating());
         }
     }
 
@@ -83,6 +79,21 @@ public class MovieStore {
     // Add movie to HashMap given Movie object
     public void addMovie(Movie movie) {
         movieHashMap.put(movie.getMovieID(), movie);
+    }
+
+    /**
+     * Constructor for the movie store.
+     */
+    private MovieStore() {
+        loadMovieHashMap(movieReaderWriter.getRawStringFromFile());
+    }
+
+    /**
+     * This method is ran when the application is closed.
+     * It writes all the data in the movie store into the movie.txt file
+     */
+    public void closeMovieStore() {
+        movieReaderWriter.setRawStringFromFile(parseHashMap());
     }
 
     private void loadMovieHashMap(ArrayList<String[]> movieRawStore) {
@@ -115,7 +126,18 @@ public class MovieStore {
         }
     }
 
-    // parse HashMap to ArrayList<String[]>
+    /**
+     * This method returns the MovieStore object and utilises the Singleton class to create a unique instance of MovieStore
+     * @return This method returns the MovieStore object. 
+     */
+    public static MovieStore getInstance() {
+        return instance;
+    }
+
+    /**
+     * this method returns all the Movies stored in the HashMap in an ArrayList with String Array elements
+     * @return an Arraylist with String Array elements containing information about all Movies stored in the HashMap
+     */
     private ArrayList<String[]> parseHashMap() {
         ArrayList<String[]> arrayListOut = new ArrayList<>();
         Set<String> keys = movieHashMap.keySet();
@@ -169,14 +191,17 @@ public class MovieStore {
         }
         return arrayListOut;
     }
-    
+
     /**
-     * This method is ran when the application is closed.
-     * It writes all the data in the movie store into the movie.txt file
+     * this method prints all Movies stored within the HashMap that are not End Of Showing if toggle is not 1 and all movies regardless of showing status if toggle is = 1
+     * @param toggle determines if all movies are to be printed.
      */
-    // Destructor
-    public void closeMovieStore() {
-        movieReaderWriter.setRawStringFromFile(parseHashMap());
+    public void printAllMovies(int toggle) {
+        for (Movie movie: movieHashMap.values()) {
+            if (movie.getShowingStatus() != Status.ENDOFSHOWING || toggle == 1)
+                System.out.println("MovieID " + movie.getMovieID() + ": " + movie.getMovieName());
+        }
     }
+
 
 }

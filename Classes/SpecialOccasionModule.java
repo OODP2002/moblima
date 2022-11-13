@@ -1,9 +1,24 @@
 import java.util.Scanner;
 
-public class SpecialOccasionModule implements Module {
+/**
+ * This module provides functionalities for the user to declare/remove or print all special occasions which will affect ticketing pricings
+ * @author Chang Dao Zheng
+ * @version 1.0.0 Nov 13, 2022
+ */
+public class SpecialOccasionModule implements Module{
+    /**
+     * The CinemaStaff with authorization to edit special occasions
+     */
     private CinemaStaff cinemaStaff;
+    /**
+     * Scanner object created to recieve user unputs
+     */
     Scanner sc = new Scanner(System.in);
 
+    /**
+     * Creates a new SpecialOccasionModule object with a verified CinemaStaff account
+     * @param cinemaStaff the account of a verified Cinema Staff
+     */
     public SpecialOccasionModule(CinemaStaff cinemaStaff) {
         this.cinemaStaff = cinemaStaff;
     }
