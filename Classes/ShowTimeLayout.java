@@ -56,6 +56,7 @@ public class ShowTimeLayout {
 
         for (int r = 1; r <= rows; r++) {
             if (r == aisle) {
+                System.out.println("");
                 for (int c=1;c<=columns;c++){
                     String seatID = layout.generateSeatID(r, c);
                     getSeat(seatID).setAvail(false);
