@@ -7,7 +7,6 @@ public class CredentialStore {
     //Attributes
     private HashMap<String, Credential> credentialHashMap = new HashMap<>();
     private String path = "Classes/src/credentials.txt";
-    private ArrayList<Credential> credentials = new ArrayList<Credential>();
     private static CredentialStore single_instance = null;
     private TxtReaderWriter credentialReaderWriter = new TxtReaderWriter(path);
     
