@@ -7,6 +7,9 @@ import java.util.Scanner;
  * @version 1.0.0 Nov 13, 2022
  */
 public class AdminModule implements Module{
+    /**
+    * Creates a Scanner object to allow for user inputs
+    */
     Scanner sc = new Scanner(System.in);
 
     /**
