@@ -9,14 +9,15 @@ public class SysShowtimeModule implements Module{
     }
 
     public void run() {
-        System.out.println("Welcome to System Showtime Module");
+        System.out.println("\n-----System Showtime Module-----");
         System.out.println("Select an option below (1-4):");
         System.out.println("1 - Create new showtime");
         System.out.println("2 - Update showtime");
         System.out.println("3 - Remove showtime");
-        System.out.println("4 - Quit");
-        System.out.println("-----------------------------");
-        System.out.print("Select an option: ");
+        System.out.println("4 - Print all showtimes");
+        System.out.println("5 - Quit");
+        System.out.println("---------------------------------");
+        System.out.print("\nSelect an option: ");
 
         int choice = sc.nextInt();
         sc.nextLine();
@@ -25,7 +26,8 @@ public class SysShowtimeModule implements Module{
             case 1 -> cinemaStaff.addShowTime();
             case 2 -> cinemaStaff.updateShowTime();
             case 3 -> cinemaStaff.removeShowTime();
-            case 4-> System.out.println("Exiting System Showtime Module");
+            case 4 -> cinemaStaff.printShowTimes();
+            case 5 -> System.out.println("Exiting System Showtime Module");
             default -> System.out.println("Invalid choice, exiting System Showtime module");
         }
     }
