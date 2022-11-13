@@ -1,4 +1,4 @@
-# moblima
+# MOBLIMA
 SC2002 - Movie Booking and Listing Management Application 
 
 ## Team Members 
