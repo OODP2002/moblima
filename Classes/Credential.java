@@ -43,12 +43,6 @@ public class Credential {
         }
     }
 
-    //Check if correct password
-    public boolean check(String password) {
-
-        return this.password.equals(password);
-    }
-
     public String getPassword() {
         return password;
     }
