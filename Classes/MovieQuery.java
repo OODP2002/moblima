@@ -92,8 +92,13 @@ public interface MovieQuery extends SysSettings{
         System.out.println("(1) Sales ");
         System.out.println("(2) Average Rating ");
         System.out.println("Enter choice: ");
-
-        int choice = sc.nextInt();
+        int choice = -1;
+        
+        try{
+            choice = sc.nextInt();
+        } catch (Exception err){
+            System.out.println("Error: Please input a valid number (1 - 4).\n");
+        }
         sc.nextLine();
 
         switch(choice) {
