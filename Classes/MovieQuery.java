@@ -7,6 +7,9 @@ import java.util.Scanner;
  * @version 1.0.0 Nov 12, 2022
  */
 public interface MovieQuery extends SysSettings{
+    /**
+    * Creates a Scanner object which allows for user inputs
+    */
     Scanner sc = new Scanner(System.in);
     /**
      * Lists the top 5 movies based on either rating or sales
