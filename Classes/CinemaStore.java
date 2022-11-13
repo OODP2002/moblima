@@ -61,13 +61,13 @@ public class CinemaStore{
     public HashMap<String, Cinema> getCinemaHashMap(String cineplexID) {
         // Find intersection between keys and cineplexID
         Set<String> keys = cinemaHashMap.keySet();
-        keys.removeIf(key -> !key.substring(0, 2).equals(cineplexID));
-
         // Create new HashMap with only relevant keys
         HashMap<String, Cinema> tempHashMap = new HashMap<>();
         for (String key: keys) {
-            Cinema cinema = cinemaHashMap.get(key);
-            tempHashMap.put(key, cinema);
+            if(key.substring(0, 2).equals(cineplexID)){
+                Cinema cinema = cinemaHashMap.get(key);
+                tempHashMap.put(key, cinema);
+            }
         }
         return tempHashMap;
     }

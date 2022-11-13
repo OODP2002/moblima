@@ -52,26 +52,28 @@ public class MovieStore {
      * The listing format (sales or rating) can be controlled by the toggle parameter.
      * @param toggle This switches the listing method. When toggle is 0, the method lists the top 5 by movie sales. Else, it lists the top 5 by rating.
      */
+
     public void ListTop5(int toggle) {
         List<Movie> movies = new ArrayList<>(movieHashMap.values());
+        int num = Math.min(movies.size(), 5);
 
         // Sort by movie sales
         if (toggle == 0) {
             movies.sort(Comparator.comparing(Movie::getMovieSales).reversed());
+            System.out.println("Top " + num + " movies by Movie Sales:");
         } else {
             movies.sort(Comparator.comparing(Movie::getAvgRating).reversed());
+            System.out.println("Top " + num + " movies by Average Rating:");
         }
 
         // List the movies
-        int num = Math.min(movies.size(), 5);
-        System.out.println("Top " + num + " movies by Movie Sales:");
-        for (int i = 1; i <= num; i++) {
-            System.out.printf("%d: %s\n", i, movies.get(i).getMovieName());
+        for (int i = 0; i < num; i++) {
+            System.out.printf("%d: %s\n", i+1, movies.get(i).getMovieName());
             System.out.println("Sales: " + movies.get(i).getMovieSales());
-            System.out.println("Average rating: " + movies.get(i).getAvgRating());
+            System.out.printf("Average rating: %.1f\n", movies.get(i).getAvgRating());
         }
     }
-
+   
     /**
      * This method adds a movie to the MovieSotre.
      * @param movie This is the Movie object to be added.

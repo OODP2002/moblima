@@ -15,7 +15,7 @@ public class GuestModule implements Module{
      */
     public void run() {
         Guest guest = new Guest();
-        int choice;
+        int choice = - 1;
         do {
             System.out.println("----Guest Panel---");
             System.out.println("(1) List all movies");
@@ -25,8 +25,13 @@ public class GuestModule implements Module{
             System.out.println("---------------------");
             System.out.print("Choice: ");
 
-            choice = sc.nextInt();
-            sc.nextLine();
+            try{
+                choice = sc.nextInt();
+            } catch (Exception err){
+                System.out.println("Error: Please input a valid number (1 - 4).\n");
+                sc.nextLine();
+                continue;
+            }
 
             switch (choice) {
                 case 1 -> guest.listAllMovies();

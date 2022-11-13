@@ -25,6 +25,10 @@ public class ShowTime {
      */
     private String movieID;
     /**
+     * Movie object of the movie being shown
+     */
+    private Movie movie;
+    /**
      * Cinema object where the movie is shown
      */
     private Cinema cinema;
@@ -89,6 +93,7 @@ public class ShowTime {
      */
     public void setMovieID(String movieID) {
         this.movieID = movieID;
+        this.movie = MovieStore.getInstance().searchMovie(movieID);
     }
 
     /**
@@ -114,7 +119,8 @@ public class ShowTime {
         System.out.println("Cineplex: "+ CineplexStore.getInstance().getCineplex(showtimeID.substring(0,2)).getCineplexName());
         System.out.println("Cinema: "+ showtimeID.substring(2, 4));
         System.out.println("Cinema Class: " + this.cinema.getCinemaClass());
-        // System.out.println("Cinema Class: " + CineplexStore.getInstance().getCineplex(showtimeID.substring(0,2)).getCinemaHashMap().get(showtimeID.substring(0,4)).getCinemaClass());
+        System.out.println("Movie ID: " + this.movie.getMovieID());
+        System.out.println("Movie Name: " + this.movie.getMovieName());
         System.out.println("Date: " + getStartTime().format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
         System.out.println("Starting Time: " + getStartTime().format(DateTimeFormatter.ofPattern("HH:mm")));
     }

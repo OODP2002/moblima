@@ -289,7 +289,10 @@ public class PricingStore {
      */
     public void updatePricingRule(Integer ruleClass, String type, Float val){
         switch(ruleClass){
-            case 1: //ageGroup
+            case 1: //base
+                this.base = val;
+                break;
+            case 2: //ageGroup
                 if (this.ageGroupChange.containsKey(AgeGroup.valueOf(type))){
                     hypeAdd.replace(Hype.valueOf(type), val);
                     System.out.println("\nRule successfully added.");
@@ -299,7 +302,7 @@ public class PricingStore {
                 }
                 break;
 
-            case 2: //hype
+            case 3: //hype
                 if (this.hypeAdd.containsKey(Hype.valueOf(type))){
                     hypeAdd.replace(Hype.valueOf(type), val);
                     System.out.println("\nRule successfully added.");
@@ -309,7 +312,7 @@ public class PricingStore {
                 }
                 break;
 
-            case 3: //cinemaClass
+            case 4: //cinemaClass
                 if (this.cinemaClassAdd.containsKey(CinemaClass.valueOf(type))){
                     cinemaClassAdd.replace(CinemaClass.valueOf(type), val);
                     System.out.println("\nRule successfully added.");
@@ -318,7 +321,7 @@ public class PricingStore {
                 }
                 break;
 
-            case 4: //dayOfWeek
+            case 5: //dayOfWeek
                 if (this.dayOfWeekAdd.containsKey(Integer.parseInt(type))){
                     dayOfWeekAdd.replace(Integer.parseInt(type), val);
                     System.out.println("\nRule successfully added.");
@@ -327,7 +330,7 @@ public class PricingStore {
                 }
                 break;
 
-            case 5: //fridayRule
+            case 6: //fridayRule
                 Integer hour = Integer.parseInt(type.substring(0,2));
                 Integer minute = Integer.parseInt(type.substring(2,4));
                 if (fridayRuleAdd.containsKey(LocalTime.of(hour,minute))){
@@ -338,17 +341,13 @@ public class PricingStore {
                 }
                 break;
 
-            case 6: //view
+            case 7: //view
                 if (viewAdd.containsKey(View.valueOf(type))){
                     viewAdd.replace(View.valueOf(type), val);
                     System.out.println("\nRule successfully added.");
                 } else {
                     System.out.println("\nFailed to replace rule. Please enter a exisiting rule type.");
                 }
-                break;
-
-            case 7: //quit
-                System.out.println("\nExiting pricing rule removal menu");
                 break;
 
             default:
@@ -515,12 +514,22 @@ public class PricingStore {
             }
             //Friday rules (Matches weekend pricing after a certain cutoff timing)
             for (Map.Entry<LocalTime, Float> entry : fridayRuleAdd.entrySet()){
-               LocalTime time = entry.getKey();
-               int hour = time.getHour();
-               String hourStr = hour < 10 ? "0" : "" + String.valueOf(hour);
-               int minute  = time.getMinute();
-               String minuteStr = minute < 10 ? "0" : "" + String.valueOf(minute);
-               writer.write("\nfridayRule|" + hourStr + minuteStr + "|" + String.valueOf(entry.getValue()));
+                LocalTime time = entry.getKey();
+                int hour = time.getHour();
+                String hourStr;
+                if (hour < 10){
+                    hourStr = "0" + String.valueOf(hour);
+                } else {
+                    hourStr = String.valueOf(hour);
+                }
+                int minute  = time.getMinute();
+                String minuteStr;
+                if (minute < 10){
+                    minuteStr = "0" + String.valueOf(minute);
+                } else {
+                    minuteStr = String.valueOf(minute);
+                }
+                writer.write("\nfridayRule|" + hourStr + minuteStr + "|" + String.valueOf(entry.getValue()));
             }
             //View rules
             for (Map.Entry<View, Float> entry : viewAdd.entrySet()){

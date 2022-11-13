@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+import java.util.InputMismatchException;
 /**
  * This represents the admin landing page after selecting the admin option in MOBLIMA Home Page
  * User will be required to log in as part of the basic security features
@@ -49,7 +49,7 @@ public class AdminModule implements Module{
             
             try{
                 choice = sc.nextInt();
-            } catch (Exception err){
+            } catch (InputMismatchException err){
                 System.out.println("Error: Please input a valid number (1 - 6).\n");
                 sc.nextLine();
                 continue;

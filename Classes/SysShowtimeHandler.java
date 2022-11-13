@@ -1,6 +1,9 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -21,8 +24,8 @@ interface SysShowtimeHandler {
     default void updateShowTime() {
         HashMap<String, ShowTime> showTimeHashMap = ShowTimeStore.getInstance().getShowTimeHashMap();
 
-        System.out.println("Welcome to update Show Time module");
-        System.out.println("Enter showtime ID you wish to change: ");
+        System.out.println("-------Update Show Time module-------");
+        System.out.print("Enter showtime ID you wish to change: ");
         String showtimeID = sc.nextLine();
 
         if (!showtimeID.matches("[0-9][0-9][0-9][0-9][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z]")) {
@@ -39,23 +42,35 @@ interface SysShowtimeHandler {
         boolean loop = true;
 
         while (loop) {
-            System.out.println("""
-                    Enter detail you wish to change
-                    (1) Cineplex
-                    (2) Cinema
-                    (3) Movie
-                    (4) Start Time
-                    (5) Quit
-                    """);
+            System.out.println("-----Detail Modification Menu-----");
+            System.out.println("(1) Cineplex");
+            System.out.println("(2) Cinema");
+            System.out.println("(3) Movie");
+            System.out.println("(4) Start Time");
+            System.out.println("(5) Quit");
+            System.out.println("----------------------------------");
+            System.out.print("\nChoice: ");
 
-            int input = sc.nextInt();
+            int input;
+            try {
+                input = sc.nextInt();
+            } catch (Exception e) {
+                System.out.println("\nError: Please enter a valid choice (1 - 5)");
+                continue;
+            } 
             sc.nextLine();
 
             switch (input){
                 case 1 -> {
                     showtimeIDChanged = true;
-                    System.out.println("Enter new Cineplex ID: ");
-                    int cineplexID = sc.nextInt();
+                    System.out.print("Enter new Cineplex ID: ");
+                    int cineplexID;
+                    try {
+                        cineplexID = sc.nextInt();
+                    } catch (InputMismatchException e) {
+                        System.out.println("\nError: Invalid input, returning to detail modification...");
+                        continue;
+                    } 
                     sc.nextLine();
                     newShowtimeID = showtimeID.replace(showtimeID.substring(0,2), Integer.toString(cineplexID));
                     if (!CinemaStore.getInstance().isValidCinema(newShowtimeID)) {
@@ -67,8 +82,14 @@ interface SysShowtimeHandler {
 
                 case 2 -> {
                     showtimeIDChanged = true;
-                    System.out.println("Enter new cinema ID: ");
-                    int cinemaID = sc.nextInt();
+                    System.out.print("Enter new cinema ID: ");
+                    int cinemaID;
+                    try {
+                        cinemaID = sc.nextInt();
+                    } catch (Exception e) {
+                        System.out.println("\nError: Invalid input, returning to detail modification...");
+                        continue;
+                    } 
                     sc.nextLine();
                     newShowtimeID = showtimeID.replace(showtimeID.substring(2,4), Integer.toString(cinemaID));
                     if (!CinemaStore.getInstance().isValidCinema(newShowtimeID)) {
@@ -79,19 +100,23 @@ interface SysShowtimeHandler {
                 }
 
                 case 3 -> {
-                    System.out.println("Enter new movieID: ");
+                    System.out.print("Enter new movieID: ");
                     String movieID = sc.nextLine();
                     showTime.setMovieID(movieID);
                 }
 
                 case 4 -> {
-                    System.out.println("Enter new start time (DD-MM-YYYY HH:MM): ");
+                    System.out.print("Enter new start time (DD-MM-YYYY HH:MM): ");
                     setShowtime(showTime);
                 }
 
-                default -> {
+                case 5 -> {
                     System.out.println("Exiting update show time module...");
                     loop = false;
+                }
+                default -> {
+                    System.out.println("Invalid Choice! Please enter an option from 1 - 5.");
+                    continue;
                 }
             }
             if (showtimeIDChanged) {
@@ -109,22 +134,36 @@ interface SysShowtimeHandler {
     default void addShowTime() {
         HashMap<String, ShowTime> showTimeHashMap = ShowTimeStore.getInstance().getShowTimeHashMap();
 
-        System.out.println("Welcome to add ShowTime module");
+        System.out.println("-------Add ShowTime module-------");
 
-        System.out.println("Enter Cineplex ID: ");
-        String cineplexID = sc.next("[0-9][0-9]");
+        System.out.print("Enter Cineplex ID: ");
+        String cineplexID;
+        try {
+            cineplexID = sc.next("[0-9][0-9]");
+        } catch (Exception e) {
+            System.out.println("\nError: Invalid input, returning to admin panel...");
+            sc.nextLine();
+            return;
+        } 
         sc.nextLine();
 
-        System.out.println("Enter Cinema no.: ");
-        String cinemaID = cineplexID.concat(sc.next("[0-9][0-9]"));
+        System.out.print("Enter Cinema no.: ");
+        String cinemaID;
+        try {
+            cinemaID = cineplexID.concat(sc.next("[0-9][0-9]"));
+        } catch (Exception e) {
+            System.out.println("\nError: Invalid input, returning to admin panel...");
+            sc.nextLine();
+            return;
+        } 
         sc.nextLine();
         String showtimeID = generateShowTimeID(cinemaID);
         ShowTime showTime = new ShowTime(showtimeID);
 
-        System.out.println("Enter movie ID: ");
+        System.out.print("Enter movie ID: ");
         showTime.setMovieID(sc.nextLine());
 
-        System.out.println("Enter start time (DD-MM-YYYY HH:MM): ");
+        System.out.print("Enter start time (DD-MM-YYYY HH:MM): ");
         setShowtime(showTime);
 
         System.out.println("Entry success!");
@@ -145,7 +184,21 @@ interface SysShowtimeHandler {
             System.out.println("Showtime successfully removed!");
     }
 
+    /**
+     * Print all showtimes 
+     */
 
+    default void printShowTimes(){
+        Set<String> keys = ShowTimeStore.getInstance().getShowTimeHashMap().keySet();
+        System.out.println("-----------ShowTimes----------");
+        for (String key : keys){
+            // Get one showTime
+            ShowTime showTime = ShowTimeStore.getInstance().getShowTime(key);
+            System.out.println("ShowTimeID: "+ showTime.getShowtimeID());
+            showTime.printShowTime();
+            System.out.println("----------------------");
+        }
+    }
 
     /**
      * Sets a showtime for a particular Showtime object 

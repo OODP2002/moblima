@@ -102,21 +102,41 @@ public class TicketHandler {
      * Get age group for ticket from Movie-Goer through system input
      */
     private void getAgeGroup() {
-        System.out.println("Enter type of ticket you wish to buy: ");
-        System.out.println("(1) Child ticket");
-        System.out.println("(2) Adult ticket");
-        System.out.println("(3) Senior ticket");
-        System.out.print("Enter choice: ");
+        int choice = -1;
+        boolean flag = false;
+        do{
+            System.out.println("Enter type of ticket you wish to buy: ");
+            System.out.println("(1) Child ticket");
+            System.out.println("(2) Adult ticket");
+            System.out.println("(3) Senior ticket");
+            System.out.print("Enter choice: ");
 
-        int choice = sc.nextInt();
-        sc.nextLine();
+            try{
+                choice = sc.nextInt();
+                flag = false;
+            } catch (Exception err){
+                System.out.println("Error: Please input a valid number (1 - 3).");
+                flag = true;
+                sc.nextLine();
+                continue;
+            }
+            sc.nextLine();
 
-        switch (choice) {
-                case 1 -> this.ageGroup = AgeGroup.CHILD;
-                case 2 -> this.ageGroup = AgeGroup.ADULT;
-                case 3 -> this.ageGroup = AgeGroup.SENIOR;
-                default -> System.out.println("Invalid choice!");
-        }
+            switch (choice) {
+                    case 1: 
+                        this.ageGroup = AgeGroup.CHILD;
+                        return;
+                    case 2: 
+                        this.ageGroup = AgeGroup.ADULT;
+                        return;
+                    case 3: 
+                        this.ageGroup = AgeGroup.SENIOR;
+                        return;
+                    default:
+                        System.out.println("Invalid choice!");
+                        flag = true;
+            }
+        } while (flag);
     }
 
     /**

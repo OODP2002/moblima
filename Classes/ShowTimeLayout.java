@@ -95,7 +95,10 @@ public class ShowTimeLayout {
 
         for (int r = 1; r <= rows; r++) {
             if (r == aisle) {
-                System.out.println();
+                for (int c=1;c<=columns;c++){
+                    String seatID = layout.generateSeatID(r, c);
+                    getSeat(seatID).setAvail(false);
+                }
                 continue;
             }
             // Print row letters
@@ -104,8 +107,10 @@ public class ShowTimeLayout {
             // Print seats, [  ] for empty [XX] for taken
             for (int c = 1; c <= columns; c++) {
                 String seatID = layout.generateSeatID(r, c);
-                if (c == mainStairway)
+                if (c == mainStairway){
+                    getSeat(seatID).setAvail(false);
                     System.out.print("    ");
+                }
                 else if (getSeat(seatID).getAvail()) {
                     System.out.print("[  ]");
                 }
