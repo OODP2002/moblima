@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class GuestModule {
+public class GuestModule implements Module{
     Scanner sc = new Scanner(System.in);
     public void run() {
         Guest guest = new Guest();

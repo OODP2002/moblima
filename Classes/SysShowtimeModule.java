@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class SysShowtimeModule {
+public class SysShowtimeModule implements Module{
     private CinemaStaff cinemaStaff;
     Scanner sc = new Scanner(System.in);
 

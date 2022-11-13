@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @author Marc
  * @version 1.0.0 Nov 12, 2022
  */
-public class MovieGoerModule {
+public class MovieGoerModule implements Module{
     /**
      * Scanner to receive input
      */

@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class AdminModule extends LoginHandler {
+public class AdminModule extends LoginHandler implements Module{
     Scanner sc = new Scanner(System.in);
 
     public void run() {

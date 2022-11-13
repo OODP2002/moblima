@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class SysListingOptionsModule {
+public class SysListingOptionsModule implements Module{
     Scanner sc = new Scanner(System.in);
 
     public void run() {

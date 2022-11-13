@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 
-/* Done by Mingyang
+/** @author mingyang
    Purpose of this clas:
    1. Read from .txt into raw ArrayList<String[]> using readFile(String fileSource) --> taken care of automatically
    2. Write from raw ArrayList<String[]> into .txt file using writeFile(String fileSource) --> taken care of automatically

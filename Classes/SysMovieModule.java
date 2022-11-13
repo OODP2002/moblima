@@ -1,7 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class SysMovieModule {
+public class SysMovieModule implements Module{
     private CinemaStaff cinemaStaff;
     Scanner sc = new Scanner(System.in);
 
