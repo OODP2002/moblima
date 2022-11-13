@@ -18,8 +18,7 @@ public class MovieGoerModule {
      */
     public void run() {
         MovieGoer movieGoer = new MovieGoer();
-        int choice;
-
+        int choice = -1;
         do {
             System.out.println("\n----Customer Panel---");
             System.out.println("(1) List all movies");
@@ -32,7 +31,13 @@ public class MovieGoerModule {
             System.out.println("---------------------");
             System.out.print("Choice: ");
 
-            choice = sc.nextInt();
+            try{
+                choice = sc.nextInt();
+            } catch (Exception err){
+                System.out.println("Error: Please input a valid number (1 - 4).\n");
+                sc.nextLine();
+                continue;
+            }
             sc.nextLine();
 
             switch (choice) {

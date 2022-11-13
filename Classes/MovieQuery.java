@@ -63,7 +63,7 @@ public interface MovieQuery extends SysSettings{
      * Used during the buying ticket process
      * @param movieID - takes in the movieID which the Movie-Goer selects, and directly displays the movie details 
      */
-    default void searchMovie(String movieID) {
+    default Movie searchMovie(String movieID) {
         MovieStore movStore = MovieStore.getInstance();
         Movie movie = movStore.searchMovie(movieID);
         if (movie == null || movie.getShowingStatus() == Status.COMINGSOON || movie.getShowingStatus() == Status.ENDOFSHOWING){
@@ -73,6 +73,7 @@ public interface MovieQuery extends SysSettings{
             System.out.println("-------Movie Details-------");
             printMovieInfo(movieID);
         }
+        return movie;
     }
     /**
      * Private method used to display movie details 
