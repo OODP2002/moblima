@@ -1,7 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class AdminModule {
+public class AdminModule extends LoginHandler implements Module{
     Scanner sc = new Scanner(System.in);
 
     public void run() {

@@ -14,7 +14,22 @@ public class MovieStore {
     private static MovieStore instance = new MovieStore();
     private HashMap<String, Movie> movieHashMap = new HashMap<>();     // key=MOVIE_ID
     private TxtReaderWriter movieReaderWriter = new TxtReaderWriter(path);
+    
+    /**
+     * Constructor for the movie store.
+     */
+    private MovieStore() {
+        loadMovieHashMap(movieReaderWriter.getRawStringFromFile());
+    }
 
+    /**
+     * This method returns the MovieStore object and utilises the 
+     * @return This method returns the MovieStore object. 
+     */
+    // Return instance of store
+    public static MovieStore getInstance() {
+        return instance;
+    }
 
     /**
      * This method searches for a Movie with the Movie ID and returns null if it does not exist.
@@ -42,21 +57,22 @@ public class MovieStore {
      */
     public void ListTop5(int toggle) {
         List<Movie> movies = new ArrayList<>(movieHashMap.values());
+        int num = Math.min(movies.size(), 5);
 
         // Sort by movie sales
         if (toggle == 0) {
             movies.sort(Comparator.comparing(Movie::getMovieSales).reversed());
+            System.out.println("Top " + num + " movies by Movie Sales:");
         } else {
             movies.sort(Comparator.comparing(Movie::getAvgRating).reversed());
+            System.out.println("Top " + num + " movies by Average Rating:");
         }
 
         // List the movies
-        int num = Math.min(movies.size(), 5);
-        System.out.println("Top " + num + " movies by Movie Sales:");
-        for (int i = 1; i <= num; i++) {
-            System.out.printf("%d: %s\n", i, movies.get(i).getMovieName());
+        for (int i = 0; i < num; i++) {
+            System.out.printf("%d: %s\n", i+1, movies.get(i).getMovieName());
             System.out.println("Sales: " + movies.get(i).getMovieSales());
-            System.out.println("Average rating: " + movies.get(i).getAvgRating());
+            System.out.printf("Average rating: %.1f\n", movies.get(i).getAvgRating());
         }
     }
 
@@ -67,22 +83,6 @@ public class MovieStore {
     // Add movie to HashMap given Movie object
     public void addMovie(Movie movie) {
         movieHashMap.put(movie.getMovieID(), movie);
-    }
-
-    /**
-     * Constructor for the movie store.
-     */
-    private MovieStore() {
-        loadMovieHashMap(movieReaderWriter.getRawStringFromFile());
-    }
-
-    /**
-     * This method is ran when the application is closed.
-     * It writes all the data in the movie store into the movie.txt file
-     */
-    // Destructor
-    public void closeMovieStore() {
-        movieReaderWriter.setRawStringFromFile(parseHashMap());
     }
 
     private void loadMovieHashMap(ArrayList<String[]> movieRawStore) {
@@ -114,18 +114,6 @@ public class MovieStore {
             movieHashMap.put(movie.getMovieID(), movie);
         }
     }
-
-    /**
-     * This method returns the MovieStore object and utilises the 
-     * @return This method returns the MovieStore object. 
-     */
-    // Return instance of store
-    public static MovieStore getInstance() {
-        return instance;
-    }
-
-
-
 
     // parse HashMap to ArrayList<String[]>
     private ArrayList<String[]> parseHashMap() {
@@ -181,12 +169,14 @@ public class MovieStore {
         }
         return arrayListOut;
     }
-    public void printAllMovies(int toggle) {
-        for (Movie movie: movieHashMap.values()) {
-            if (movie.getShowingStatus() != Status.ENDOFSHOWING || toggle == 1)
-                System.out.println("MovieID " + movie.getMovieID() + ": " + movie.getMovieName());
-        }
+    
+    /**
+     * This method is ran when the application is closed.
+     * It writes all the data in the movie store into the movie.txt file
+     */
+    // Destructor
+    public void closeMovieStore() {
+        movieReaderWriter.setRawStringFromFile(parseHashMap());
     }
-
 
 }

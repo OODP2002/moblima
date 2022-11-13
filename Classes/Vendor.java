@@ -24,10 +24,6 @@ public class Vendor {
         CineplexStore cineplexStore = CineplexStore.getInstance();
         this.cineplexHashMap = cineplexStore.getCineplexHashMap();
     }
-
-    public HashMap<String, Cineplex> getCineplexHashMap() {
-        return cineplexHashMap;
-    }
 }
 
 // Notes: add changeVendorName() method in the future when there is time

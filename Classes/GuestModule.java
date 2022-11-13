@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
-public class GuestModule {
+public class GuestModule implements Module{
     Scanner sc = new Scanner(System.in);
     public void run() {
         Guest guest = new Guest();
-        int choice;
+        int choice = -1;
         do {
             System.out.println("----Guest Panel---");
             System.out.println("(1) List all movies");
@@ -14,7 +14,13 @@ public class GuestModule {
             System.out.println("---------------------");
             System.out.print("Choice: ");
 
-            choice = sc.nextInt();
+            try{
+                choice = sc.nextInt();
+            } catch (Exception err){
+                System.out.println("Error: Please input a valid number (1 - 4).\n");
+                sc.nextLine();
+                continue;
+            }
             sc.nextLine();
 
             switch (choice) {

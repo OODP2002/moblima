@@ -26,9 +26,20 @@ public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInter
         System.out.println("Welcome to Movie Goer registration module");
         System.out.print("Enter name: ");
         this.name = sc.nextLine();
-
-        System.out.print("Enter mobile number: ");
-        this.mobile = sc.nextLine();
+        
+        int tempMobile = -1;
+        do{
+            System.out.print("Enter mobile number: ");
+            try {
+                tempMobile = sc.nextInt();
+            } catch (Exception e) {
+                System.out.println("Error: Please input a valid number.\n");
+                sc.nextLine();
+                continue;
+            }
+            sc.nextLine();
+        } while(tempMobile==-1);
+        this.mobile = String.valueOf(tempMobile);
 
         System.out.print("Enter email address: ");
         this.email = sc.nextLine();
@@ -102,14 +113,16 @@ public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInter
             System.out.println("---Exiting buy ticket module---");
             return;
         }
-        searchMovie(movieID);
-        
+        Movie curMovie = searchMovie(movieID);
+        if (curMovie == null){
+            return;
+        }
         Set<String> keys = ShowTimeStore.getInstance().getShowTimeHashMap().keySet();
         System.out.println("-----------ShowTimes----------");
         for (String key : keys){
             // Get one showTime
             ShowTime showTime = ShowTimeStore.getInstance().getShowTime(key);
-            if (Integer.valueOf(movieID) == Integer.valueOf(showTime.getMovieID())){
+            if (showTime.getMovieID().equals(movieID)){
                 System.out.println("ShowTimeID: "+ showTime.getShowtimeID());
                 showTime.printShowTime();
                 System.out.println("----------------------");
@@ -136,5 +149,7 @@ public class MovieGoer implements Person, ReviewHandler, MovieQuery, TicketInter
         TicketStore.getInstance().addTicketToStore(newTicket);
         // Add new ticket to Movie-Goer object
         tickets.add(newTicket);
+        // Increment movie sales
+        curMovie.setMovieSales(curMovie.getMovieSales()+1);
     }
 }

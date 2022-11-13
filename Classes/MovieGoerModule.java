@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @author Marc
  * @version 1.0.0 Nov 12, 2022
  */
-public class MovieGoerModule {
+public class MovieGoerModule implements Module{
     /**
      * Scanner to receive input
      */
@@ -18,8 +18,7 @@ public class MovieGoerModule {
      */
     public void run() {
         MovieGoer movieGoer = new MovieGoer();
-        int choice;
-
+        int choice = -1;
         do {
             System.out.println("\n----Customer Panel---");
             System.out.println("(1) List all movies");
@@ -32,18 +31,40 @@ public class MovieGoerModule {
             System.out.println("---------------------");
             System.out.print("Choice: ");
 
-            choice = sc.nextInt();
+            try{
+                choice = sc.nextInt();
+            } catch (Exception err){
+                System.out.println("Error: Please input a valid number (1 - 4).\n");
+                sc.nextLine();
+                continue;
+            }
             sc.nextLine();
 
             switch (choice) {
-                case 1 -> movieGoer.listAllMovies();
-                case 2 -> movieGoer.listBy();
-                case 3 -> movieGoer.searchMovie();
-                case 4 -> movieGoer.writeReview();
-                case 5 -> movieGoer.buyTicket();
-                case 6 -> movieGoer.showHistory(movieGoer.getTickets());
-                case 7 -> System.out.println("Exiting customer module...");
-                default -> System.out.println("Invalid choice.");
+                case 1:
+                    movieGoer.listAllMovies();
+                    break;
+                case 2:
+                    movieGoer.listBy();
+                    break;
+                case 3:
+                    movieGoer.searchMovie();
+                    break;
+                case 4:
+                    movieGoer.listAllMovies(1);
+                    movieGoer.writeReview();
+                    break;
+                case 5:
+                    movieGoer.buyTicket();
+                    break;
+                case 6:
+                    movieGoer.showHistory(movieGoer.getTickets());
+                    break;
+                case 7:
+                    System.out.println("Exiting customer module...");
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
             }
         } while (choice != 7);
     }
