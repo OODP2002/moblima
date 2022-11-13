@@ -26,9 +26,11 @@ public interface MovieQuery extends SysSettings{
      */
     default void listAllMovies() {
         HashMap<String, Movie> movies = MovieStore.getInstance().getMovieHashMap();
+        System.out.println("MovieID|Showing Status|Title");
         for (String key: movies.keySet()) {
             if (movies.get(key).getShowingStatus() == Status.NOWSHOWING || movies.get(key).getShowingStatus() == Status.PREVIEW){
-                movies.get(key).printMovie();
+                System.out.printf("  %-5s|  %-12s|%s\n",movies.get(key).getMovieID(),movies.get(key).getShowingStatus(),movies.get(key).getMovieName());
+                // movies.get(key).printMovie();
             }
         }
     }
