@@ -1,8 +1,20 @@
 import java.util.Scanner;
 
+/**
+ * This represents a Login handler that checks with individual Credentials to make sure that the Cinema Staff is a verfied user before allowing further editing options for the Admin.
+ * @author Marc Chern
+ * @version 1.0.0 Nov 13, 2022
+ */
 public class LoginHandler {
+    /**
+     * Creates a Scanner object to recieve user input
+     */
     Scanner sc = new Scanner(System.in);
     CinemaStaff cinemaStaff;
+    /**
+     * Main login function which prompts user for username and password before verifying the password before allowing further user access.
+     * @return CinemaStaff object if login is successfull, returns NULL if unsucessful
+     */
     public CinemaStaff login(){
         //user input
         int option;

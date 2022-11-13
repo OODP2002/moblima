@@ -282,8 +282,8 @@ public class Movie {
             System.out.println("Movie avg rating: NIL");
         }
         else{
-            System.out.printf("Movie avg rating: %.1f\n" ,overallReviews.getAvgRating());
-            System.out.println("Reviews:");
+            System.out.println("Movie avg rating: " + overallReviews.getAvgRating());
+            System.out.println("Reviews:\n");
             for (int i=0;i<overallReviews.getReviewCount();i++){
                 System.out.println("Rating:" + overallReviews.getReview(i).getReviewRating());
                 System.out.println("Description:");

@@ -5,7 +5,7 @@ import java.util.Scanner;
  * Revie handler Interface
  * Used to allow the Movie-Goer to write a new review
  * 
- * @author Marc
+ * @author Marc Chern
  * @version 1.0.0 Nov 12, 2022
  */
 public interface ReviewHandler {
@@ -18,39 +18,33 @@ public interface ReviewHandler {
      * Will not return anything but will write the review into the OverallReviews
      */
     default void writeReview() {
-        // Getting moviesStore
-        MovieStore movieStore = MovieStore.getInstance();
-        
         // Getting review information
         System.out.print("Enter movieID to write a review for (-1 to return): ");
         String movieID = sc.nextLine();
         if (movieID.equals("-1")){
             return;
         }
-        Movie reviewMovie = movieStore.searchMovie(movieID);
-        if (reviewMovie==null){
-            System.out.println("Error: movie not found");
-            return;
-        }
+
         // Review Rating
+        System.out.println("Enter Movie Rating (1 - 5 Stars): ");
         int reviewRating = 0;
-        do {
+        reviewRating = sc.nextInt();
+        sc.nextLine();
+
+        while (reviewRating > 5 && reviewRating < 1){
+            // Checks for valid rating
+            System.out.println("Invalid rating, please try again. \n");
             System.out.println("Enter Movie Rating (1 - 5 Stars): ");
-            try{
+            if (sc.hasNextInt()){
                 reviewRating = sc.nextInt();
-            } catch (Exception err){
-                System.out.println("Error: Please input a valid rating (1 - 5).\n");
-                sc.nextLine();
-                continue;
             }
-            sc.nextLine();
-        } while (reviewRating <= 0 || reviewRating > 5);
-        
+        }
         // Review Description
-        System.out.println("Enter Review Description:");
+        System.out.println("Enter Review Description: \n");
         String reviewDes = sc.nextLine();
 
-        reviewMovie.getOverallReviews().addReview(reviewRating, reviewDes);
+        HashMap<String, Movie> movies = MovieStore.getInstance().getMovieHashMap();
+        movies.get(movieID).getOverallReviews().addReview(reviewRating, reviewDes);
         System.out.println("Exiting review module...");
     }
  }

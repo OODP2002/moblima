@@ -1,20 +1,39 @@
 /**
  * A Ticket object
  * Every Movie-Goer will have many tickets
- * @author Marc
+ * @author Marc Chern
  * @version 1.0.0 Nov 12, 2022
  */
 public class Ticket {
     /**
-     * Private attributes which make up the Ticket object
+     * Transaction ID of the Ticket
      */
     private String transactionID;
+    /**
+     * price of the Ticket
+     */
     private double price;
+    /**
+     * username of the owner of the Ticket
+     */
     private String username;
+    /**
+     * email of the owner of the Ticket
+     */
     private String email;
+    /**
+     * mobile of the owner of the Ticket
+     */
     private String mobile;
+    /**
+     * seat ID of the Ticket
+     */
     private String seatID;
+    /**
+     * Age Group of the Ticket
+     */
     private AgeGroup ageGroup;
+    
     /**
      * Default constructor for the Ticket
      * @param transactionID - Used as unique key identifier

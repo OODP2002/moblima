@@ -1,13 +1,32 @@
 import java.util.Scanner;
-
+/**
+ * Main function and landing page for users. Users will be able to select if they would like to access MOBLIMA as a Admin, Customer or Guest
+ * @author Marc Chern
+ * @version 1.0.0 Nov 13, 2022
+ */
 public class MOBLIMA {
     public static void main(String[] args){
+        /**
+         * Creates a new scanner to accept user input
+         */
         Scanner sc = new Scanner(System.in);
         // Create vendor
+        /**
+         * Creates a new Vendor class
+         */
         Vendor vendor = new Vendor();
 
+        /**
+         * Loads a enw Admin Module upon startup
+         */
         AdminModule adminModule= new AdminModule();
+        /**
+         * Loads a enw Movie Goer Module upon startup
+         */
         MovieGoerModule movieGoerModule = new MovieGoerModule();
+        /**
+         * Loads a enw Guest Module upon startup
+         */
         GuestModule guestModule = new GuestModule();
 
 
@@ -35,6 +54,9 @@ public class MOBLIMA {
             }
             sc.nextLine();
 
+            /**
+             * Depending on what user inputs, the respective modules will run
+             */
             switch (loginChoice) {
                 case 1 -> adminModule.run();
                 case 2 -> movieGoerModule.run();

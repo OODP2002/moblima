@@ -1,10 +1,21 @@
 import java.util.Scanner;
 
+/**
+ * This represents the module that Guests are able to access, which allows for the viewing of Movies and lists but does not allow for the purchasing of tickets
+ * @author Chang Dao Zheng
+ * @version 1.0.0 Nov 13, 2022
+ */
 public class GuestModule implements Module{
+    /**
+     * Creates a new scanner to accept user inputs
+     */
     Scanner sc = new Scanner(System.in);
+    /**
+     * Displays options for guest user and accepts user input to redirect them accordingly
+     */
     public void run() {
         Guest guest = new Guest();
-        int choice = -1;
+        int choice;
         do {
             System.out.println("----Guest Panel---");
             System.out.println("(1) List all movies");
@@ -14,13 +25,7 @@ public class GuestModule implements Module{
             System.out.println("---------------------");
             System.out.print("Choice: ");
 
-            try{
-                choice = sc.nextInt();
-            } catch (Exception err){
-                System.out.println("Error: Please input a valid number (1 - 4).\n");
-                sc.nextLine();
-                continue;
-            }
+            choice = sc.nextInt();
             sc.nextLine();
 
             switch (choice) {

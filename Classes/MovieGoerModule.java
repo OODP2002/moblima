@@ -1,10 +1,10 @@
 import java.util.Scanner;
 /**
- * A boundary object.
+ * This represents the MovieGoer Module which will be accessed when the user selects MovieGoer from the main menu in MOBLIMA
  * 
- * The menu which the user will see upon login
+ * Upon succesful login under MovieGoer, the user will be presented with options available to Guest user, as well as the additional option to buy a ticket
  * 
- * @author Marc
+ * @author Marc Chern
  * @version 1.0.0 Nov 12, 2022
  */
 public class MovieGoerModule implements Module{
@@ -18,7 +18,8 @@ public class MovieGoerModule implements Module{
      */
     public void run() {
         MovieGoer movieGoer = new MovieGoer();
-        int choice = -1;
+        int choice;
+
         do {
             System.out.println("\n----Customer Panel---");
             System.out.println("(1) List all movies");
@@ -31,40 +32,18 @@ public class MovieGoerModule implements Module{
             System.out.println("---------------------");
             System.out.print("Choice: ");
 
-            try{
-                choice = sc.nextInt();
-            } catch (Exception err){
-                System.out.println("Error: Please input a valid number (1 - 4).\n");
-                sc.nextLine();
-                continue;
-            }
+            choice = sc.nextInt();
             sc.nextLine();
 
             switch (choice) {
-                case 1:
-                    movieGoer.listAllMovies();
-                    break;
-                case 2:
-                    movieGoer.listBy();
-                    break;
-                case 3:
-                    movieGoer.searchMovie();
-                    break;
-                case 4:
-                    movieGoer.listAllMovies(1);
-                    movieGoer.writeReview();
-                    break;
-                case 5:
-                    movieGoer.buyTicket();
-                    break;
-                case 6:
-                    movieGoer.showHistory(movieGoer.getTickets());
-                    break;
-                case 7:
-                    System.out.println("Exiting customer module...");
-                    break;
-                default:
-                    System.out.println("Invalid choice.");
+                case 1 -> movieGoer.listAllMovies();
+                case 2 -> movieGoer.listBy();
+                case 3 -> movieGoer.searchMovie();
+                case 4 -> movieGoer.writeReview();
+                case 5 -> movieGoer.buyTicket();
+                case 6 -> movieGoer.showHistory(movieGoer.getTickets());
+                case 7 -> System.out.println("Exiting customer module...");
+                default -> System.out.println("Invalid choice.");
             }
         } while (choice != 7);
     }

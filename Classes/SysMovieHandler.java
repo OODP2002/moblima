@@ -1,49 +1,50 @@
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.time.Duration;
 
+/**
+ * Handles all matters pertaining to Movies, such as adding and editing movies
+ * @author Marcus Yeo, Low Zhe Kai
+ * @version 1.0.0 Nov 13, 2022
+ */
 public interface SysMovieHandler {
+    /**
+     * Creating a scanner object ot accept user input
+     */
     Scanner sc = new Scanner(System.in);
 
+    /**
+     * Menu popup to create a new Movie
+     */
     default void createNewMovie() {
         MovieStore movieStore = MovieStore.getInstance();
 
-        
-        System.out.println("\n--------Create Movie Module--------");
-        
+        System.out.println("=".repeat(29));
+        System.out.println("\tCREATE MOVIE MODULE\t");
+        System.out.println("=".repeat(29));
 
-        System.out.print("Enter new movie's ID: ");
+        System.out.println("Enter movie ID of the new movie:");
         String movieID = sc.nextLine();
         while (movieStore.getMovieHashMap().containsKey(movieID)) {
-            System.out.println("\nMovie ID is already in use. Please enter a different value: ");
+            System.out.println("Movie ID is already in use. Please enter a different value:");
             movieID = sc.nextLine();
         }
 
         Movie movie = new Movie(movieID);
 
-        System.out.print("Enter new movie's name: ");
+        System.out.println("Enter the movie name:");
         String temp = sc.nextLine();
         movie.setMovieName(temp);
 
-        while(true){
-            try{
-                System.out.print("Enter new movie's duration (mins): ");
-                temp = sc.nextLine();
-                movie.setMovieDuration(Duration.ofMinutes(Long.parseLong(temp)));
-                break;
-            } catch (NumberFormatException err){
-                System.out.println("\nError: Please enter an integer value!");
-            }
-        }
-        
+        System.out.println("Enter the movie duration:");
+        temp = sc.nextLine();
+        movie.setMovieDuration(Duration.ofMinutes(Long.parseLong(temp)));
 
-        System.out.println("\nEnter the movie showing status: ");
+        System.out.println("Enter the movie showing status:");
         System.out.println("1 - Coming Soon");
         System.out.println("2 - Preview");
         System.out.println("3 - Now Showing");
         System.out.println("4 - End of Showing");
-        
         temp = sc.nextLine();
         switch(temp){
             case "1":
@@ -62,11 +63,11 @@ public interface SysMovieHandler {
                 movie.setShowingStatus(Status.COMINGSOON);
         }
 
-        System.out.println("\nEnter the movie synopsis:");
+        System.out.println("Enter the movie synopsis:");
         temp = sc.nextLine();
         movie.setSynopsis(temp);
 
-        System.out.println("\nEnter the viewing mode:");
+        System.out.println("Enter the viewing mode:");
         System.out.println("1 - 2D");
         System.out.println("2 - 3D");
         temp = sc.nextLine();
@@ -81,7 +82,7 @@ public interface SysMovieHandler {
                 movie.setViewingMode(View._2D);
         }
 
-        System.out.println("\nEnter the movie status:");
+        System.out.println("Enter the movie status:");
         System.out.println("1 - Regular");
         System.out.println("2 - Blockbuster");
         temp = sc.nextLine();
@@ -98,7 +99,7 @@ public interface SysMovieHandler {
 
         movie.setMovieSales(0);
         
-        System.out.println("\nEnter the age rating:");
+        System.out.println("Enter the age rating:");
         System.out.println("1 - G");
         System.out.println("2 - PG");
         System.out.println("3 - PG13");
@@ -132,31 +133,22 @@ public interface SysMovieHandler {
         System.out.print("\nEnter the Director's name: ");
         temp = sc.nextLine();
         movie.addMoviePersonnel(temp, Role.DIRECTOR);
-        int castCount = 0;
-        for (int i = 0; i < 2; i++){
-            castCount++;
-            System.out.print(String.format("\nEnter cast member %d name: ", castCount));
-            temp = sc.nextLine();
-            movie.addMoviePersonnel(temp, Role.CAST);      
-        }
         
-
-
-        System.out.println("\nDo you want to add a cast member?");
+        
+        System.out.println("Do you want to add a cast member?");
         System.out.println("1 - No");
         System.out.println("2 - Yes");
-        System.out.print("Option: ");
         int toggle = sc.nextInt();
         sc.nextLine();
         while (toggle != 1) {
-            castCount++;
-            System.out.print(String.format("\nEnter cast member %d name: ", castCount));
+            System.out.println("Enter the cast's name:");
+            sc.nextLine();
             temp = sc.nextLine();
             movie.addMoviePersonnel(temp, Role.CAST);
-
-            System.out.println("\nDo you want to add another cast member?");
+            System.out.println("Do you want to add another cast member?");
             System.out.println("1 - No");
             System.out.println("2 - Yes");
+
             System.out.print("Option: ");
             try{
                 toggle = sc.nextInt();
@@ -172,12 +164,15 @@ public interface SysMovieHandler {
         System.out.println("Movie has been added.");
     }
 
+    /**
+     * Functionality to update a movie
+     */
     default void updateMovie() {
         MovieStore movieStore = MovieStore.getInstance();
 
-        
-        System.out.println("\n--------Update Movie Module--------");
-        
+        System.out.println("=".repeat(29));
+        System.out.println("\tUPDATE MOVIE MODULE\t");
+        System.out.println("=".repeat(29));
 
         // Display all movie name, movie status and showing status
         for (Movie movie: movieStore.getMovieHashMap().values()) {
@@ -207,7 +202,6 @@ public interface SysMovieHandler {
         System.out.println("7 - Age rating");
         System.out.println("8 - Movie personnel");
         System.out.println("0 - Quit");
-        System.out.print("\nChoice: ");
         choice = sc.nextInt();
         sc.nextLine();
         while (choice != 0) {
@@ -354,14 +348,14 @@ public interface SysMovieHandler {
                                 System.out.println("Invalid input.");
                             }
                         case "2":
-                            System.out.println("Select personnel to remove (Note: Each movie is required to have a Director and 2 cast members)");
+                            System.out.println("Select personnel to remove (Note: Director cannot be removed)");
                             length = movie.printMoviePersonnelIndex();
                             temp = sc.nextLine();
                             choice = Integer.parseInt(temp) - 1;
                             if (choice == 0) {
                                 System.out.println("Director cannot removed. Try updating the director's name instead.");
                             }
-                            else if (0<choice && choice<length && length > 3) {
+                            else if (0<choice && choice<length) {
                                 movie.removeMoviePersonnel(choice);
                                 System.out.println("Cast member has been removed.");
                             }
@@ -400,10 +394,15 @@ public interface SysMovieHandler {
         System.out.println("Movie has been updated.");
     }
 
+    /**
+     * Functionality to remove a movie from MovieStore
+     */
     default void removeMovie() {
         MovieStore movieStore = MovieStore.getInstance();
 
-        System.out.println("\n--------Remove Movie Module--------");
+        System.out.println("=".repeat(29));
+        System.out.println("\tREMOVE MOVIE MODULE\t");
+        System.out.println("=".repeat(29));
 
         // Display all movie name, movie status and showing status
         for (Movie movie: movieStore.getMovieHashMap().values()) {
@@ -426,6 +425,9 @@ public interface SysMovieHandler {
     }
 
     // Admin implementation of printAll movies shows ALL details
+    /**
+     * Prints all movies in MovieStore with their relevant details
+     */
     default void printAllMovies() {
         HashMap<String, Movie> movies = MovieStore.getInstance().getMovieHashMap();
         for (Movie movie: movies.values()) {
